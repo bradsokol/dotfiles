@@ -31,7 +31,12 @@ pyfind()
 VIRTUALENVS_HOME=~/.virtualenvs
 export WORKON_HOME=$VIRTUALENVS_HOME
 source /usr/local/bin/virtualenvwrapper.sh
-source /usr/local/opt/autoenv/activate.sh
+if [ -f /usr/local/opt/autoenv/activate.sh ]; then
+  # OS X with Home Brew
+  source /usr/local/opt/autoenv/activate.sh
+else
+  source /usr/local/bin/activate.sh
+fi
 
 export GREP_OPTIONS=--color=auto
 
