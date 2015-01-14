@@ -1,0 +1,40 @@
+[ui]
+username = Brad Sokol <brad.sokol@points.com>
+editor = vim
+merge = internal:merge
+
+[auth]
+points.prefix = https://hg.points.com
+points.username = bsokol
+
+[hooks]
+changegroup=hg diff --stat -r $HG_NODE -r tip
+
+[extensions]
+color =
+convert =
+graphlog =
+hgext.extdiff =
+hgext.hbisect =
+hgext.mercurial_keyring = /Users/brad.sokol/bin/mercurial_keyring.py
+histedit =
+mq =
+pager =
+progress = 
+rebase =
+record =
+shelve =
+
+[extdiff]
+#cmd.kdiff3 =
+
+[merge-tools]
+#kdiff3.args = $base $local $other -o $output
+
+[pager]
+pager = LESS='FSRX' less
+quiet = True
+attend = annotate, cat, diff, export, glog, log, in, out, qdiff
+
+[hostfingerprints]
+hg.points.com = ee:35:68:13:4e:e6:c0:7a:a5:1f:4c:ee:dc:d2:99:55:a8:e3:05:6c
