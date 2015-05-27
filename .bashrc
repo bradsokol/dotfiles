@@ -1,3 +1,4 @@
+export EDITOR=vim
 export PATH=~/bin:$PATH
 
 # don't put duplicate lines or lines starting with space in the history.
