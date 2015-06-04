@@ -84,3 +84,10 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 
 nmap <leader>d :NERDTreeToggle<CR>
+
+if has("unix")
+  let s:uname = system("uname")
+  if s:uname == "Darwin\n"
+    nmap <silent> <leader>h <Plug>DashSearch
+  endif
+endif

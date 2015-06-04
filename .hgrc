@@ -1,7 +1,8 @@
 [ui]
 username = Brad Sokol <brad.sokol@points.com>
 editor = vim
-merge = internal:merge
+# OS X only
+# merge = Kaleidoscope
 
 [auth]
 points.prefix = https://hg.points.com
@@ -16,7 +17,8 @@ convert =
 graphlog =
 hgext.extdiff =
 hgext.hbisect =
-hgext.mercurial_keyring = /Users/brad.sokol/bin/mercurial_keyring.py
+# OS X only
+# hgext.mercurial_keyring = /Users/brad.sokol/bin/mercurial_keyring.py
 histedit =
 mq =
 pager =
@@ -25,11 +27,15 @@ rebase =
 record =
 shelve =
 
-[extdiff]
-#cmd.kdiff3 =
+# OS X only
+# [extdiff]
+# cmd.ksdiff = /usr/local/bin/ksdiff
+# opts.ksdiff = --changeset --wait --filelist
 
-[merge-tools]
-#kdiff3.args = $base $local $other -o $output
+# OS X only
+# [merge-tools]
+# Kaleidoscope.executable = /usr/local/bin/ksdiff
+# Kaleidoscope.args = --merge --output $output --base $base -- $local $other
 
 [pager]
 pager = LESS='FSRX' less

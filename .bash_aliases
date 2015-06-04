@@ -1,3 +1,10 @@
+#! /bin/bash
+
+OS=$(uname)
+if [ $OS != "Darwin" ]; then
+  alias ls='ls --color=always'
+fi
+
 alias ll='ls -ahlF'
 alias la='ls -A'
 alias l='ls -CF'
