@@ -70,6 +70,7 @@ autocmd BufWritePost *.py call Flake8()
 autocmd FileType sh setl sw=2 sts=2 et
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd BufNewFile,BufRead *.json set ft=javascript
 
 " Add the virtualenv's site packages to vim path
 py << EOF
