@@ -53,7 +53,7 @@ function is_mercurial_repository {
 
 # Detect whether the current directory is a Subversion repository.
 function is_subversion_repository {
-  test -d .svn
+  svn info >/dev/null 2>/dev/null
 }
 
 # Determine the branch/state information for this git repository.
