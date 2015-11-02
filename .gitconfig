@@ -1,0 +1,24 @@
+[alias]
+	com = commit
+	ci = commit
+	co = checkout
+	br = branch
+	stat = status
+	st = status
+[color]
+	ui = true
+[user]
+	name = Brad Sokol
+	email = brad.sokol@points.com
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = vim
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[diff]
+    tool = Kaleidoscope
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustexitcode = true
+[merge]
+    tool = Kaleidoscope
