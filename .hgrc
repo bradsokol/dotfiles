@@ -1,5 +1,5 @@
 [ui]
-username = Brad Sokol <brad.sokol@points.com>
+username = Brad Sokol <brad.sokol@shopify.com>
 editor = vim
 
 [auth]
@@ -27,6 +27,3 @@ shelve =
 pager = LESS='FSRX' less
 quiet = True
 attend = annotate, cat, diff, export, glog, log, in, out, qdiff
-
-[hostfingerprints]
-hg.points.com = ee:35:68:13:4e:e6:c0:7a:a5:1f:4c:ee:dc:d2:99:55:a8:e3:05:6c

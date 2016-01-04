@@ -29,6 +29,11 @@ pyfind()
   find . -name "*.py" -exec grep -Hn "$*" {} \;
 }
 
+rbfind()
+{
+  find . -name "*.rb" -exec grep -Hn "$*" {} \;
+}
+
 VIRTUALENVS_HOME=~/.virtualenvs
 export WORKON_HOME=$VIRTUALENVS_HOME
 source /usr/local/bin/virtualenvwrapper.sh

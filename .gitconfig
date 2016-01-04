@@ -5,6 +5,7 @@
 	br = branch
 	stat = status
 	st = status
+	graph = log --pretty=\"%h - %Cgreen%d%Creset %s\" --graph
 [color]
 	ui = true
 [user]
