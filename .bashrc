@@ -44,3 +44,5 @@ export GREP_OPTIONS=--color=auto
 if [ -f ~/.bash_local ]; then
     source ~/.bash_local
 fi
+
+eval "$(rbenv init - --no-rehash)"
