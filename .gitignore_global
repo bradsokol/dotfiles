@@ -1,4 +1,13 @@
 *~
 .DS_Store
-*.swp
+*.sw[op]
 *.pyc
+
+*~.nib
+*.mode1v3
+*.mode2v3
+*.pbxuser
+*.perspectivev3
+xcuserdata/
+*.xcuserstate
+project.xcworkspace/
