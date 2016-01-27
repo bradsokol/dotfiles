@@ -1,62 +1,60 @@
 filetype off
 call pathogen#infect()
 call pathogen#helptags()
-
-colorscheme slate
-
-filetype on
-syntax on
 filetype plugin indent on
 
-let NERDTreeIgnore = ['\.pyc$']
+set nocompatible
 
-" Use the OS clipboard by default
-set clipboard=unnamed
+set modelines=0
 
-" Enhanced command line completion
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+colorscheme molokai
+
+syntax on
+set encoding=utf-8
+set scrolloff=3
+set autoindent
+set showmode
+set showcmd
 set wildmenu
 set wildignore+=*/.git/*,*/.hg/*,*.pyc
+set visualbell
+set cursorline
+set ttyfast
+set ruler
+set backspace=indent,eol,start
+set laststatus=2
+set relativenumber
+set clipboard=unnamed
+set mouse=a
+set completeopt=menuone,longest,preview
+
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+nnoremap <leader><space> :noh<cr>
+
+set wrap
+set textwidth=120
+set formatoptions=qrn1
+set colorcolumn=120
+
+let NERDTreeIgnore = ['\.pyc$']
+nmap <leader>d :NERDTreeToggle<CR>
+
 let g:ctrlp_custom_ignore = {
     \ 'dir': '\v[\/]\.(git|hg|svn)$',
     \ 'file': '\v.(exe|so|dll|pyc|class)$',
     \ }
-
-" Optimize for fast terminal connections
-set ttyfast
-
-" Line numbers
-set number
-
-" Highlight searches
-set hlsearch
-
-" Ignore case in searches
-set ignorecase
-
-" Highlight dynamically as pattern is typed
-set incsearch
-
-" Always show status line
-set laststatus=2
-
-" Enable mouse in all modes
-set mouse=a
-
-" SHow the current mode
-set showmode
-
-set expandtab           " enter spaces when tab is pressed
-set textwidth=120       " break lines when line length increases
-set tabstop=4           " use 4 spaces to represent tab
-set softtabstop=4
-set shiftwidth=4        " number of spaces to use for auto indent
-set autoindent          " copy indent from current line when starting a new line
-
-" make backspaces more powerful
-set backspace=indent,eol,start
-
-set ruler                           " show line and column number
-set showcmd 			" show (partial) command in status line
 
 let g:flake8_max_line_length=120
 let g:flake8_show_in_file=1
@@ -64,7 +62,6 @@ let g:flake8_show_in_gutter=1
 
 au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menuone,longest,preview
 
 autocmd BufWritePost *.py call Flake8()
 autocmd FileType sh setl sw=2 sts=2 et
@@ -84,8 +81,6 @@ if 'VIRTUAL_ENV' in os.environ:
     execfile(activate_this, dict(__file__=activate_this))
 EOF
 
-nmap <leader>d :NERDTreeToggle<CR>
-
 if has("unix")
   let s:uname = system("uname")
   if s:uname == "Darwin\n"
@@ -99,7 +94,6 @@ let g:airline_powerline_fonts=1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatusLineFlag()}
 set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
