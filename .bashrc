@@ -36,11 +36,13 @@ rbfind()
 
 VIRTUALENVS_HOME=~/.virtualenvs
 export WORKON_HOME=$VIRTUALENVS_HOME
-source /usr/local/bin/virtualenvwrapper.sh
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+  source /usr/local/bin/virtualenvwrapper.sh
+fi
 if [ -f /usr/local/opt/autoenv/activate.sh ]; then
   # OS X with Home Brew
   source /usr/local/opt/autoenv/activate.sh
-else
+elif [ -f /usr/local/bin/activate.sh ]; then
   source /usr/local/bin/activate.sh
 fi
 
