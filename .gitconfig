@@ -10,7 +10,9 @@
 	ui = true
 [user]
 	name = Brad Sokol
-	email = brad.sokol@points.com
+	email = brad.sokol@shopify.com
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = vim
+[push]
+	default = upstream
