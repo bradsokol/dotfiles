@@ -34,3 +34,6 @@
 [submodule ".vim/bundle/vimux"]
 	path = .vim/bundle/vimux
 	url = https://github.com/benmills/vimux.git
+[submodule ".vim/bundle/airline-themes"]
+	path = .vim/bundle/airline-themes
+	url = git@github.com:vim-airline/vim-airline-themes.git
