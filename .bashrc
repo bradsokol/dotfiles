@@ -24,6 +24,11 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+erbfind()
+{
+  find . -name "*.erb" -exec grep -Hn "$*" {} \;
+}
+
 pyfind()
 {
   find . -name "*.py" -exec grep -Hn "$*" {} \;
