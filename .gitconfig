@@ -12,7 +12,7 @@
 	name = Brad Sokol
 	email = brad.sokol@shopify.com
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/bradsokol/.gitignore_global
 	editor = vim
 [push]
 	default = upstream

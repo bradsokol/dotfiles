@@ -5,6 +5,7 @@ if [ $OS != "Darwin" ]; then
   alias ls='ls --color=always'
 fi
 
+alias be='bundle exec'
 alias ll='ls -ahlF'
 alias la='ls -A'
 alias l='ls -CF'
