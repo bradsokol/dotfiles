@@ -26,17 +26,32 @@ fi
 
 erbfind()
 {
-  find . -name "*.erb" -exec grep -Hn "$*" {} \;
+  if [ -z "$2" ]; then
+    SEARCH_ROOT="."
+  else
+    SEARCH_ROOT="$2"
+  fi
+  (cd $SEARCH_ROOT && find . -name "*.erb" -exec grep -Hn "$1" {} \;)
 }
 
 pyfind()
 {
-  find . -name "*.py" -exec grep -Hn "$*" {} \;
+  if [ -z "$2" ]; then
+    SEARCH_ROOT="."
+  else
+    SEARCH_ROOT="$2"
+  fi
+  (cd $SEARCH_ROOT && find . -name "*.py" -exec grep -Hn "$1" {} \;)
 }
 
 rbfind()
 {
-  find . -name "*.rb" -exec grep -Hn "$*" {} \;
+  if [ -z "$2" ]; then
+    SEARCH_ROOT="."
+  else
+    SEARCH_ROOT="$2"
+  fi
+  (cd $SEARCH_ROOT && find . -name "*.rb" -exec grep -Hn "$1" {} \;)
 }
 
 VIRTUALENVS_HOME=~/.virtualenvs
@@ -56,3 +71,5 @@ export GREP_OPTIONS=--color=auto
 if [ -f ~/.bash_local ]; then
     source ~/.bash_local
 fi
+
+export PATH="$HOME/.yarn/bin:$PATH"
