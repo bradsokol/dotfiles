@@ -33,6 +33,9 @@ set clipboard=unnamed
 set mouse=a
 set completeopt=menuone,longest,preview
 
+set splitbelow
+set splitright
+
 nnoremap / /\v
 vnoremap / /\v
 set ignorecase
