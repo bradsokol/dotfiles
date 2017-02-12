@@ -55,11 +55,21 @@ set colorcolumn=120
 let NERDTreeIgnore = ['\.pyc$']
 nmap <leader>d :NERDTreeToggle<CR>
 
-let g:ctrlp_use_caching = 1
-let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/](\.git|\.hg|\.svn|html|node_modules)$',
-    \ 'file': '\v.(exe|so|dll|pyc|class|png|jpg|jpeg|gif)$',
-    \ }
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_user_command = 'ag %s -i -l --nocolor --nogroup --hidden
+        \ --ignore .git
+        \ --ignore .DS_Store
+        \ -g ""'
+else
+  let g:ctrlp_use_caching = 1
+  let g:ctrlp_custom_ignore = {
+      \ 'dir': '\v[\/](\.git|\.hg|\.svn|html|node_modules)$',
+      \ 'file': '\v.(exe|so|dll|pyc|class|png|jpg|jpeg|gif)$',
+      \ }
+endif
 
 let g:flake8_max_line_length=120
 let g:flake8_show_in_file=1
