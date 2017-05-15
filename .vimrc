@@ -1,60 +1,121 @@
+" vim: foldmethod=marker foldlevel=0
+
+" Pathogen {{{
 filetype off
 call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
+" }}}
 
+" Appearance {{{
+colorscheme molokai
+" }}}
+
+" Clipboard {{{
+if has("unix")
+  let s:uname = system("uname")
+  if s:uname == "Darwin\n"
+    " Map */+ registers to macOS pastebuffer
+    set clipboard=unnamed
+  endif
+endif
+" }}}
+
+" Editing {{{
+set autoindent
+set formatoptions=cjqrn1
+set textwidth=120
+" }}}
+
+" Mouse {{{
+if has("mouse")
+  set mouse=a
+endif
+" }}}
+
+" Python {{{
+au FileType python set omnifunc=pythoncomplete#Complete
+
+" Add the virtualenv's site packages to vim path
+py << EOF
+import os.path
+import sys
+import vim
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, project_base_dir)
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
+" }}}
+
+" Search {{{
+set incsearch
+set showmatch
+set hlsearch
+set ignorecase
+set smartcase
+set gdefault
+nnoremap <leader><space> :noh<cr>
+" }}}
+
+" Splits {{{
+set splitbelow
+set splitright
+" }}}
+
+" Syntax highlighting {{{
+syntax on
+" }}}
+
+" TTY performance {{{
 set nocompatible
+set ttyfast
+" }}}
 
-set modelines=0
+" Visual {{{
+set colorcolumn=120
+set cursorline
+set laststatus=2
+set number
+set relativenumber
+set showcmd
+set showmode
+" }}}
 
+" Whitespace handling {{{
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+set wrap
+" }}}
 
-colorscheme molokai
-
-syntax on
+" Other {{{
 set encoding=utf-8
 set scrolloff=3
-set autoindent
-set showmode
-set showcmd
 set wildmenu
 set wildignore+=*/.git/*,*/.hg/*,*.pyc
 set visualbell
-set cursorline
-set ttyfast
-set ruler
 set backspace=indent,eol,start
-set laststatus=2
-set number
-set relativenumber
-set clipboard=unnamed
-set mouse=a
 set completeopt=menuone,longest,preview
 
-set splitbelow
-set splitright
+autocmd FileType sh setl sw=2 sts=2 et
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd BufNewFile,BufRead *.json set ft=javascript
 
 nnoremap / /\v
 vnoremap / /\v
-set ignorecase
-set smartcase
-set gdefault
-set incsearch
-set showmatch
-set hlsearch
-nnoremap <leader><space> :noh<cr>
+" }}}
 
-set wrap
-set textwidth=120
-set formatoptions=qrn1
-set colorcolumn=120
+" Plugin Configurations {{{
 
-let NERDTreeIgnore = ['\.pyc$']
-nmap <leader>d :NERDTreeToggle<CR>
+" Airline {{{
+let g:airline_powerline_fonts=1
+" }}}
 
+" CtrlP {{{
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 
@@ -70,41 +131,45 @@ else
       \ 'file': '\v.(exe|so|dll|pyc|class|png|jpg|jpeg|gif)$',
       \ }
 endif
+" }}}
 
-let g:flake8_max_line_length=120
-let g:flake8_show_in_file=1
-let g:flake8_show_in_gutter=1
-
-au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-
-autocmd BufWritePost *.py call Flake8()
-autocmd FileType sh setl sw=2 sts=2 et
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd BufNewFile,BufRead *.json set ft=javascript
-
-" Add the virtualenv's site packages to vim path
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
-
+" Dash Search {{{
 if has("unix")
   let s:uname = system("uname")
   if s:uname == "Darwin\n"
     nmap <silent> <leader>h <Plug>DashSearch
   endif
 endif
+" }}}
 
-let g:airline_powerline_fonts=1
+" Flake8 {{{
+let g:flake8_max_line_length=120
+let g:flake8_show_in_file=1
+let g:flake8_show_in_gutter=1
+autocmd BufWritePost *.py call Flake8()
+" }}}
 
+" FZF {{{
+nnoremap <leader><C-p> :Files<cr>
+nnoremap <leader><C-s> :GFiles?<cr>
+nnoremap <C-p> :GFiles<cr>
+set rtp+=/usr/local/opt/fzf
+" }}}
+
+" NERDTree {{{
+let NERDTreeIgnore = ['\.pyc$']
+nmap <leader>d :NERDTreeToggle<CR>
+" }}}
+
+" Rails {{{
+nmap <silent> <leader>t :Rake<CR>
+" }}}
+
+" Supertab {{{
+let g:SuperTabDefaultCompletionType = "context"
+" }}}
+
+" Syntastic {{{
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatusLineFlag()}
 set statusline+=%*
@@ -113,7 +178,6 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_ruby_checkers = ['rubocop']
+" }}}
 
-nmap <silent> <leader>t :Rake<CR>
-
-set rtp+=/usr/local/opt/fzf
+" }}}
