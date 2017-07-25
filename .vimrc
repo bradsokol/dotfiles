@@ -91,6 +91,11 @@ set expandtab
 set wrap
 " }}}
 
+" Folding {{{
+" Fold showing only search results
+nnoremap <leader>z :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<cr>
+" }}}
+"
 " Other {{{
 set encoding=utf-8
 set scrolloff=3
@@ -113,6 +118,12 @@ vnoremap / /\v
 
 " Airline {{{
 let g:airline_powerline_fonts=1
+" }}}
+
+" ALE {{{
+let g:ale_open_list = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
 " }}}
 
 " CtrlP {{{
