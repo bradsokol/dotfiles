@@ -96,6 +96,24 @@ set wrap
 nnoremap <leader>z :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<cr>
 " }}}
 "
+" Experiments {{{
+" Zoom / Restore window {{
+function! s:ZoomToggle() abort
+    if exists('t:zoomed') && t:zoomed
+        execute t:zoom_winrestcmd
+        let t:zoomed = 0
+    else
+        let t:zoom_winrestcmd = winrestcmd()
+        resize
+        vertical resize
+        let t:zoomed = 1
+    endif
+endfunction
+command! ZoomToggle call s:ZoomToggle()
+nnoremap <leader>Z :ZoomToggle<cr>
+" }}}
+" }}}
+"
 " Other {{{
 set encoding=utf-8
 set scrolloff=3
