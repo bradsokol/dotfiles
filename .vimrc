@@ -129,7 +129,11 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufNewFile,BufRead *.json set ft=javascript
 
 nnoremap / /\v
+nnoremap <leader>b Obinding.pry<esc>
 vnoremap / /\v
+if has("macunix")
+  nnoremap <leader>f :!echo % \| pbcopy<cr><cr>
+endif
 " }}}
 
 " Plugin Configurations {{{
@@ -139,6 +143,7 @@ let g:airline_powerline_fonts=1
 " }}}
 
 " ALE {{{
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
@@ -196,17 +201,6 @@ nmap <silent> <leader>t :Rake<CR>
 
 " Supertab {{{
 let g:SuperTabDefaultCompletionType = "context"
-" }}}
-
-" Syntastic {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatusLineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_ruby_checkers = ['rubocop']
 " }}}
 
 " }}}
