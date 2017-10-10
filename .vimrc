@@ -128,6 +128,9 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufNewFile,BufRead *.json set ft=javascript
 
+au FileType gitcommit setlocal spell
+au FileType markdown setlocal spell
+
 nnoremap / /\v
 nnoremap <leader>b Obinding.pry<esc>
 vnoremap / /\v
