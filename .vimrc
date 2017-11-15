@@ -1,12 +1,5 @@
 " vim: foldmethod=marker foldlevel=0
 
-" Pathogen {{{
-filetype off
-call pathogen#infect()
-call pathogen#helptags()
-filetype plugin indent on
-" }}}
-
 " Appearance {{{
 colorscheme molokai
 " }}}
@@ -22,6 +15,7 @@ endif
 " }}}
 
 " Editing {{{
+filetype plugin indent on
 set autoindent
 set formatoptions=cjqrn1
 set textwidth=120
