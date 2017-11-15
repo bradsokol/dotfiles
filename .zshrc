@@ -124,6 +124,8 @@ rbfind()
   (cd $SEARCH_ROOT && find . -name "*.rb" -exec grep -Hn "$1" {} \;)
 }
 
+man-builtin () { man bash | less -p "^       $1 "; }
+
 if [ -f ~/.zsh_local ]; then
   source ~/.zsh_local
 fi
