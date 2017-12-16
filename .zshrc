@@ -124,8 +124,10 @@ rbfind()
   (cd $SEARCH_ROOT && find . -name "*.rb" -exec grep -Hn "$1" {} \;)
 }
 
+man-builtin () { man bash | less -p "^       $1 "; }
+
 if [ -f ~/.zsh_local ]; then
   source ~/.zsh_local
 fi
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+#test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

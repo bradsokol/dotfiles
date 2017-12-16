@@ -1,12 +1,5 @@
 " vim: foldmethod=marker foldlevel=0
 
-" Pathogen {{{
-filetype off
-call pathogen#infect()
-call pathogen#helptags()
-filetype plugin indent on
-" }}}
-
 " Appearance {{{
 colorscheme molokai
 " }}}
@@ -22,6 +15,7 @@ endif
 " }}}
 
 " Editing {{{
+filetype plugin indent on
 set autoindent
 set formatoptions=cjqrn1
 set textwidth=120
@@ -131,6 +125,9 @@ autocmd FileType sh setl sw=2 sts=2 et
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufNewFile,BufRead *.json set ft=javascript
+
+au FileType gitcommit setlocal spell
+au FileType markdown setlocal spell
 
 nnoremap / /\v
 nnoremap <leader>b Obinding.pry<esc>
