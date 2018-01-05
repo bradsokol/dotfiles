@@ -123,7 +123,6 @@ set completeopt=menuone,longest,preview
 
 autocmd FileType sh setl sw=2 sts=2 et
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufNewFile,BufRead *.json set ft=javascript
 
 au FileType gitcommit setlocal spell
