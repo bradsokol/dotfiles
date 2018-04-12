@@ -185,6 +185,7 @@ autocmd BufWritePost *.py call Flake8()
 " }}}
 
 " FZF {{{
+nnoremap <C-a> :Ag<cr>
 nnoremap <leader><C-p> :Files<cr>
 nnoremap <leader><C-s> :GFiles?<cr>
 nnoremap <C-p> :GFiles<cr>
