@@ -31,9 +31,6 @@
 [submodule ".vim/bundle/coffee-script"]
 	path = .vim/pack/bundle/start/coffee-script
 	url = https://github.com/kchmck/vim-coffee-script.git
-[submodule ".vim/bundle/ag.vim"]
-	path = .vim/pack/bundle/start/ag.vim
-	url = https://github.com/rking/ag.vim
 [submodule ".vim/bundle/vim-surround"]
 	path = .vim/pack/bundle/start/vim-surround
 	url = git://github.com/tpope/vim-surround.git
