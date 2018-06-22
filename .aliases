@@ -7,6 +7,8 @@ else
   # OS X Vim is crashy. Running just vi always runs OS X Vim.
   # This alias forces Home Brew Vim
   alias vi=vim
+
+  alias fl='bundle exec fastlane'
 fi
 
 alias be='bundle exec'
