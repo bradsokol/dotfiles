@@ -49,3 +49,6 @@
 [submodule ".vim/pack/bundle/start/vim-obsession"]
 	path = .vim/pack/bundle/start/vim-obsession
 	url = git://github.com/tpope/vim-obsession.git
+[submodule ".vim/pack/bundle/start/vim-virtualenv"]
+	path = .vim/pack/bundle/start/vim-virtualenv
+	url = git@github.com:plytophogy/vim-virtualenv.git
