@@ -35,19 +35,6 @@ endif
 " Python {{{
 au FileType python set omnifunc=pythoncomplete#Complete
 
-" Add the virtualenv's site packages to vim path
-py3 << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
-" }}}
-
 " Search {{{
 set incsearch
 set showmatch
@@ -180,13 +167,6 @@ if has("unix")
     nmap <silent> <leader>h <Plug>DashSearch
   endif
 endif
-" }}}
-
-" Flake8 {{{
-let g:flake8_max_line_length=120
-let g:flake8_show_in_file=1
-let g:flake8_show_in_gutter=1
-autocmd BufWritePost *.py call Flake8()
 " }}}
 
 " FZF {{{

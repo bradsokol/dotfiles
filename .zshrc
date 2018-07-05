@@ -8,6 +8,8 @@ export ZSH=$HOME/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="bullet-train"
+BULLETTRAIN_VIRTUALENV_BG=green
+BULLETTRAIN_VIRTUALENV_FG=black
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
