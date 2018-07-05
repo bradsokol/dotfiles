@@ -1,5 +1,10 @@
 " vim: foldmethod=marker foldlevel=0
 
+" Temporary fix for Python 3.7
+if has('python3')
+  silent! python3 1
+endif
+
 " Appearance {{{
 colorscheme molokai
 " }}}
@@ -205,4 +210,9 @@ nmap <silent> <leader>t :Rake<CR>
 let g:SuperTabDefaultCompletionType = "context"
 " }}}
 
+" Test.vim {{{
+let test#strategy = "dispatch"
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-m> :TestNearest<CR>
+" }}}
 " }}}
