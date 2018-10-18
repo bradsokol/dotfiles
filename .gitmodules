@@ -52,3 +52,12 @@
 [submodule ".vim/pack/bundle/start/vim-virtualenv"]
 	path = .vim/pack/bundle/start/vim-virtualenv
 	url = git@github.com:plytophogy/vim-virtualenv.git
+[submodule ".vim/pack/bundle/start/vim-jsx-typescript"]
+	path = .vim/pack/bundle/start/vim-jsx-typescript
+	url = git@github.com:peitalin/vim-jsx-typescript.git
+[submodule ".vim/pack/bundle/start/typescript-vim"]
+	path = .vim/pack/bundle/start/typescript-vim
+	url = git@github.com:leafgarland/typescript-vim.git
+[submodule ".vim/pack/bundle/start/vim-graphql"]
+	path = .vim/pack/bundle/start/vim-graphql
+	url = git@github.com:jparise/vim-graphql.git

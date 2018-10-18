@@ -34,6 +34,11 @@ endif
 
 " Python {{{
 au FileType python set omnifunc=pythoncomplete#Complete
+" }}}
+
+" TypeScript {{{
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+" }}}
 
 " Search {{{
 set incsearch
