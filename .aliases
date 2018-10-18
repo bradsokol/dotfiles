@@ -12,9 +12,12 @@ else
 fi
 
 alias be='bundle exec'
+alias br='bin/rails'
+alias gpf='gp --force-with-lease'
 alias ll='ls -ahlF'
 alias la='ls -A'
 alias l='ls -CF'
+alias less='less -F -X'
 
 alias pj='python -m json.tool'
 
