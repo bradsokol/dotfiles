@@ -61,3 +61,9 @@
 [submodule ".vim/pack/bundle/start/vim-graphql"]
 	path = .vim/pack/bundle/start/vim-graphql
 	url = git@github.com:jparise/vim-graphql.git
+[submodule ".vim/pack/bundle/start/vim-dispatch"]
+	path = .vim/pack/bundle/start/vim-dispatch
+	url = git@github.com:tpope/vim-dispatch.git
+[submodule ".vim/pack/bundle/start/vim-test"]
+	path = .vim/pack/bundle/start/vim-test
+	url = git@github.com:janko-m/vim-test.git

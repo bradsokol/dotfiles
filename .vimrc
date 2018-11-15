@@ -188,7 +188,7 @@ nmap <leader>d :NERDTreeToggle<CR>
 " }}}
 
 " Rails {{{
-nmap <silent> <leader>t :Rake<CR>
+" nmap <silent> <leader>t :Rake<CR>
 " }}}
 
 " Supertab {{{
@@ -197,7 +197,9 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " Test.vim {{{
 let test#strategy = "dispatch"
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-m> :TestNearest<CR>
+nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>n :TestNearest<CR>
+nmap <silent> <leader>s :TestSuite<CR>
 " }}}
 " }}}
