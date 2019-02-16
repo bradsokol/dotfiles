@@ -67,3 +67,6 @@
 [submodule ".vim/pack/bundle/start/vim-test"]
 	path = .vim/pack/bundle/start/vim-test
 	url = git@github.com:janko-m/vim-test.git
+[submodule ".vim/pack/bundle/start/vim-endwise"]
+	path = .vim/pack/bundle/start/vim-endwise
+	url = git://github.com/tpope/vim-endwise.git
