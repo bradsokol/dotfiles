@@ -12,6 +12,7 @@
   shopify = "config user.email 'brad.sokol@shopify.com'"
 	stat = status
 	st = status
+  touch = add --intent-to-add
   update = "!echo '==> Stash local changes'; res=$(git stash save 'auto stash by update'); echo "$res"; echo; \
     echo '==> Fetch from remote repo and merge/rebase'; git pull --rebase; echo; \
     echo "$res" | grep -q '^No local changes to save' \
@@ -57,13 +58,3 @@
 	prune = true
 [protocol]
 	version = 2
-[http "https://git-mirror.shopifycloud.com"]
-	cookieFile = /tmp/galaxy.cookies
-	saveCookies = true
-[url "https://git-mirror.shopifycloud.com/Shopify/"]
-	insteadOf = https://github.com/Shopify/
-	insteadOf = git@github.com:Shopify/
-[url "https://github.com/Shopify/"]
-	pushInsteadOf = https://github.com/Shopify/
-[url "git@github.com:Shopify/"]
-	pushInsteadOf = git@github.com:Shopify/
