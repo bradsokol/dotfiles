@@ -53,7 +53,7 @@ BULLETTRAIN_VIRTUALENV_FG=black
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bundler colored-man-pages git man osx rails rake ruby tmux)
+plugins=(bundler colored-man-pages git man osx rails rake ruby tmux zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
