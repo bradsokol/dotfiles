@@ -8,8 +8,18 @@ export ZSH=$HOME/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="bullet-train"
+BULLETTRAIN_PROMPT_ORDER=(
+  time
+  status
+  dir
+  ruby
+  git
+)
+BULLETTRAIN_RUBY_BG=magenta
+BULLETTRAIN_RUBY_FG=white
 BULLETTRAIN_VIRTUALENV_BG=green
 BULLETTRAIN_VIRTUALENV_FG=black
+BULLETTRAIN_STATUS_EXIT_SHOW=true
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -133,3 +143,5 @@ if [ -f ~/.zsh_local ]; then
 fi
 
 #test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
