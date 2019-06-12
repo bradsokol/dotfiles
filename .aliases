@@ -13,6 +13,7 @@ fi
 
 alias be='bundle exec'
 alias br='bin/rails'
+alias glb='f() { git log $(git merge-base --fork-point origin/master @)..@ --pretty=oneline; }; f'
 alias gpf='gp --force-with-lease'
 alias ll='ls -ahlF'
 alias la='ls -A'
