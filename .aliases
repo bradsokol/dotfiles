@@ -22,6 +22,8 @@ alias less='less -F -X'
 
 alias pj='python -m json.tool'
 
+alias tree='LS_COLORS=$LS_COLORS tree'
+
 if [ -f /usr/bin/xdg-open ]; then
     alias open='xdg-open'
 fi
