@@ -58,3 +58,6 @@
 	prune = true
 [protocol]
 	version = 2
+[url "https://github.com/Shopify/"]
+	insteadOf = git@github.com:Shopify/
+	insteadOf = git@github.com:shopify/
