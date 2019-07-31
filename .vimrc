@@ -129,7 +129,7 @@ nnoremap / /\v
 nnoremap <leader>b Obinding.pry<esc>
 vnoremap / /\v
 if has("macunix")
-  nnoremap <leader>f :!echo % \| pbcopy<cr><cr>
+  nnoremap <leader>f :!echo -n % \| pbcopy<cr><cr>
 endif
 " }}}
 
