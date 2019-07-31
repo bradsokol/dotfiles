@@ -146,3 +146,4 @@ fi
 #test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+eval "$(direnv hook zsh)"
