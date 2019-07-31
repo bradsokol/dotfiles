@@ -73,3 +73,6 @@
 [submodule ".vim/pack/bundle/start/swift.vim"]
 	path = .vim/pack/bundle/start/swift.vim
 	url = git@github.com:keith/swift.vim.git
+[submodule ".vim/pack/bundle/start/vim-sandwich"]
+	path = .vim/pack/bundle/start/vim-sandwich
+	url = git@github.com:machakann/vim-sandwich.git
