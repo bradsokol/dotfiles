@@ -139,11 +139,20 @@ rbfind()
 
 man-builtin () { man bash | less -p "^       $1 "; }
 
+gcorb()
+{
+  if [ -z "$1" ]; then
+    echo "Branch name not given"
+    return 1
+  fi
+  gco -b $1 origin/$1
+}
+
+if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
+  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+  export DEV_ALLOW_ITERM2_INTEGRATION=1
+fi
+
 if [ -f ~/.zsh_local ]; then
   source ~/.zsh_local
 fi
-
-#test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
-eval "$(direnv hook zsh)"
