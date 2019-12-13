@@ -72,4 +72,8 @@ if [ -f ~/.bash_local ]; then
     source ~/.bash_local
 fi
 
+if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
+  test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+fi
+
 export PATH="$HOME/.yarn/bin:$PATH"
