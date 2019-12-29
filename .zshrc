@@ -8,8 +8,18 @@ export ZSH=$HOME/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="bullet-train"
+BULLETTRAIN_PROMPT_ORDER=(
+  time
+  status
+  dir
+  ruby
+  git
+)
+BULLETTRAIN_RUBY_BG=magenta
+BULLETTRAIN_RUBY_FG=white
 BULLETTRAIN_VIRTUALENV_BG=green
 BULLETTRAIN_VIRTUALENV_FG=black
+BULLETTRAIN_STATUS_EXIT_SHOW=true
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -57,6 +67,7 @@ plugins=(bundler colored-man-pages git man osx rails rake ruby tmux zsh-autosugg
 
 source $ZSH/oh-my-zsh.sh
 
+LS_COLORS="di=1;34;40:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -128,8 +139,20 @@ rbfind()
 
 man-builtin () { man bash | less -p "^       $1 "; }
 
+gcorb()
+{
+  if [ -z "$1" ]; then
+    echo "Branch name not given"
+    return 1
+  fi
+  gco -b $1 origin/$1
+}
+
+if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
+  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+  export DEV_ALLOW_ITERM2_INTEGRATION=1
+fi
+
 if [ -f ~/.zsh_local ]; then
   source ~/.zsh_local
 fi
-
-#test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

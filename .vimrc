@@ -48,6 +48,10 @@ set ignorecase
 set smartcase
 set gdefault
 nnoremap <leader><space> :noh<cr>
+
+" Position search matches in the middle of the window
+nnoremap n nzzzv
+nnoremap N Nzzzv
 " }}}
 
 " Splits {{{
@@ -129,7 +133,7 @@ nnoremap / /\v
 nnoremap <leader>b Obinding.pry<esc>
 vnoremap / /\v
 if has("macunix")
-  nnoremap <leader>f :!echo % \| pbcopy<cr><cr>
+  nnoremap <leader>f :!echo -n % \| pbcopy<cr><cr>
 endif
 nnoremap <leader>F ggO# frozen_string_literal: true<cr><esc>0D
 " }}}
@@ -203,4 +207,8 @@ nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>n :TestNearest<CR>
 nmap <silent> <leader>s :TestSuite<CR>
 " }}}
+
+" vim-json {{{
+let g:vim_json_syntax_conceal = 0
+"}}}
 " }}}

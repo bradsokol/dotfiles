@@ -73,3 +73,18 @@
 [submodule ".vim/pack/bundle/start/swift.vim"]
 	path = .vim/pack/bundle/start/swift.vim
 	url = git@github.com:keith/swift.vim.git
+[submodule ".vim/pack/bundle/start/vim-sandwich"]
+	path = .vim/pack/bundle/start/vim-sandwich
+	url = git@github.com:machakann/vim-sandwich.git
+[submodule ".vim/pack/bundle/start/vim-json"]
+	path = .vim/pack/bundle/start/vim-json
+	url = git@github.com:elzr/vim-json.git
+[submodule ".vim/pack/bundle/start/vim-jsx"]
+	path = .vim/pack/bundle/start/vim-jsx
+	url = git@github.com:mxw/vim-jsx.git
+[submodule ".vim/pack/bundle/start/vim-javascript"]
+	path = .vim/pack/bundle/start/vim-javascript
+	url = git@github.com:pangloss/vim-javascript.git
+[submodule ".vim/pack/bundle/start/vim-rhubarb"]
+	path = .vim/pack/bundle/start/vim-rhubarb
+	url = git@github.com:tpope/vim-rhubarb.git

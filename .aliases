@@ -11,8 +11,10 @@ else
   alias fl='bundle exec fastlane'
 fi
 
+alias ag='ag --pager less'
 alias be='bundle exec'
 alias br='bin/rails'
+alias glb='f() { git log $(git merge-base --fork-point origin/master @)..@ --pretty=oneline; }; f'
 alias gpf='gp --force-with-lease'
 alias ll='ls -ahlF'
 alias la='ls -A'
@@ -20,6 +22,8 @@ alias l='ls -CF'
 alias less='less -F -X'
 
 alias pj='python -m json.tool'
+
+alias tree='LS_COLORS=$LS_COLORS tree'
 
 if [ -f /usr/bin/xdg-open ]; then
     alias open='xdg-open'
