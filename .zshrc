@@ -153,6 +153,6 @@ if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
   export DEV_ALLOW_ITERM2_INTEGRATION=1
 fi
 
-if [ -f ~/.zsh_local ]; then
-  source ~/.zsh_local
+if [ -f ~/.zshrc_local ]; then
+  source ~/.zshrc_local
 fi
