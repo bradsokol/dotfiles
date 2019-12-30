@@ -135,6 +135,7 @@ vnoremap / /\v
 if has("macunix")
   nnoremap <leader>f :!echo -n % \| pbcopy<cr><cr>
 endif
+nnoremap <leader>F ggO# frozen_string_literal: true<cr><esc>0D
 " }}}
 
 " Plugin Configurations {{{

@@ -24,7 +24,7 @@
 	name = Brad Sokol
   useConfigOnly = true
 [core]
-	excludesfile = /Users/bradsokol/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	editor = vim
 	commitGraph = true
 	pager = less -F -X
