@@ -156,3 +156,5 @@ fi
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
+
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
