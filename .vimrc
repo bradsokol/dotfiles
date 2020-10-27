@@ -130,6 +130,7 @@ au FileType markdown setlocal spell
 
 nnoremap / /\v
 nnoremap <leader>b Obinding.pry<esc>
+nnoremap <leader>B Obyebug<esc>
 vnoremap / /\v
 if has("macunix")
   nnoremap <leader>f :!echo -n % \| pbcopy<cr><cr>
