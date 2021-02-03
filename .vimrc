@@ -80,6 +80,7 @@ set showmode
 
 " Whitespace handling {{{
 set tabstop=2
+set shiftround
 set shiftwidth=2
 set softtabstop=2
 set expandtab
@@ -183,7 +184,7 @@ endif
 nnoremap <C-a> :Ag<cr>
 nnoremap <leader><C-p> :Files<cr>
 nnoremap <leader><C-s> :GFiles?<cr>
-nnoremap <C-p> :GFiles<cr>
+nnoremap <C-p> :GFiles -- ':!:*.rbi'<cr>
 set rtp+=/usr/local/opt/fzf
 " }}}
 
