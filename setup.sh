@@ -1,0 +1,64 @@
+#! /bin/bash
+
+set -eu
+
+install_package() {
+  return
+  if $mac_os; then
+    # Use reinstall so that this is idempotent
+    brew reinstall "$1"
+  else
+    sudo apt-get install -y "$1"
+  fi
+}
+
+link_file() {
+	if [ "$1" == "." ] || [ "$1" == ".." ]; then
+		return
+	fi
+
+  source="$link_source/$1"
+  link="$HOME/$1"
+  if [ ! -e $link -a ! -d $link ]; then
+    ln -s "$source" "$link"
+  else
+    echo "Skipped link for $link because a file or directory with that name already exists"
+  fi
+}
+
+[[ "$(uname -s)" == "Darwin" ]] && mac_os=true || mac_os=false
+
+set +u
+if [ -n $SPIN ] && [ $SPIN ]; then
+  # Container in the Spin Up environment
+  link_source="~/dotfiles"
+else
+  link_source="$(pwd)"
+fi
+set -u
+
+declare -a packages=(
+  "bat"
+  "fzf"
+  "readline"
+  "ripgrep"
+  "the_silver_searcher"
+  "tree"
+  "vim"
+  "zsh-completions"
+)
+
+if $mac_os; then
+  packages+=(
+    "reattach-to-user-namespace"
+    "swiftlint"
+  )
+fi
+
+for package in "${packages[@]}"; do
+  install_package $package
+done
+
+for filename in .*; do
+  link_file $filename
+done
