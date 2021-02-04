@@ -39,13 +39,13 @@ set -u
 
 declare -a packages=(
   "bat"
-  "curl"
   "fzf"
   "readline"
   "ripgrep"
   "the_silver_searcher"
   "tree"
   "vim"
+  "wget"
   "zsh-completions"
 )
 
@@ -68,4 +68,4 @@ cd "$HOME/.vim/pack/bundle/start"
 git submodule update --init --recursive
 cd -
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
