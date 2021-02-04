@@ -39,6 +39,7 @@ set -u
 
 declare -a packages=(
   "bat"
+  "curl"
   "fzf"
   "readline"
   "ripgrep"
@@ -62,3 +63,9 @@ done
 for filename in .*; do
   link_file $filename
 done
+
+cd "$HOME/.vim/pack/bundle/start"
+git submodule update --init --recursive
+cd -
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
