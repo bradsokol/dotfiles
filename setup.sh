@@ -13,7 +13,7 @@ install_package() {
 }
 
 link_file() {
-	if [ "$1" == "." ] || [ "$1" == ".." ]; then
+	if [ "$1" == "." ] || [ "$1" == ".." ] || [ "$1" == ".git" ]; then
 		return
 	fi
 
