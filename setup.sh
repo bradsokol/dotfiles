@@ -38,7 +38,6 @@ fi
 set -u
 
 declare -a packages=(
-  "bat"
   "fzf"
   "readline"
   "ripgrep"
@@ -51,6 +50,7 @@ declare -a packages=(
 
 if $mac_os; then
   packages+=(
+    "bat"
     "reattach-to-user-namespace"
     "swiftlint"
   )

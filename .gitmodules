@@ -85,3 +85,78 @@
 [submodule ".vim/pack/bundle/start/vim-jsx-pretty"]
 	path = .vim/pack/bundle/start/vim-jsx-pretty
 	url = https://github.com/MaxMEllon/vim-jsx-pretty
+[submodule ".vim/pack/bundle/new/vim-airline"]
+	path = .vim/pack/bundle/new/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+[submodule ".vim/pack/bundle/new/vim-airline-themes"]
+	path = .vim/pack/bundle/new/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
+[submodule ".vim/pack/bundle/new/ale"]
+	path = .vim/pack/bundle/new/ale
+	url = https://github.com/dense-analysis/ale.git
+[submodule ".vim/pack/bundle/new/vim-better-whitespace"]
+	path = .vim/pack/bundle/new/vim-better-whitespace
+	url = https://github.com/ntpeters/vim-better-whitespace.git
+[submodule ".vim/pack/bundle/new/vim-bundler"]
+	path = .vim/pack/bundle/new/vim-bundler
+	url = https://github.com/tpope/vim-bundler.git
+[submodule ".vim/pack/bundle/new/vim-commentary"]
+	path = .vim/pack/bundle/new/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule ".vim/pack/bundle/new/dash.vim"]
+	path = .vim/pack/bundle/new/dash.vim
+	url = https://github.com/rizzatti/dash.vim.git
+[submodule ".vim/pack/bundle/new/vim-fugitive"]
+	path = .vim/pack/bundle/new/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".vim/pack/bundle/new/fzf.vim"]
+	path = .vim/pack/bundle/new/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
+[submodule ".vim/pack/bundle/new/vim-gitgutter"]
+	path = .vim/pack/bundle/new/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule ".vim/pack/bundle/new/nerdtree"]
+	path = .vim/pack/bundle/new/nerdtree
+	url = https://github.com/preservim/nerdtree.git
+[submodule ".vim/pack/bundle/new/supertab"]
+	path = .vim/pack/bundle/new/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule ".vim/pack/bundle/new/swift.vim"]
+	path = .vim/pack/bundle/new/swift.vim
+	url = https://github.com/keith/swift.vim.git
+[submodule ".vim/pack/bundle/new/vim-graphql"]
+	path = .vim/pack/bundle/new/vim-graphql
+	url = https://github.com/jparise/vim-graphql.git
+[submodule ".vim/pack/bundle/new/typescript-vim"]
+	path = .vim/pack/bundle/new/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule ".vim/pack/bundle/new/vim-test"]
+	path = .vim/pack/bundle/new/vim-test
+	url = https://github.com/vim-test/vim-test.git
+[submodule ".vim/pack/bundle/new/vim-dispatch"]
+	path = .vim/pack/bundle/new/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch.git
+[submodule ".vim/pack/bundle/new/vim-endwise"]
+	path = .vim/pack/bundle/new/vim-endwise
+	url = https://github.com/tpope/vim-endwise.git
+[submodule ".vim/pack/bundle/new/vim-javascript"]
+	path = .vim/pack/bundle/new/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule ".vim/pack/bundle/new/vim-json"]
+	path = .vim/pack/bundle/new/vim-json
+	url = https://github.com/elzr/vim-json.git
+[submodule ".vim/pack/bundle/new/vim-jsx-pretty"]
+	path = .vim/pack/bundle/new/vim-jsx-pretty
+	url = https://github.com/MaxMEllon/vim-jsx-pretty.git
+[submodule ".vim/pack/bundle/new/vim-rails"]
+	path = .vim/pack/bundle/new/vim-rails
+	url = https://github.com/tpope/vim-rails.git
+[submodule ".vim/pack/bundle/new/vim-rhubarb"]
+	path = .vim/pack/bundle/new/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb.git
+[submodule ".vim/pack/bundle/new/vim-repeat"]
+	path = .vim/pack/bundle/new/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule ".vim/pack/bundle/new/vim-surround"]
+	path = .vim/pack/bundle/new/vim-surround
+	url = https://github.com/tpope/vim-surround.git
