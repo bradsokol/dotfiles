@@ -71,3 +71,16 @@ cd -
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 mv $HOME/.zshrc $HOME/.zshrc-ohmyzsh
 mv $HOME/.zshrc.pre-oh-my-zsh $HOME/.zshrc
+
+mkdir -p $HOME/.oh-my-zsh/custom/themes
+curl https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme > $HOME/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
+
+if $mac_os; then
+  brew install zsh-autosuggestions
+else
+  ubuntu_release=$(lsb_release -is)_$(lsb_release -rs)
+  echo "deb http://download.opensuse.org/repositories/shells:/zsh-users:/zsh-autosuggestions/x$ubuntu_release/ /" | sudo tee /etc/apt/sources.list.d/shells:zsh-users:zsh-autosuggestions.list
+  curl -fsSL https://download.opensuse.org/repositories/shells:zsh-users:zsh-autosuggestions/x$ubuntu_release/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/shells_zsh-users_zsh-autosuggestions.gpg > /dev/null
+  sudo apt update
+  sudo apt-get install -y zsh-autosuggestions
+fi
