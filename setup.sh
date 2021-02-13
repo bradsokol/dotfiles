@@ -69,5 +69,5 @@ git submodule update --init --recursive
 cd -
 
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-mv .zshrc .zshrc-ohmyzsh
-mv .zshrc.pre-oh-my-zsh .zshrc
+mv $HOME/.zshrc $HOME/.zshrc-ohmyzsh
+mv $HOME/.zshrc.pre-oh-my-zsh $HOME/.zshrc
