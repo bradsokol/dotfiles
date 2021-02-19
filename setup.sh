@@ -13,13 +13,13 @@ install_package() {
 }
 
 link_file() {
-	if [ "$1" == "." ] || [ "$1" == ".." ] || [ "$1" == ".git" ]; then
+	if [ "$1" == "setup.sh" ] || [ "$1" == "." ] || [ "$1" == ".." ] || [ "$1" == ".git" ]; then
 		return
 	fi
 
   source="$link_source/$1"
   link="$HOME/$1"
-  if [ ! -e $link -a ! -d $link ]; then
+  if [ ! -e $link ]; then
     ln -s $source $link
   else
     echo "Skipped link for $link because a file or directory with that name already exists"
