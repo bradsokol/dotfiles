@@ -33,7 +33,7 @@ link_file() {
 set +u
 if [ -n $SPIN ] && [ $SPIN ]; then
   # Container in the Spin Up environment
-  link_source="~/dotfiles"
+  link_source="/home/spin/dotfiles"
 else
   link_source="$(pwd)"
 fi
