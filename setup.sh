@@ -17,8 +17,8 @@ link_file() {
 		return
 	fi
 
-  source="$link_source/$1"
-  link="$HOME/$1"
+  source=$link_source/$1
+  link=$HOME/$1
 
   if [ -e $link ]; then
     mkdir -p dotfiles-backup
