@@ -20,7 +20,7 @@ link_file() {
   source="$link_source/$1"
   link="$HOME/$1"
   if [ ! -e $link -a ! -d $link ]; then
-    ln -s "$source" "$link"
+    ln -s $source $link
   else
     echo "Skipped link for $link because a file or directory with that name already exists"
   fi
