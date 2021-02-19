@@ -2,6 +2,8 @@
 
 set -eu
 
+exit 0
+
 install_package() {
   return
   if $mac_os; then
