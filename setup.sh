@@ -19,11 +19,13 @@ link_file() {
 
   source="$link_source/$1"
   link="$HOME/$1"
-  if [ ! -e $link ]; then
-    ln -s $source $link
-  else
-    echo "Skipped link for $link because a file or directory with that name already exists"
+
+  if [ -e $link ]; then
+    mkdir -p dotfiles-backup
+    mv $link dotfiles-backup
   fi
+
+  ln -s $source $link
 }
 
 [[ "$(uname -s)" == "Darwin" ]] && mac_os=true || mac_os=false
