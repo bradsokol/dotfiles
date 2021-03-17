@@ -76,3 +76,6 @@
 [submodule ".vim/pack/bundle/new/vim-surround"]
 	path = .vim/pack/bundle/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
+[submodule ".vim/pack/bundle/start/fzf"]
+	path = .vim/pack/bundle/start/fzf
+	url = https://github.com/junegunn/fzf.git
