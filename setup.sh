@@ -3,7 +3,6 @@
 set -eu
 
 install_package() {
-  return
   if $mac_os; then
     # Use reinstall so that this is idempotent
     brew reinstall "$1"
