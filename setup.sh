@@ -41,20 +41,24 @@ set -u
 
 declare -a packages=(
   "fzf"
-  "readline"
   "ripgrep"
-  "the_silver_searcher"
   "tree"
   "vim"
   "wget"
-  "zsh-completions"
 )
 
 if $mac_os; then
   packages+=(
     "bat"
+    "readline"
     "reattach-to-user-namespace"
     "swiftlint"
+    "the_silver_searcher"
+    "zsh-completions"
+  )
+else
+  packages+=(
+    "silversearcher-ag"
   )
 fi
 
