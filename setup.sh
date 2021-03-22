@@ -49,6 +49,7 @@ declare -a packages=(
 if $mac_os; then
   packages+=(
     "bat"
+    "glow"
     "readline"
     "reattach-to-user-namespace"
     "swiftlint"
