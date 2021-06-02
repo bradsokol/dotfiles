@@ -153,14 +153,11 @@ if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
   export DEV_ALLOW_ITERM2_INTEGRATION=1
 fi
 
-if [ -f ~/.zshrc_local ]; then
-  source ~/.zshrc_local
-fi
-
 if [ -f /usr/local/share/chruby/chruby.sh ]; then
   # Ubuntu
   source /usr/local/share/chruby/chruby.sh
 fi
 
-[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
-if [ -e /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -f ~/.zshrc_local ]; then
+  source ~/.zshrc_local
+fi
