@@ -31,7 +31,7 @@ link_file() {
 
 set +u
 if [ -n $SPIN ] && [ $SPIN ]; then
-  # Container in the Spin Up environment
+  # Container in the Spin environment
   link_source="/home/spin/dotfiles"
 else
   link_source="$(pwd)"
@@ -86,4 +86,14 @@ if $mac_os; then
 else
   mkdir -p $HOME/.oh-my-zsh/custom/plugins
   git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+fi
+
+if [ -n $SPIN ] && [ $SPIN ]; then
+  git config --global --unset-all credential.helper
+
+  cd /tmp
+  wget http://mirrors.kernel.org/ubuntu/pool/universe/f/fzf/fzf_0.24.3-1_amd64.deb
+  sudo dpkg -i fzf_0.24.3-1_amd64.deb
+  rm fzf_0.24.3-1_amd64.deb
+  cd - >/dev/null
 fi
