@@ -90,6 +90,7 @@ fi
 
 if [ -n $SPIN ] && [ $SPIN ]; then
   git config --global --unset-all credential.helper
+  git shopify
 
   cd /tmp
   wget http://mirrors.kernel.org/ubuntu/pool/universe/f/fzf/fzf_0.24.3-1_amd64.deb
