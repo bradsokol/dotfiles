@@ -19,18 +19,18 @@ link_file() {
   source=$link_source/$1
   link=$HOME/$1
 
-  if [ -e $link ]; then
+  if [ -e "$link" ]; then
     mkdir -p dotfiles-backup
-    mv $link dotfiles-backup
+    mv "$link" dotfiles-backup
   fi
 
-  ln -s $source $link
+  ln -s "$source" "$link"
 }
 
 [[ "$(uname -s)" == "Darwin" ]] && mac_os=true || mac_os=false
 
 set +u
-if [ -n $SPIN ] && [ $SPIN ]; then
+if [ -n "$SPIN" ] && [ "$SPIN" ]; then
   # Container in the Spin environment
   link_source="/home/spin/dotfiles"
 else
@@ -63,11 +63,11 @@ else
 fi
 
 for package in "${packages[@]}"; do
-  install_package $package
+  install_package "$package"
 done
 
 for filename in .*; do
-  link_file $filename
+  link_file "$filename"
 done
 
 cd "$HOME/.vim/pack/bundle/start"
@@ -75,23 +75,24 @@ git submodule update --init --recursive
 cd -
 
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-mv $HOME/.zshrc $HOME/.zshrc-ohmyzsh
-mv $HOME/.zshrc.pre-oh-my-zsh $HOME/.zshrc
+mv "$HOME/.zshrc" "$HOME/.zshrc-ohmyzsh"
+mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
 
-mkdir -p $HOME/.oh-my-zsh/custom/themes
-curl https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme > $HOME/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
+mkdir -p "$HOME/.oh-my-zsh/custom/themes"
+curl https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme > \
+  "$HOME/.oh-my-zsh/custom/themes/bullet-train.zsh-theme"
 
 if $mac_os; then
   brew install zsh-autosuggestions
 else
-  mkdir -p $HOME/.oh-my-zsh/custom/plugins
-  git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  mkdir -p "$HOME/.oh-my-zsh/custom/plugins"
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 fi
 
-if [ -n $SPIN ] && [ $SPIN ]; then
+if [ -n "$SPIN" ] && [ "$SPIN" ]; then
   git config --global --unset-all credential.helper
 
-  cd $SPIN_REPO_SOURCE_PATH
+  cd "$SPIN_REPO_SOURCE_PATH"
   git shopify
   cd - >/dev/null
 
