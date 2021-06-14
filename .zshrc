@@ -8,13 +8,24 @@ export ZSH=$HOME/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="bullet-train"
-BULLETTRAIN_PROMPT_ORDER=(
-  time
-  status
-  dir
-  ruby
-  git
-)
+if [ -n "$SPIN" ] && [ "$SPIN" ]; then
+  BULLETTRAIN_PROMPT_ORDER=(
+    time
+    context
+    status
+    dir
+    git
+  )
+  BULLETTRAIN_CONTEXT_BG=green
+  BULLETTRAIN_CONTEXT_FG=white
+else
+  BULLETTRAIN_PROMPT_ORDER=(
+    time
+    status
+    dir
+    git
+  )
+fi
 BULLETTRAIN_RUBY_BG=magenta
 BULLETTRAIN_RUBY_FG=white
 BULLETTRAIN_VIRTUALENV_BG=green
