@@ -101,4 +101,6 @@ if [ -n "$SPIN" ] && [ "$SPIN" ]; then
   sudo dpkg -i fzf_0.24.3-1_amd64.deb
   rm fzf_0.24.3-1_amd64.deb
   cd - >/dev/null
+
+  cp /usr/share/zoneinfo/Canada/Eastern /etc/localtime
 fi
