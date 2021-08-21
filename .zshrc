@@ -161,6 +161,15 @@ gcorb()
   gco -b $1 origin/$1
 }
 
+pman()
+{
+  if [ -z "$1" ]; then
+    echo "Manual page not given"
+    return 1
+  fi
+  man -t "$@" | open -fa Preview
+}
+
 if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
   export DEV_ALLOW_ITERM2_INTEGRATION=1
