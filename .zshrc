@@ -183,3 +183,8 @@ fi
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
+
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+if [ -e /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+[[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)

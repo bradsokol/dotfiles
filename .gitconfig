@@ -23,6 +23,7 @@
 [user]
 	name = Brad Sokol
   useConfigOnly = true
+	signingkey = 88E12A0838AB347046148787AF3A116A64D72B01
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = vim

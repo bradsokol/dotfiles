@@ -30,7 +30,7 @@ link_file() {
 [[ "$(uname -s)" == "Darwin" ]] && mac_os=true || mac_os=false
 
 set +u
-if [ -n "$SPIN" ] && [ "$SPIN" ]; then
+if [ $SPIN ]; then
   # Container in the Spin environment
   link_source="/home/spin/dotfiles"
 else
@@ -89,7 +89,7 @@ else
   git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 fi
 
-if [ -n "$SPIN" ] && [ "$SPIN" ]; then
+if [ $SPIN ]; then
   git config --global --unset-all credential.helper
 
   cd "$SPIN_REPO_SOURCE_PATH"
