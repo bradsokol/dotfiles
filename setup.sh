@@ -33,6 +33,8 @@ set +u
 if [ $SPIN ]; then
   # Container in the Spin environment
   link_source="/home/spin/dotfiles"
+
+  source "/etc/zsh/zshrc.default.inc.zsh"
 else
   link_source="$(pwd)"
 fi
