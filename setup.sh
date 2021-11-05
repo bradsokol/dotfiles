@@ -33,8 +33,6 @@ set +u
 if [ $SPIN ]; then
   # Container in the Spin environment
   link_source="/home/spin/dotfiles"
-
-  source "/etc/zsh/zshrc.default.inc.zsh"
 else
   link_source="$(pwd)"
 fi
@@ -105,4 +103,8 @@ if [ $SPIN ]; then
   cd - >/dev/null
 
   cp /usr/share/zoneinfo/Canada/Eastern /etc/localtime
+
+  alias sc='systemctl'
+  alias jc='journalctl'
+  alias journalctl='/usr/bin/journalctl --no-hostname'
 fi
