@@ -1,3 +1,5 @@
+[[ "$(uname -s)" == "Darwin" ]] && mac_os=true || mac_os=false
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -76,7 +78,10 @@ BULLETTRAIN_STATUS_EXIT_SHOW=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bundler colored-man-pages git man osx rails rake ruby tmux zsh-autosuggestions)
+plugins=(bundler colored-man-pages git man rails rake ruby tmux zsh-autosuggestions)
+if $mac_os; then
+  plugins+=(macos)
+fi
 
 source $ZSH/oh-my-zsh.sh
 
