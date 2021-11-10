@@ -92,19 +92,17 @@ fi
 if [ $SPIN ]; then
   git config --global --unset-all credential.helper
 
-  cd "$SPIN_REPO_SOURCE_PATH"
-  git shopify
-  cd - >/dev/null
+  # This env var is erroring out in isospin
+  # cd "$SPIN_REPO_SOURCE_PATH"
+  # git shopify
+  # cd - >/dev/null
 
-  cd /tmp
-  wget http://mirrors.kernel.org/ubuntu/pool/universe/f/fzf/fzf_0.24.3-1_amd64.deb
-  sudo dpkg -i fzf_0.24.3-1_amd64.deb
-  rm fzf_0.24.3-1_amd64.deb
-  cd - >/dev/null
+  # Doesn't seem to be needed in isospin
+  # cd /tmp
+  # wget http://mirrors.kernel.org/ubuntu/pool/universe/f/fzf/fzf_0.24.3-1_amd64.deb
+  # sudo dpkg -i fzf_0.24.3-1_amd64.deb
+  # rm fzf_0.24.3-1_amd64.deb
+  # cd - >/dev/null
 
-  cp /usr/share/zoneinfo/Canada/Eastern /etc/localtime
-
-  alias sc='systemctl'
-  alias jc='journalctl'
-  alias journalctl='/usr/bin/journalctl --no-hostname'
+  # cp /usr/share/zoneinfo/Canada/Eastern /etc/localtime
 fi
