@@ -10,7 +10,7 @@ export ZSH=$HOME/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="bullet-train"
-if [ -n "$SPIN" ] && [ "$SPIN" ]; then
+if [ "$SPIN" ]; then
   BULLETTRAIN_PROMPT_ORDER=(
     time
     context
@@ -20,6 +20,10 @@ if [ -n "$SPIN" ] && [ "$SPIN" ]; then
   )
   BULLETTRAIN_CONTEXT_BG=green
   BULLETTRAIN_CONTEXT_FG=white
+
+  if [ -e /etc/zsh/zshrc.default.inc.zsh ]; then
+    source /etc/zsh/zshrc.default.inc.zsh
+  fi
 else
   BULLETTRAIN_PROMPT_ORDER=(
     time
@@ -78,7 +82,7 @@ BULLETTRAIN_STATUS_EXIT_SHOW=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bundler colored-man-pages git man rails rake ruby tmux zsh-autosuggestions)
+plugins=(colored-man-pages git man zsh-autosuggestions)
 if $mac_os; then
   plugins+=(macos)
 fi
@@ -124,36 +128,6 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 export EDITOR=vim
 export PATH=~/bin:$PATH
 export GREP_OPTIONS=--color=auto
-
-erbfind()
-{
-  if [ -z "$2" ]; then
-    SEARCH_ROOT="."
-  else
-    SEARCH_ROOT="$2"
-  fi
-  (cd $SEARCH_ROOT && find . -name "*.erb" -exec grep -Hn "$1" {} \;)
-}
-
-pyfind()
-{
-  if [ -z "$2" ]; then
-    SEARCH_ROOT="."
-  else
-    SEARCH_ROOT="$2"
-  fi
-  (cd $SEARCH_ROOT && find . -name "*.py" -exec grep -Hn "$1" {} \;)
-}
-
-rbfind()
-{
-  if [ -z "$2" ]; then
-    SEARCH_ROOT="."
-  else
-    SEARCH_ROOT="$2"
-  fi
-  (cd $SEARCH_ROOT && find . -name "*.rb" -exec grep -Hn "$1" {} \;)
-}
 
 man-builtin () { man bash | less -p "^       $1 "; }
 
