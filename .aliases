@@ -19,6 +19,7 @@ alias glb='f() { git log $(git merge-base --fork-point origin/$(git_main_branch)
 alias glbp='f() { git log $(git merge-base --fork-point origin/$(git_main_branch) @)..@ --patch; }; f'
 alias glow='glow -p'
 alias gpf='gp --force-with-lease'
+alias grep='grep --color=auto'
 alias hexdump='hexdump -C'
 alias ll='ls -ahlF'
 alias la='ls -A'

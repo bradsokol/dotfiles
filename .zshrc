@@ -127,7 +127,6 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 export EDITOR=vim
 export PATH=~/bin:$PATH
-export GREP_OPTIONS=--color=auto
 
 man-builtin () { man bash | less -p "^       $1 "; }
 
