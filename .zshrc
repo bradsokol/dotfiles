@@ -1,3 +1,5 @@
+#! /bin/env zsh
+
 [[ "$(uname -s)" == "Darwin" ]] && mac_os=true || mac_os=false
 
 # If you come from bash you might have to change your $PATH.
@@ -118,7 +120,6 @@ LS_COLORS="di=1;34;40:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;4
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#! /bin/env zsh
 if [ -f ~/.aliases ]; then
     source ~/.aliases
 fi
@@ -156,13 +157,16 @@ fi
 if [ -f /usr/local/share/chruby/chruby.sh ]; then
   # Ubuntu
   source /usr/local/share/chruby/chruby.sh
+elif [ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]; then
+  # macOS with Homebrew
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
 fi
 
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
 
-[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+#[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
 if [ -e /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 [[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
