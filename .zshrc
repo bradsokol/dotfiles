@@ -55,6 +55,8 @@ sources=(
   /usr/local/opt/chruby/share/chruby/chruby.sh
   /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ~/.aliases
   ~/.zshrc_local
 )
@@ -84,3 +86,7 @@ pman()
 if [ -e /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 [[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
+
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+
+[[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
