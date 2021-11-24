@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set -eu
+set -eux
 
 install_package() {
   if $mac_os; then
