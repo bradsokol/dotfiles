@@ -95,7 +95,7 @@ if [ $SPIN ]; then
   git config --global --unset-all credential.helper
 
   for dir in */ ; do
-    cd dir
+    cd $dir
     git shopify
     cd - >/dev/null
   done
