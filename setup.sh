@@ -90,19 +90,13 @@ else
 fi
 
 if [ $SPIN ]; then
+  sudo update-alternatives --remove vim /usr/bin/nvim
+
   git config --global --unset-all credential.helper
 
-  # This env var is erroring out in isospin
-  # cd "$SPIN_REPO_SOURCE_PATH"
-  # git shopify
-  # cd - >/dev/null
-
-  # Doesn't seem to be needed in isospin
-  # cd /tmp
-  # wget http://mirrors.kernel.org/ubuntu/pool/universe/f/fzf/fzf_0.24.3-1_amd64.deb
-  # sudo dpkg -i fzf_0.24.3-1_amd64.deb
-  # rm fzf_0.24.3-1_amd64.deb
-  # cd - >/dev/null
-
-  # cp /usr/share/zoneinfo/Canada/Eastern /etc/localtime
+  for dir in */ ; do
+    cd dir
+    git shopify
+    cd - >/dev/null
+  done
 fi
