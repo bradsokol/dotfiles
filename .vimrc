@@ -1,74 +1,28 @@
-" vim: foldmethod=marker foldlevel=0
+" -------------------------------------
+"  General settings
+" -------------------------------------
 
-" Temporary fix for Python 3.7
-if has('python3')
-  silent! python3 1
-endif
+set nocompatible
 
-" Appearance {{{
-colorscheme molokai
-" }}}
+" Whitespace handling
 
-" Clipboard {{{
-if has("unix")
-  let s:uname = system("uname")
-  if s:uname == "Darwin\n"
-    " Map */+ registers to macOS pastebuffer
-    set clipboard=unnamed
-  endif
-endif
-" }}}
-
-" Editing {{{
 filetype plugin indent on
 set autoindent
+set tabstop=2
+set shiftround
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set wrap
+
+" Editing
+
 set formatoptions=cjqrn1
-set textwidth=120
-" }}}
-
-" Mouse {{{
-if has("mouse")
-  set mouse=a
-endif
-" }}}
-
-" Python {{{
-au FileType python set omnifunc=pythoncomplete#Complete
-" }}}
-
-" TypeScript {{{
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
-" }}}
-
-" Search {{{
-set incsearch
 set showmatch
-set hlsearch
-set ignorecase
-set smartcase
-set gdefault
-nnoremap <leader><space> :noh<cr>
+set textwidth=120
 
-" Position search matches in the middle of the window
-nnoremap n nzzzv
-nnoremap N Nzzzv
-" }}}
+" Visual
 
-" Splits {{{
-set splitbelow
-set splitright
-" }}}
-
-" Syntax highlighting {{{
-syntax on
-" }}}
-
-" TTY performance {{{
-set nocompatible
-set ttyfast
-" }}}
-
-" Visual {{{
 set colorcolumn=120
 set cursorline
 set laststatus=2
@@ -76,27 +30,44 @@ set number
 set relativenumber
 set showcmd
 set showmode
-" }}}
 
-" Whitespace handling {{{
-set tabstop=2
-set shiftround
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-set wrap
-" }}}
+" Search
 
-" Folding {{{
-" Fold showing only search results
-augroup XML
-    autocmd!
-    autocmd FileType xml setlocal foldmethod=indent foldlevelstart=999 foldminlines=0
-augroup END
-nnoremap <leader>z :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<cr>
-" }}}
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+set gdefault
 
-" Tabs {{{
+" Splits
+
+set splitbelow
+set splitright
+
+" Other
+
+set confirm
+set mouse=a
+set encoding=utf-8
+set scrolloff=3
+set wildmenu
+set wildignore+=*/.git/*,*/.hg/*,*.pyc
+set visualbell
+set backspace=indent,eol,start
+set completeopt=menuone,longest,preview
+set clipboard=unnamed
+
+" -------------------------------------
+" Key mappings
+" -------------------------------------
+
+nnoremap <leader><space> :nohlsearch<cr>
+
+" Position search matches in the middle of the window
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Fast tab switching
 noremap <leader>1 1gt
 noremap <leader>2 2gt
 noremap <leader>3 3gt
@@ -108,111 +79,78 @@ noremap <leader>0 :tablast<cr>
 au TabLeave * let g:lasttab = tabpagenr()
 nnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> <c-l> :exe "tabn ".g:lasttab<cr>
-" }}}
 
-" Experiments {{{
-" }}}
-"
-" Other {{{
-set encoding=utf-8
-set scrolloff=3
-set wildmenu
-set wildignore+=*/.git/*,*/.hg/*,*.pyc
-set visualbell
-set backspace=indent,eol,start
-set completeopt=menuone,longest,preview
-
-autocmd FileType sh setl sw=2 sts=2 et
-autocmd StdinReadPre * let s:std_in=1
-autocmd BufNewFile,BufRead *.json set ft=javascript
-
-au FileType gitcommit setlocal spell
-au FileType markdown setlocal spell
-
+" Use / as a search short-cut
 nnoremap / /\v
-nnoremap <leader>b Obinding.pry<esc>
-nnoremap <leader>B Obyebug<esc>
-vnoremap / /\v
+
+" Folding
+nnoremap <leader>z :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<cr>
+
+" Ruby bindings
+
+augroup Ruby
+  autocmd!
+
+  " Insert breakpoint
+  autocmd filetype ruby nnoremap <buffer> <leader>b Obinding.pry<esc>==
+  autocmd filetype ruby nnoremap <buffer> <leader>B Obyebug<esc>==
+
+  " Insert frozen string literal sigel at the top of the file
+  autocmd filetype ruby nnoremap <buffer> <leader>F ggO# frozen_string_literal: true<cr><esc>0D
+augroup END
+
 if has("macunix")
+  " Copy current file name to the clipboard
   nnoremap <leader>f :!echo -n % \| pbcopy<cr><cr>
 endif
-nnoremap <leader>F ggO# frozen_string_literal: true<cr><esc>0D
-" }}}
 
-" Plugin Configurations {{{
+" -------------------------------------
+"  Plugins
+" ------------------------------------
 
-" Airline {{{
-let g:airline_powerline_fonts=1
-let g:airline_theme = 'minimalist'
-" }}}
-
-" ALE {{{
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_open_list = 1
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_linters_ignore = {
-      \   'ruby': ['brakeman'],
-      \}
-" }}}
-
-" CtrlP {{{
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_user_command = 'ag %s -i -l --nocolor --nogroup --hidden
-        \ --ignore .git
-        \ --ignore .DS_Store
-        \ -g ""'
-else
-  let g:ctrlp_use_caching = 1
-  let g:ctrlp_custom_ignore = {
-      \ 'dir': '\v[\/](\.git|\.hg|\.svn|html|node_modules)$',
-      \ 'file': '\v.(exe|so|dll|pyc|class|png|jpg|jpeg|gif)$',
-      \ }
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-" }}}
 
-" Dash Search {{{
-if has("unix")
-  let s:uname = system("uname")
-  if s:uname == "Darwin\n"
-    nmap <silent> <leader>h <Plug>DashSearch
-  endif
-endif
-" }}}
+call plug#begin(data_dir . '/plugins')
 
-" FZF {{{
-nnoremap <C-a> :Ag<cr>
-nnoremap <leader><C-p> :Files<cr>
-nnoremap <leader><C-s> :GFiles?<cr>
-nnoremap <C-p> :GFiles -- ':!:*.rbi'<cr>
-set rtp+=/usr/local/opt/fzf
-" }}}
+source ~/.vim/config/airline.vim
+source ~/.vim/config/ale.vim
+source ~/.vim/config/dash-app.vim
+source ~/.vim/config/fzf-plugin.vim
+source ~/.vim/config/molokai.vim
+source ~/.vim/config/nerdtree.vim
+source ~/.vim/config/supertab.vim
+source ~/.vim/config/swift-plugin.vim
+source ~/.vim/config/vim-better-whitespace.vim
+source ~/.vim/config/vim-bundler.vim
+source ~/.vim/config/vim-commentary.vim
+source ~/.vim/config/vim-dispatch.vim
+source ~/.vim/config/vim-endwise.vim
+source ~/.vim/config/vim-fugitive.vim
+source ~/.vim/config/vim-gitgutter.vim
+source ~/.vim/config/vim-graphql.vim
+source ~/.vim/config/vim-json.vim
+source ~/.vim/config/vim-rails.vim
+source ~/.vim/config/vim-repeat.vim
+source ~/.vim/config/vim-surround.vim
+source ~/.vim/config/vim-test.vim
 
-" NERDTree {{{
-let NERDTreeIgnore = ['\.pyc$']
-nmap <leader>d :NERDTreeToggle<CR>
-" }}}
+call plug#end()
+" doautocmd User PlugLoaded
 
-" Rails {{{
-" nmap <silent> <leader>t :Rake<CR>
-" }}}
+" -------------------------------------
+" Auto commands
+" -------------------------------------
 
-" Supertab {{{
-let g:SuperTabDefaultCompletionType = "context"
-" }}}
+autocmd BufNewFile,BufRead *.json set ft=javascript
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
-" Test.vim {{{
-let test#strategy = "dispatch"
-nmap <silent> <leader>t :TestFile<CR>
-nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>n :TestNearest<CR>
-nmap <silent> <leader>s :TestSuite<CR>
-" }}}
+autocmd FileType sh setl sw=2 sts=2 et
 
-" vim-json {{{
-let g:vim_json_syntax_conceal = 0
-"}}}
-" }}}
+autocmd StdinReadPre * let s:std_in=1
+
+autocmd FileType gitcommit setlocal spell
+autocmd FileType markdown setlocal spell
