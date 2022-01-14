@@ -118,12 +118,14 @@ call plug#begin(data_dir . '/plugins')
 
 source ~/.vim/config/airline.vim
 source ~/.vim/config/ale.vim
+source ~/.vim/config/coc.vim
 source ~/.vim/config/dash-app.vim
 source ~/.vim/config/fzf-plugin.vim
 source ~/.vim/config/molokai.vim
 source ~/.vim/config/nerdtree.vim
 source ~/.vim/config/supertab.vim
 source ~/.vim/config/swift-plugin.vim
+source ~/.vim/config/typescript.vim
 source ~/.vim/config/vim-better-whitespace.vim
 source ~/.vim/config/vim-bundler.vim
 source ~/.vim/config/vim-commentary.vim
