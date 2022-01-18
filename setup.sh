@@ -7,7 +7,7 @@ install_package() {
     # Use reinstall so that this is idempotent
     brew reinstall "$1"
   else
-    sudo apt-get install -y "$1"
+    sudo apt-get -o DPkg::Lock::Timeout=3 install -y "$1"
   fi
 }
 
