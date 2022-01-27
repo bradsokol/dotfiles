@@ -90,3 +90,7 @@ if [ -e /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/brad
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
+
+if [ "$SPIN" ]; then
+  if [ "$TMUX" = "" ]; then tmux new -As0; fi
+fi
