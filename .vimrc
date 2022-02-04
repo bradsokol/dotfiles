@@ -86,6 +86,10 @@ nnoremap / /\v
 " Folding
 nnoremap <leader>z :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<cr>
 
+" Zoom a Vim pane, <C-w>= to re-balance
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nnoremap <leader>= :wincmd =<cr>
+
 " Ruby bindings
 
 augroup Ruby
@@ -156,3 +160,6 @@ autocmd StdinReadPre * let s:std_in=1
 
 autocmd FileType gitcommit setlocal spell
 autocmd FileType markdown setlocal spell
+
+" Automatically rebalance windows on Vim resize
+autocmd VimResized * :wincmd =
