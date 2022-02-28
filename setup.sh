@@ -31,7 +31,7 @@ link_config_file() {
   [[ ${ignore_files[*]} =~ $1 ]] && return
 
 	source="$link_source"/"$dirname"
-	link=$HOME/.config/"$dirname"
+	link=$HOME/"$dirname"
 
   ln -s "$source" "$link"
 }
