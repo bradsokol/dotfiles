@@ -12,9 +12,8 @@ install_package() {
 }
 
 link_file() {
-	if [ "$1" == "setup.sh" ] || [ "$1" == "." ] || [ "$1" == ".." ] || [ "$1" == ".git" ]; then
-		return
-	fi
+  ignore_files=("setup.sh" "." ".." ".git" ".config")
+  [[ ${ignore_files[*]} =~ $1 ]] && return
 
   source=$link_source/$1
   link=$HOME/$1
@@ -70,6 +69,12 @@ for filename in .*; do
   link_file "$filename"
 done
 
+for dirname in .config/; do
+	source="$link_source"/"$dirname"
+	link=$HOME/.config/"$dirname"
+	ln -s "$source" "$link"
+done
+
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 mv "$HOME/.zshrc" "$HOME/.zshrc-ohmyzsh"
 mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
@@ -86,8 +91,8 @@ else
 fi
 
 if [ $SPIN ]; then
-  sudo update-alternatives --remove vi /usr/bin/nvim
-  sudo update-alternatives --remove vim /usr/bin/nvim
+  # sudo update-alternatives --remove vi /usr/bin/nvim
+  # sudo update-alternatives --remove vim /usr/bin/nvim
 
   git config --global --unset-all credential.helper
 

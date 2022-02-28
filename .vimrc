@@ -123,6 +123,7 @@ call plug#begin(data_dir . '/plugins')
 source ~/.vim/config/airline.vim
 source ~/.vim/config/ale.vim
 source ~/.vim/config/coc.vim
+source ~/.vim/config/copilot.vim
 source ~/.vim/config/dash-app.vim
 source ~/.vim/config/fzf-plugin.vim
 source ~/.vim/config/molokai.vim
