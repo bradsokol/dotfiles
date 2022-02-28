@@ -26,6 +26,16 @@ link_file() {
   ln -s "$source" "$link"
 }
 
+link_config_file() {
+  ignore_files=("setup.sh" "." ".." ".git" ".config")
+  [[ ${ignore_files[*]} =~ $1 ]] && return
+
+	source="$link_source"/"$dirname"
+	link=$HOME/.config/"$dirname"
+
+  ln -s "$source" "$link"
+}
+
 [[ "$(uname -s)" == "Darwin" ]] && mac_os=true || mac_os=false
 
 set +u
@@ -70,9 +80,7 @@ for filename in .*; do
 done
 
 for dirname in .config/; do
-	source="$link_source"/"$dirname"
-	link=$HOME/.config/"$dirname"
-	ln -s "$source" "$link"
+  link_config_file "$dirname"
 done
 
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
