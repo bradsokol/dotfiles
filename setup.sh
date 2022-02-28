@@ -79,8 +79,8 @@ for filename in .*; do
   link_file "$filename"
 done
 
-for dirname in .config/; do
-  link_config_file "$dirname"
+for dirname in .config/*; do
+  link_config_file $(basename $dirname)
 done
 
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
