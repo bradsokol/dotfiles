@@ -109,4 +109,6 @@ if [ $SPIN ]; then
     git shopify
     cd - >/dev/null
   done
+
+  sudo timedatectl set-timezone Canada/Eastern
 fi
