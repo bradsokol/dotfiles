@@ -47,33 +47,28 @@ else
 fi
 set -u
 
-declare -a packages=(
-  "fzf"
-  "ripgrep"
-  "tree"
-  "vim"
-  "wget"
-)
 
+# Install packages on macOS using Brew. Spin installs packages listed in packages.yml
 if $mac_os; then
-  packages+=(
+  declare -a packages=(
     "bat"
+    "fzf"
     "glow"
     "readline"
     "reattach-to-user-namespace"
+    "ripgrep"
     "swiftlint"
     "the_silver_searcher"
+    "tree"
+    "vim"
+    "wget"
     "zsh-completions"
   )
-else
-  packages+=(
-    "silversearcher-ag"
-  )
-fi
 
-for package in "${packages[@]}"; do
-  install_package "$package"
-done
+  for package in "${packages[@]}"; do
+    install_package "$package"
+  done
+fi
 
 for filename in .*; do
   link_file "$filename"
