@@ -164,3 +164,11 @@ autocmd FileType markdown setlocal spell
 
 " Automatically rebalance windows on Vim resize
 autocmd VimResized * :wincmd =
+
+if $SPIN == 1
+  let g:clipboard = {
+        \ 'name': 'pbcopy',
+        \ 'copy': {'+': 'pbcopy', '*': 'pbcopy'},
+        \ 'paste': {'+': 'pbpaste', '*': 'pbpaste'},
+        \ 'cache_enabled': 1 }
+endif
