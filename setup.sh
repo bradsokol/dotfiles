@@ -97,8 +97,6 @@ if [ $SPIN ]; then
   # sudo update-alternatives --remove vi /usr/bin/nvim
   # sudo update-alternatives --remove vim /usr/bin/nvim
 
-  git config --global --unset-all credential.helper
-
   for dir in ~/src/github.com/Shopify/*/ ; do
     cd $dir
     git shopify
