@@ -97,6 +97,8 @@ if [ $SPIN ]; then
   # sudo update-alternatives --remove vi /usr/bin/nvim
   # sudo update-alternatives --remove vim /usr/bin/nvim
 
+  git config --global user.signingkey 6E5D58F506FA8AD8FC8B0733215448069FE030BB
+
   for dir in ~/src/github.com/Shopify/*/ ; do
     cd $dir
     git shopify
