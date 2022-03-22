@@ -57,3 +57,4 @@
 	defaultBranch = main
 [include]
 	path = /Users/bradsokol/.config/dev/gitconfig
+  path = /Users/Brad/.gitconfig-local
