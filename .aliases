@@ -8,7 +8,7 @@ else
   # This alias forces Home Brew Vim
   alias vi=vim
 
-  alias cat='bat -p'
+  alias cat='bat --plain --theme "Monokai Extended Bright"'
   alias fl='bundle exec fastlane'
 fi
 
@@ -17,7 +17,7 @@ alias be='bundle exec'
 alias br='bin/rails'
 alias glb='f() { git log $(git merge-base --fork-point origin/$(git_main_branch) @)..@ --pretty=oneline; }; f'
 alias glbp='f() { git log $(git merge-base --fork-point origin/$(git_main_branch) @)..@ --patch; }; f'
-alias glow='glow -p'
+alias glow='glow --pager'
 alias gpf='gp --force-with-lease'
 alias grep='grep --color=auto'
 alias hexdump='hexdump -C'
