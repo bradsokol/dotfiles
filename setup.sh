@@ -107,4 +107,7 @@ if [ $SPIN ]; then
   done
 
   sudo timedatectl set-timezone Canada/Eastern
+
+  # Disable fixed directory for new shells
+  sed --in-place --regexp-extended '/^([^#].*)?cd.*Shopify\"$/  s/^/#/' ~/.zlogin
 fi

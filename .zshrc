@@ -16,7 +16,6 @@ ZSH_THEME="bullet-train"
 if [ "$SPIN" ]; then
   BULLETTRAIN_PROMPT_ORDER=(
     time
-    context
     status
     dir
     git
