@@ -110,4 +110,6 @@ if [ $SPIN ]; then
 
   # Disable fixed directory for new shells
   sed --in-place --regexp-extended '/^([^#].*)?cd.*Shopify\"$/  s/^/#/' ~/.zlogin
+
+  export BUILDKITE_TOKEN="$(cat /etc/spin/secrets/buildkite_token)"
 fi
