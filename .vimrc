@@ -57,6 +57,8 @@ set backspace=indent,eol,start
 set completeopt=menuone,longest,preview
 set clipboard=unnamed
 
+let g:markdown_fenced_languages = ['swift', 'python', 'ruby', 'javascript', 'typescript']
+
 " -------------------------------------
 " Key mappings
 " -------------------------------------

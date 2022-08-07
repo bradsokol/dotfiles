@@ -13,16 +13,13 @@
 	stat = status
 	st = status
   touch = add --intent-to-add
-  update = "!echo '==> Stash local changes'; res=$(git stash save 'auto stash by update'); echo "$res"; echo; \
-    echo '==> Fetch from remote repo and merge/rebase'; git pull --rebase; echo; \
-    echo "$res" | grep -q '^No local changes to save' \
-    || { echo '==> Apply stashed changes'; git stash pop; }"
 
 [color]
 	ui = true
 [user]
   name = Brad Sokol
   useConfigOnly = true
+	email = bsokol@gmail.com
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = vim
