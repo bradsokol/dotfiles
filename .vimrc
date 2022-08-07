@@ -157,6 +157,7 @@ call plug#end()
 autocmd BufNewFile,BufRead *.json set ft=javascript
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
+autocmd FileType eruby,html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType sh setl sw=2 sts=2 et
 
 autocmd StdinReadPre * let s:std_in=1
