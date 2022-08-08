@@ -144,6 +144,7 @@ source ~/.vim/config/vim-graphql.vim
 source ~/.vim/config/vim-json.vim
 source ~/.vim/config/vim-rails.vim
 source ~/.vim/config/vim-repeat.vim
+source ~/.vim/config/vim-sorbet.vim
 source ~/.vim/config/vim-surround.vim
 source ~/.vim/config/vim-test.vim
 
