@@ -89,3 +89,5 @@ if [ -e /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/brad
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
 
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
+
+[ -f $HOME/.zshrc_local ] && source $HOME/.zshrc_local
