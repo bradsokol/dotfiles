@@ -79,7 +79,7 @@ for dirname in .config/*; do
   link_config_file $(basename $dirname)
 done
 
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUNZSH=no sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 mv "$HOME/.zshrc" "$HOME/.zshrc-ohmyzsh"
 mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
 
