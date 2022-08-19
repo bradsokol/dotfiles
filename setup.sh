@@ -103,7 +103,6 @@ if [ $SPIN ]; then
   # sudo update-alternatives --remove vim /usr/bin/nvim
 
   mkdir -p $HOME/.local/bin
-  export PATH=$HOME/.local/bin:$PATH
 
   # Telescope in nvim expects fdfind to be called fd
   ln -s $(which fdfind) $HOME/.local/bin/fd
