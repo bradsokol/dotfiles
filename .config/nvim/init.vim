@@ -116,6 +116,8 @@ let plugin_dir = stdpath('data') . '/site/plugins/'
 
 call plug#begin(plugin_dir)
 
+Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
@@ -152,6 +154,22 @@ endif
 " -------------------------------------
 "  Plugin configuration
 " -------------------------------------
+
+" Ale
+
+let g:ale_linters = {
+      \ 'ruby': ['rubocop', 'sorbet'],
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['eslint'],
+      \ }
+let g:ale_lingers_ignore = {
+      \ 'ruby': ['brakeman'],
+      \ }
+
+let g:ale_line_on_text_changed = 'never'
+let g:ale_open_list = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
 
 " monokai.nvim
 colorscheme monokai
