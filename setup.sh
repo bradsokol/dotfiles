@@ -52,6 +52,7 @@ set -u
 if $mac_os; then
   declare -a packages=(
     "bat"
+    "fd"
     "fzf"
     "glow"
     "readline"
@@ -93,9 +94,25 @@ else
   git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 fi
 
+# vim-plug for Neovim
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
 if [ $SPIN ]; then
   # sudo update-alternatives --remove vi /usr/bin/nvim
   # sudo update-alternatives --remove vim /usr/bin/nvim
+
+  mkdir -p $HOME/.local/bin
+  export PATH=$HOME/.local/bin:$PATH
+
+  # Telescope in nvim expects fdfind to be called fd
+  ln -s $(which fdfind) $HOME/.local/bin/fd
+
+  # Treesitter is not available in our version of Ubuntu so install a pre-built binary
+   curl -fLo /tmp/tree-sitter.gz https://github.com/tree-sitter/tree-sitter/releases/download/v0.20.6/tree-sitter-linux-x64.gz
+   gunzip /tmp/tree-sitter.gz
+   mv /tmp/tree-sitter $HOME/.local/bin
+   chmod u+x $HOME/.local/bin/tree-sitter
 
   git config --global user.signingkey 6E5D58F506FA8AD8FC8B0733215448069FE030BB
 
