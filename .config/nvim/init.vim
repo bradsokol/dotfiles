@@ -135,6 +135,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
 Plug 'Shopify/vim-sorbet', { 'branch': 'master' }
 Plug 'tpope/vim-surround'
+Plug 'vim-test/vim-test'
 
 if has("macunix")
   Plug 'rizzatti/dash.vim'
@@ -165,6 +166,14 @@ let g:airline_theme = 'minimalist'
 
 " vim-json
 let g:vim_json_syntax_conceal = 0
+
+" vim-test
+let test#strategy = 'neovim'
+
+nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>n :TestNearest<CR>
+nmap <silent> <leader>s :TestSuite<CR>
 
 if has("macunix")
   " dash.vim
