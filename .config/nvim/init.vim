@@ -128,6 +128,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -187,7 +188,7 @@ let g:airline_theme = 'minimalist'
 let g:vim_json_syntax_conceal = 0
 
 " vim-test
-let test#strategy = 'neovim'
+let test#strategy = 'dispatch'
 
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>l :TestLast<CR>
