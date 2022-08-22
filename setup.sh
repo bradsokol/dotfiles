@@ -108,10 +108,14 @@ if [ $SPIN ]; then
   ln -s $(which fdfind) $HOME/.local/bin/fd
 
   # Treesitter is not available in our version of Ubuntu so install a pre-built binary
-   curl -fLo /tmp/tree-sitter.gz https://github.com/tree-sitter/tree-sitter/releases/download/v0.20.6/tree-sitter-linux-x64.gz
-   gunzip /tmp/tree-sitter.gz
-   mv /tmp/tree-sitter $HOME/.local/bin
-   chmod u+x $HOME/.local/bin/tree-sitter
+  curl -fLo /tmp/tree-sitter.gz https://github.com/tree-sitter/tree-sitter/releases/download/v0.20.6/tree-sitter-linux-x64.gz
+  gunzip /tmp/tree-sitter.gz
+  mv /tmp/tree-sitter $HOME/.local/bin
+  chmod u+x $HOME/.local/bin/tree-sitter
+
+  curl -fLo /tmp/git-delta.deb https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb
+  dpkg -i /tmp/git-delta.deb
+  rm /tmp/git-delta.deb
 
   git config --global user.signingkey 6E5D58F506FA8AD8FC8B0733215448069FE030BB
 
