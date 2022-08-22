@@ -18,7 +18,6 @@ if [ "$SPIN" ]; then
     time
     status
     dir
-    git
   )
   BULLETTRAIN_CONTEXT_BG=green
   BULLETTRAIN_CONTEXT_FG=white
