@@ -114,7 +114,7 @@ if [ $SPIN ]; then
   chmod u+x $HOME/.local/bin/tree-sitter
 
   curl -fLo /tmp/git-delta.deb https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb
-  dpkg -i /tmp/git-delta.deb
+  sudo dpkg -i /tmp/git-delta.deb
   rm /tmp/git-delta.deb
 
   git config --global user.signingkey 6E5D58F506FA8AD8FC8B0733215448069FE030BB
