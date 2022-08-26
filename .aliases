@@ -12,7 +12,7 @@ else
   alias fl='bundle exec fastlane'
 fi
 
-alias ag='ag --pager less'
+alias ag='ag --hidden --ignore .git --pager less'
 alias be='bundle exec'
 alias br='bin/rails'
 alias glb='f() { git log $(git merge-base --fork-point origin/$(git_main_branch) @)..@ --pretty=oneline; }; f'
