@@ -33,6 +33,10 @@ link_config_file() {
 	source="$link_source"/"$dirname"
 	link=$HOME/"$dirname"
 
+  if [ -e "$link" ]; then
+    rm "$link"
+  fi
+
   ln -s "$source" "$link"
 }
 
@@ -80,7 +84,7 @@ for dirname in .config/*; do
 done
 
 RUNZSH=no sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-mv "$HOME/.zshrc" "$HOME/.zshrc-ohmyzsh"
+mv -f "$HOME/.zshrc" "$HOME/.zshrc-ohmyzsh"
 mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
 
 mkdir -p "$HOME/.oh-my-zsh/custom/themes"
@@ -105,17 +109,15 @@ if [ $SPIN ]; then
   mkdir -p $HOME/.local/bin
 
   # Telescope in nvim expects fdfind to be called fd
-  ln -s $(which fdfind) $HOME/.local/bin/fd
+  if [ ! -f "$HOME/.local/bin/fd" ]; then
+    ln -s $(which fdfind) $HOME/.local/bin/fd
+  fi
 
   # Treesitter is not available in our version of Ubuntu so install a pre-built binary
   curl -fLo /tmp/tree-sitter.gz https://github.com/tree-sitter/tree-sitter/releases/download/v0.20.6/tree-sitter-linux-x64.gz
   gunzip /tmp/tree-sitter.gz
-  mv /tmp/tree-sitter $HOME/.local/bin
+  mv -f /tmp/tree-sitter $HOME/.local/bin
   chmod u+x $HOME/.local/bin/tree-sitter
-
-  curl -fLo /tmp/git-delta.deb https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb
-  sudo dpkg -i /tmp/git-delta.deb
-  rm /tmp/git-delta.deb
 
   git config --global user.signingkey 6E5D58F506FA8AD8FC8B0733215448069FE030BB
 
@@ -132,4 +134,11 @@ if [ $SPIN ]; then
   sed --in-place --regexp-extended '/^([^#].*)?cd.*Shopify\"$/  s/^/#/' ~/.zlogin
 
   export BUILDKITE_TOKEN="$(cat /etc/spin/secrets/buildkite_token)"
+
+  curl -fLo /tmp/git-delta.deb https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb
+  $(sudo dpkg -i /tmp/git-delta.deb)
+  if [ $? -ne 0 ]; then
+    echo "Failed to install git-delta"
+  fi
+  rm /tmp/git-delta.deb
 fi
