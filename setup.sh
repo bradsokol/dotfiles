@@ -83,19 +83,21 @@ for dirname in .config/*; do
   link_config_file $(basename $dirname)
 done
 
-RUNZSH=no sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-mv -f "$HOME/.zshrc" "$HOME/.zshrc-ohmyzsh"
-mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
+if [ ! -d ~/.oh-my-zsh ]; then
+  RUNZSH=no sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  mv -f "$HOME/.zshrc" "$HOME/.zshrc-ohmyzsh"
+  mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
 
-mkdir -p "$HOME/.oh-my-zsh/custom/themes"
-curl https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme > \
-  "$HOME/.oh-my-zsh/custom/themes/bullet-train.zsh-theme"
+  mkdir -p "$HOME/.oh-my-zsh/custom/themes"
+  curl https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme > \
+    "$HOME/.oh-my-zsh/custom/themes/bullet-train.zsh-theme"
 
-if $mac_os; then
-  brew install zsh-autosuggestions
-else
-  mkdir -p "$HOME/.oh-my-zsh/custom/plugins"
-  git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+  if $mac_os; then
+    brew install zsh-autosuggestions
+  else
+    mkdir -p "$HOME/.oh-my-zsh/custom/plugins"
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+  fi
 fi
 
 # vim-plug for Neovim
@@ -136,9 +138,11 @@ if [ $SPIN ]; then
   export BUILDKITE_TOKEN="$(cat /etc/spin/secrets/buildkite_token)"
 
   curl -fLo /tmp/git-delta.deb https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb
-  $(sudo dpkg -i /tmp/git-delta.deb)
+  set +e
+  sudo dpkg -i /tmp/git-delta.deb
   if [ $? -ne 0 ]; then
     echo "Failed to install git-delta"
   fi
+  set -e
   rm /tmp/git-delta.deb
 fi
