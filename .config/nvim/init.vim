@@ -152,12 +152,13 @@ if !isdirectory(plugin_dir)
   PlugInstall
 endif
 
-" -------------------------------------
+" =====================================
 "  Plugin configuration
+" =====================================
+
 " -------------------------------------
-
 " Ale
-
+" -------------------------------------
 let g:ale_linters = {
       \ 'ruby': ['rubocop', 'sorbet'],
       \ 'javascript': ['eslint'],
@@ -172,22 +173,79 @@ let g:ale_open_list = 1
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 
+" -------------------------------------
+" CoC
+" -------------------------------------
+let g:coc_global_extensions = [
+  \ 'coc-tsserver'
+  \ ]
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+" <cr> confirms completion
+inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+
+" Show documentation
+nnoremap <silent> K :call CocAction('doHover')<CR>
+
+" Source navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Perform code action on word at cursor
+nmap <leader>do <Plug>(coc-codeaction)
+
+" Rename a symbol
+nmap <leader>rn <Plug>(coc-rename)
+
+" When hovering over a word, show diagnostic if it exists, otherwise show documentation
+function! ShowDocIfNoDiagnostic(timer_id)
+  if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
+    silent call CocActionAsync('doHover')
+  endif
+endfunction
+
+function! s:show_hover_doc()
+  call timer_start(500, 'ShowDocIfNoDiagnostic')
+endfunction
+
+autocmd CursorHoldI * :call <SID>show_hover_doc()
+autocmd CursorHold * :call <SID>show_hover_doc()
+
+" -------------------------------------
 " monokai.nvim
+" -------------------------------------
 colorscheme monokai
 
+" -------------------------------------
 " telescope
-
+" -------------------------------------
 nnoremap <C-a> :Telescope find_files<cr>
 nnoremap <C-p> :Telescope git_files<cr>
 
+" -------------------------------------
 " vim-airline/vim-airline-themes
+" -------------------------------------
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'minimalist'
 
+" -------------------------------------
 " vim-json
+" -------------------------------------
 let g:vim_json_syntax_conceal = 0
 
+" -------------------------------------
 " vim-test
+" -------------------------------------
 let test#strategy = 'dispatch'
 
 nmap <silent> <leader>t :TestFile<CR>
