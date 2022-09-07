@@ -135,8 +135,6 @@ if [ $SPIN ]; then
   # Disable fixed directory for new shells
   sed --in-place --regexp-extended '/^([^#].*)?cd.*Shopify\"$/  s/^/#/' ~/.zlogin
 
-  export BUILDKITE_TOKEN="$(cat /etc/spin/secrets/buildkite_token)"
-
   curl -fLo /tmp/git-delta.deb https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb
   set +e
   sudo dpkg -i /tmp/git-delta.deb
