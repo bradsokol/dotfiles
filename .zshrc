@@ -26,7 +26,7 @@ if [ "$SPIN" ]; then
     source /etc/zsh/zshrc.default.inc.zsh
   fi
 
-  export BUILDKITE_TOKEN="$(cat /etc/spin/secrets/buildkite_token)"
+  export BUILDKITE_TOKEN="$(cat /etc/spin/secrets/buildkite)"
 else
   BULLETTRAIN_PROMPT_ORDER=(
     time
