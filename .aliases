@@ -4,9 +4,8 @@ OS=$(uname)
 if [ "$OS" != "Darwin" ]; then
   alias ls='ls --color=always'
 else
-  # OS X Vim is crashy. Running just vi always runs OS X Vim.
-  # This alias forces Home Brew Vim
-  alias vi=vim
+  alias vi=nvim
+  alias vim=nvim
 
   alias cat='bat --plain --theme "Monokai Extended Bright"'
   alias fl='bundle exec fastlane'
