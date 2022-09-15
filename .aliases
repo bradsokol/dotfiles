@@ -1,12 +1,10 @@
 #! /bin/bash
 
 OS=$(uname)
+
 if [ "$OS" != "Darwin" ]; then
   alias ls='ls --color=always'
 else
-  alias vi=nvim
-  alias vim=nvim
-
   alias cat='bat --plain --theme "Monokai Extended Bright"'
   alias fl='bundle exec fastlane'
 fi
@@ -28,6 +26,9 @@ alias less='less -F -X'
 alias pj='python -m json.tool'
 
 alias tree='LS_COLORS=$LS_COLORS tree'
+
+alias vi=nvim
+alias vim=nvim
 
 if [ "$SPIN" ]; then
   alias cart='iso cartridge'
