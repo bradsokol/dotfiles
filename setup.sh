@@ -140,7 +140,8 @@ if [ $SPIN ]; then
   sudo dpkg -i /tmp/git-delta.deb
   if [ $? -ne 0 ]; then
     echo "Failed to install git-delta"
+  else
+    rm /tmp/git-delta.deb
   fi
   set -e
-  rm /tmp/git-delta.deb
 fi
