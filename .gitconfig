@@ -22,7 +22,7 @@
 	email = brad.sokol@shopify.com
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = vim
+	editor = nvim
 	pager = delta
 [interactive]
   diffFilter = delta --color-only
