@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #! /bin/env zsh
 
 [[ "$(uname -s)" == "Darwin" ]] && mac_os=true || mac_os=false
@@ -12,6 +19,7 @@ export PATH=~/.local/bin:~/bin:$PATH
 LS_COLORS="di=1;34;40:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 
 ZSH_THEME="bullet-train"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 if [ "$SPIN" ]; then
   BULLETTRAIN_PROMPT_ORDER=(
@@ -94,3 +102,6 @@ if [ -e /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/brad
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 
 [ -f $HOME/.zshrc_local ] && source $HOME/.zshrc_local
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
