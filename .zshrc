@@ -55,6 +55,8 @@ sources=(
   /usr/local/opt/chruby/share/chruby/chruby.sh
   /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ~/.aliases
