@@ -97,6 +97,7 @@ if [ ! -d ~/.oh-my-zsh ]; then
   else
     mkdir -p "$HOME/.oh-my-zsh/custom/plugins"
     git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
   fi
 fi
 
