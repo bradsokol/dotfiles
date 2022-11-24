@@ -112,6 +112,8 @@ endif
 "  Plugins
 " ------------------------------------
 
+let g:ale_disable_lsp=1
+
 let plugin_dir = stdpath('data') . '/site/plugins/'
 
 call plug#begin(plugin_dir)
@@ -160,7 +162,7 @@ endif
 " Ale
 " -------------------------------------
 let g:ale_linters = {
-      \ 'ruby': ['rubocop', 'sorbet'],
+      \ 'ruby': ['rubocop'],
       \ 'javascript': ['eslint'],
       \ 'typescript': ['eslint'],
       \ }
@@ -168,6 +170,7 @@ let g:ale_lingers_ignore = {
       \ 'ruby': ['brakeman'],
       \ }
 
+let g:ale_ruby_rubocop_executable = 'bin/rubocop'
 let g:ale_line_on_text_changed = 'never'
 let g:ale_open_list = 1
 let g:ale_set_loclist = 0
@@ -200,6 +203,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> fh <Plug>(coc-float-hide)
 
 " Perform code action on word at cursor
 nmap <leader>do <Plug>(coc-codeaction)
@@ -224,7 +228,10 @@ autocmd CursorHold * :call <SID>show_hover_doc()
 " -------------------------------------
 " monokai.nvim
 " -------------------------------------
+set termguicolors
 colorscheme monokai
+
+highlight CocFloating guibg=grey
 
 " -------------------------------------
 " telescope
