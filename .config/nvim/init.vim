@@ -61,6 +61,11 @@ let g:markdown_fenced_languages = ['swift', 'python', 'ruby', 'javascript', 'typ
 " Key mappings
 " -------------------------------------
 
+" Open a terminal (shell)
+nmap <silent> <leader>s :split term://zsh<CR>
+nmap <silent> <leader>S :vsplit term://zsh<CR>
+
+" Unhighlight search results
 nnoremap <leader><space> :nohlsearch<cr>
 
 " Position search matches in the middle of the window
@@ -258,9 +263,11 @@ let test#strategy = 'dispatch'
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>n :TestNearest<CR>
-nmap <silent> <leader>s :TestSuite<CR>
 
 if has("macunix")
   " dash.vim
   nmap <silent> <leader>h <Plug>DashSearch
 endif
+
+autocmd TermOpen * DisableWhitespace
+autocmd TermOpen * startinsert
