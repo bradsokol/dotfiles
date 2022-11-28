@@ -124,9 +124,9 @@ let plugin_dir = stdpath('data') . '/site/plugins/'
 call plug#begin(plugin_dir)
 
 Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
@@ -166,6 +166,9 @@ endif
 " -------------------------------------
 " Ale
 " -------------------------------------
+let g:ale_fixers = {
+      \ 'rust': ['rustfmt'],
+      \ }
 let g:ale_linters = {
       \ 'ruby': ['rubocop'],
       \ 'javascript': ['eslint'],
@@ -175,60 +178,82 @@ let g:ale_lingers_ignore = {
       \ 'ruby': ['brakeman'],
       \ }
 
-let g:ale_ruby_rubocop_executable = 'bin/rubocop'
+let g:ale_fix_on_save = 1
 let g:ale_line_on_text_changed = 'never'
 let g:ale_open_list = 1
+let g:ale_ruby_rubocop_executable = 'bin/rubocop'
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 
 " -------------------------------------
-" CoC
+" Neovim LSP
 " -------------------------------------
-let g:coc_global_extensions = [
-  \ 'coc-tsserver'
-  \ ]
+lua <<EOL
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-  let g:coc_global_extensions += ['coc-prettier']
-endif
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-  let g:coc_global_extensions += ['coc-eslint']
-endif
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
 
-" <cr> confirms completion
-inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+local lsp_flags = {
+  debounce_text_changes = 150,
+}
 
-" Show documentation
-nnoremap <silent> K :call CocAction('doHover')<CR>
+require('lspconfig')['rust_analyzer'].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    -- Server-specific settings...
+    settings = {
+      ["rust-analyzer"] = {}
+    }
+}
+require('lspconfig')['sorbet'].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
 
-" Source navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> fh <Plug>(coc-float-hide)
+local _border = "single"
 
-" Perform code action on word at cursor
-nmap <leader>do <Plug>(coc-codeaction)
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = _border
+  }
+)
 
-" Rename a symbol
-nmap <leader>rn <Plug>(coc-rename)
-
-" When hovering over a word, show diagnostic if it exists, otherwise show documentation
-function! ShowDocIfNoDiagnostic(timer_id)
-  if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
-    silent call CocActionAsync('doHover')
-  endif
-endfunction
-
-function! s:show_hover_doc()
-  call timer_start(500, 'ShowDocIfNoDiagnostic')
-endfunction
-
-autocmd CursorHoldI * :call <SID>show_hover_doc()
-autocmd CursorHold * :call <SID>show_hover_doc()
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = _border
+  }
+)
+EOL
 
 " -------------------------------------
 " monokai.nvim
