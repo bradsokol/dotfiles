@@ -129,6 +129,7 @@ Plug 'tanvirtin/monokai.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'rust-lang/rust.vim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -167,23 +168,16 @@ endif
 " Ale
 " -------------------------------------
 let g:ale_fixers = {
-      \ 'rust': ['rustfmt'],
-      \ }
-let g:ale_linters = {
       \ 'ruby': ['rubocop'],
-      \ 'javascript': ['eslint'],
-      \ 'typescript': ['eslint'],
-      \ }
-let g:ale_lingers_ignore = {
-      \ 'ruby': ['brakeman'],
+      \ 'rust': ['rustfmt'],
       \ }
 
 let g:ale_fix_on_save = 1
-let g:ale_line_on_text_changed = 'never'
-let g:ale_open_list = 1
+let g:ale_lint_on_text_changed = 1
+let g:ale_open_list = 0
 let g:ale_ruby_rubocop_executable = 'bin/rubocop'
 let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+let g:ale_set_quickfix = 0
 
 " -------------------------------------
 " Neovim LSP
@@ -240,7 +234,7 @@ require('lspconfig')['sorbet'].setup {
     flags = lsp_flags,
 }
 
-local _border = "single"
+local _border = "rounded"
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
   vim.lsp.handlers.hover, {
@@ -253,6 +247,10 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     border = _border
   }
 )
+
+vim.diagnostic.config {
+  float = { border = _border },
+}
 EOL
 
 " -------------------------------------
@@ -262,6 +260,13 @@ set termguicolors
 colorscheme monokai
 
 highlight CocFloating guibg=grey
+
+" -------------------------------------
+" rust.vim
+" -------------------------------------
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 0
 
 " -------------------------------------
 " telescope
