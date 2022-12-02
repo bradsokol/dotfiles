@@ -254,6 +254,16 @@ vim.diagnostic.config {
 EOL
 
 " -------------------------------------
+" Copilot
+" -------------------------------------
+if filereadable('/user/local/Cellar/node@16/16.18.1/bin/node')
+  let g:copilot_node_command = "/user/local/Cellar/node@16/16.18.1/bin/node"
+endif
+if filereadable('/opt/homebrew/opt/node@16/bin/node')
+  let g:copilot_node_command = "/opt/homebrew/opt/node@16/bin/node"
+endif
+
+" -------------------------------------
 " monokai.nvim
 " -------------------------------------
 set termguicolors
