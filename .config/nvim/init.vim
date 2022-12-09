@@ -229,6 +229,15 @@ require('lspconfig')['rust_analyzer'].setup {
       ["rust-analyzer"] = {}
     }
 }
+require'lspconfig'.solargraph.setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    -- Server-specific settings...
+    settings = {
+      ["solargraph"] = {}
+    }
+}
+
 require('lspconfig')['sorbet'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
