@@ -124,8 +124,10 @@ let plugin_dir = stdpath('data') . '/site/plugins/'
 call plug#begin(plugin_dir)
 
 Plug 'dense-analysis/ale'
+Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-lua/plenary.nvim'
@@ -183,6 +185,8 @@ let g:ale_set_quickfix = 0
 " Neovim LSP
 " -------------------------------------
 lua <<EOL
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -223,6 +227,7 @@ local lsp_flags = {
 
 require('lspconfig')['rust_analyzer'].setup {
     on_attach = on_attach,
+    capabilities = capabilities,
     flags = lsp_flags,
     -- Server-specific settings...
     settings = {
@@ -231,6 +236,7 @@ require('lspconfig')['rust_analyzer'].setup {
 }
 require'lspconfig'.solargraph.setup {
     on_attach = on_attach,
+    capabilities = capabilities,
     flags = lsp_flags,
     -- Server-specific settings...
     settings = {
@@ -240,6 +246,7 @@ require'lspconfig'.solargraph.setup {
 
 require('lspconfig')['sorbet'].setup {
     on_attach = on_attach,
+    capabilities = capabilities,
     flags = lsp_flags,
 }
 
@@ -259,6 +266,47 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 
 vim.diagnostic.config {
   float = { border = _border },
+}
+
+-- nvim-cmp
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
 }
 EOL
 
