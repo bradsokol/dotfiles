@@ -103,6 +103,7 @@ augroup Ruby
   " Insert breakpoint
   autocmd filetype ruby nnoremap <buffer> <leader>b Obinding.pry<esc>==
   autocmd filetype ruby nnoremap <buffer> <leader>B Obyebug<esc>==
+  autocmd filetype ruby nnoremap <buffer> <leader>d Odebugger<esc>==
 
   " Insert frozen string literal sigel at the top of the file
   autocmd filetype ruby nnoremap <buffer> <leader>F ggO# frozen_string_literal: true<cr><esc>0D
