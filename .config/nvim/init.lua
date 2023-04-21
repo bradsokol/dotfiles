@@ -167,6 +167,7 @@ vim.call('plug#begin', plugin_dir)
 Plug 'dense-analysis/ale'
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
+Plug 'preservim/nerdtree'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-lua/plenary.nvim'
@@ -305,11 +306,14 @@ vim.diagnostic.config {
 -- -------------------------------------
 -- Copilot
 -- -------------------------------------
-if vim.fn.filereadable('/user/local/Cellar/node@16/16.18.1/bin/node') then
-  vim.g.copilot_node_command = "/user/local/Cellar/node@16/16.18.1/bin/node"
+if vim.fn.filereadable('/usr/local/Cellar/node@16/16.18.1/bin/node') then
+  vim.g.copilot_node_command = "/usr/local/Cellar/node@16/16.18.1/bin/node"
 end
 if vim.fn.filereadable('/opt/homebrew/opt/node@16/bin/node') then
   vim.g.copilot_node_command = "/opt/homebrew/opt/node@16/bin/node"
+end
+if vim.fn.filereadable('/usr/local/bin/node') then
+  vim.g.copilot_node_command = "/usr/local/bin/node"
 end
 
 -- -------------------------------------
@@ -326,6 +330,11 @@ vim.o.termguicolors = true
 require('monokai').setup {}
 
 vim.api.nvim_set_hl(0, 'CocFloating', { guibg = Grey })
+
+-- -------------------------------------
+-- NERDTree
+-- -------------------------------------
+nmap('<leader>T', ':NERDTreeFocus<CR>', { silent = true, noremap = true})
 
 -- -------------------------------------
 -- rust.vim
