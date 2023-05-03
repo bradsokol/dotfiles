@@ -306,14 +306,12 @@ vim.diagnostic.config {
 -- -------------------------------------
 -- Copilot
 -- -------------------------------------
-if vim.fn.filereadable('/usr/local/Cellar/node@16/16.18.1/bin/node') then
-  vim.g.copilot_node_command = "/usr/local/Cellar/node@16/16.18.1/bin/node"
-end
-if vim.fn.filereadable('/opt/homebrew/opt/node@16/bin/node') then
+if vim.fn.has("macunix") then
   vim.g.copilot_node_command = "/opt/homebrew/opt/node@16/bin/node"
-end
-if vim.fn.filereadable('/usr/local/bin/node') then
-  vim.g.copilot_node_command = "/usr/local/bin/node"
+else
+  if vim.fn.has("linux") then
+    vim.g.copilot_node_command = "/usr/local/bin/node"
+  end
 end
 
 -- -------------------------------------
