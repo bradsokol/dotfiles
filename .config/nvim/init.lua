@@ -306,10 +306,10 @@ vim.diagnostic.config {
 -- -------------------------------------
 -- Copilot
 -- -------------------------------------
-if vim.fn.has("macunix") then
+if vim.fn.has("macunix") == 1 then
   vim.g.copilot_node_command = "/opt/homebrew/opt/node@16/bin/node"
 else
-  if vim.fn.has("linux") then
+  if vim.fn.has("linux") == 1 then
     vim.g.copilot_node_command = "/usr/local/bin/node"
   end
 end
