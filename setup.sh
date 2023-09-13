@@ -83,6 +83,12 @@ for dirname in .config/*; do
   link_config_file $(basename $dirname)
 done
 
+mkdir -p "$HOME/bin"
+for filename in bin/*; do
+  filename=$(basename "$filename")
+  [ ! -f "$HOME/bin/$filename" ] && ln -s "$link_source/$filename" "$HOME/bin/$filename"
+done
+
 if [ ! -d ~/.oh-my-zsh ]; then
   RUNZSH=no sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   mv -f "$HOME/.zshrc" "$HOME/.zshrc-ohmyzsh"
