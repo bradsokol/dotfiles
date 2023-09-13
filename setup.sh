@@ -86,7 +86,7 @@ done
 mkdir -p "$HOME/bin"
 for filename in bin/*; do
   filename=$(basename "$filename")
-  [ ! -f "$HOME/bin/$filename" ] && ln -s "$link_source/$filename" "$HOME/bin/$filename"
+  [ ! -f "$HOME/bin/$filename" ] && ln -s "$link_source/bin/$filename" "$HOME/bin/$filename"
 done
 
 if [ ! -d ~/.oh-my-zsh ]; then
