@@ -23,7 +23,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias less='less -F -X'
 
-alias pj='python -m json.tool'
+alias pj='python3 -m json.tool'
 
 alias tree='LS_COLORS=$LS_COLORS tree'
 
