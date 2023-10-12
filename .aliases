@@ -3,6 +3,7 @@
 OS=$(uname)
 
 if [ "$OS" != "Darwin" ]; then
+  alias cat='batcat --plain --theme "Monokai Extended Bright"'
   alias ls='ls --color=always'
 else
   alias cat='bat --plain --theme "Monokai Extended Bright"'
