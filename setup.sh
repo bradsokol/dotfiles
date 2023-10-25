@@ -132,6 +132,10 @@ if [ $SPIN ]; then
   git config --global user.signingkey 6E5D58F506FA8AD8FC8B0733215448069FE030BB
 
   for dir in ~/src/github.com/Shopify/*/ ; do
+    if [ ! -d "$dir/.git" ]; then
+      continue
+    fi
+
     cd $dir
     git shopify
     git status
