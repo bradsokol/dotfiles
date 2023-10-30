@@ -116,6 +116,10 @@ nmap("<leader>z", ":setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)
 nmap("<leader>-", ":wincmd _<CR>:wincmd |<CR>")
 nmap("<leader>=", ":wincmd =<CR>")
 
+-- Quickfix navigation
+nmap("[a", ":cprev<CR>")
+nmap("]a", ":cnext<CR>")
+
 -- Ruby bindings
 
 local rubyGroup = vim.api.nvim_create_augroup("Ruby", { clear = true })
@@ -344,7 +348,7 @@ vim.g.rustfmt_fail_silently = 0
 -- -------------------------------------
 -- telescope
 -- -------------------------------------
-nmap('<C-a>', '<cmd>Telescope find_files<cr>')
+nmap('<C-a>', '<cmd>Telescope live_grep<cr>')
 nmap('<C-p>', '<cmd>Telescope git_files<cr>')
 
 -- -------------------------------------
