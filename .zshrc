@@ -1,11 +1,11 @@
+#! /bin/env zsh
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-#! /bin/env zsh
 
 [[ "$(uname -s)" == "Darwin" ]] && mac_os=true || mac_os=false
 
@@ -85,6 +85,8 @@ fi
 
 man-builtin () { man bash | less -p "^       $1 "; }
 
+bindkey \^U backward-kill-line
+
 pman()
 {
   if [ -z "$1" ]; then
@@ -94,7 +96,7 @@ pman()
   man -t "$@" | open -fa Preview
 }
 
-#[[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
+[[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
 if [ -e /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/bradsokol/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 [[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
