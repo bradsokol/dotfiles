@@ -195,6 +195,15 @@ Plug('Shopify/vim-sorbet', { branch = 'master' })
 Plug 'tpope/vim-surround'
 Plug 'vim-test/vim-test'
 
+-- nvim-cmp
+Plug('hrsh7th/nvim-cmp')
+Plug('hrsh7th/cmp-buffer')
+Plug('hrsh7th/cmp-path')
+Plug('L3MON4D3/LuaSnip')
+Plug('saadparwaiz1/cmp_luasnip')
+Plug('rafamadriz/friendly-snippets')
+Plug('onsails/lspkind.nvim')
+
 if vim.fn.has("macunix") then
   Plug 'rizzatti/dash.vim'
 end
@@ -226,16 +235,121 @@ vim.g.ale_set_loclist = 0
 vim.g.ale_set_quickfix = 0
 
 -- -------------------------------------
+-- nvim-cmp
+-- -------------------------------------
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+local luasnip = require('luasnip')
+
+require("luasnip.loaders.from_vscode").load()
+
+local check_backspace = function()
+  local col = vim.fn.col('.') - 1
+  return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s')
+end
+
+--   פּ ﯟ   some other good icons
+-- See https://github.com/LunarVim/Neovim-from-scratch/blob/a0e07fcba9be979ae2594636a32c881064a3c8f6/lua/user/cmp.lua#L97-L110
+local kind_icons = {
+  Text = "󰊄",
+  Method = "m",
+  Function = "󰊕",
+  Constructor = "",
+  Field = "",
+  Variable = "󰫧",
+  Class = "",
+  Interface = "",
+  Module = "",
+  Property = "",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "󰌆",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = "󰉺",
+}
+
+cmp.setup({
+  completion = {
+    completeopt = 'menu,menuone,preview,noselect',
+  },
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+    ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+    ["<C-e>"] = cmp.mapping {
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    },
+    ["<CR>"] = cmp.mapping.confirm({ select = false }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expandable() then
+        lausnip.expand()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif check_backspace() then
+        fallback()
+      else
+        fallback()
+      end
+    end, {
+      "i",
+      "s",
+    }),
+  }),
+  sources = cmp.config.sources({
+    -- { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "buffer" },
+    { name = "path" },
+  }),
+  formatting = {
+    format = lspkind.cmp_format({with_text = true, maxwidth = 50, ellipsis_char = "..."})
+  },
+  confirm_opts = {
+    behavior = cmp.ConfirmBehavior.Replace,
+    select = false,
+  },
+  window = {
+    documentation = cmp.config.window.bordered()
+  },
+  experimental = {
+    native_menu = false,
+    ghost_text = true,
+  },
+})
+
+-- -------------------------------------
 -- Neovim LSP
 -- -------------------------------------
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+local keymap = vim.keymap
+
+keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -246,28 +360,30 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
+  keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  keymap.set('n', '<space>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 local lsp_flags = {
   debounce_text_changes = 150,
 }
 
-require('lspconfig')['rust_analyzer'].setup {
+local lspconfig = require("lspconfig")
+
+lspconfig['rust_analyzer'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
     -- Server-specific settings...
@@ -275,7 +391,7 @@ require('lspconfig')['rust_analyzer'].setup {
       ["rust-analyzer"] = {}
     }
 }
-require'lspconfig'.solargraph.setup {
+lspconfig.solargraph.setup {
     on_attach = on_attach,
     flags = lsp_flags,
     -- Server-specific settings...
@@ -284,7 +400,7 @@ require'lspconfig'.solargraph.setup {
     }
 }
 
-require('lspconfig')['sorbet'].setup {
+lspconfig['sorbet'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
