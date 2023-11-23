@@ -80,6 +80,9 @@ local function vmap(shortcut, command, options)
   map('v', shortcut, command, options)
 end
 
+-- Copilot completion
+imap('<C-L>', 'copilot#Accept("<CR>")', { expr = true, replace_keycodes = false })
+
 -- Open a terminal (shell)
 nmap("<leader>s", ":split term://zsh<CR>", { noremap = false, silent = true })
 nmap("<leader>S", ":vsplit term://zsh<CR>", { noremap = false, silent = true })
@@ -164,11 +167,8 @@ end
 local Plug = vim.fn['plug#']
 local plugin_dir = vim.fn.stdpath('data') .. '/site/plugins/'
 
-vim.g.ale_disable_lsp = 1
-
 vim.call('plug#begin', plugin_dir)
 
-Plug 'dense-analysis/ale'
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
 Plug 'preservim/nerdtree'
@@ -223,20 +223,6 @@ end
 -- =====================================
 --  Plugin configuration
 -- =====================================
-
--- -------------------------------------
--- Ale
--- -------------------------------------
-vim.g.ale_fixers = {
-      ruby = {'rubocop'},
-}
-
-vim.g.ale_fix_on_save = 1
-vim.g.ale_lint_on_text_changed = 1
-vim.g.ale_open_list = 0
-vim.g.ale_ruby_rubocop_executable = 'bin/rubocop'
-vim.g.ale_set_loclist = 0
-vim.g.ale_set_quickfix = 0
 
 -- -------------------------------------
 -- nvim-cmp
@@ -376,6 +362,7 @@ mason_lspconfig.setup({
     "cssls",
     "lua_ls",
     "graphql",
+    "ruby-lsp",
   },
   -- auto-install configured servers (with lspconfig)
   automatic_installation = true, -- not the same as ensure_installed
@@ -513,15 +500,53 @@ lspconfig["html"].setup({
   on_attach = on_attach,
 })
 
-lspconfig.solargraph.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  flags = lsp_flags,
-  -- Server-specific settings...
-  settings = {
-    ["solargraph"] = {}
-  }
-}
+local _timers = {}
+local function setup_diagnostics(client, buffer)
+  if require("vim.lsp.diagnostic")._enable then
+    return
+  end
+
+  local diagnostic_handler = function()
+    local params = vim.lsp.util.make_text_document_params(buffer)
+    client.request("textDocument/diagnostic", { textDocument = params }, function(err, result)
+      if err then
+        local err_msg = string.format("diagnostics error - %s", vim.inspect(err))
+        vim.lsp.log.error(err_msg)
+      end
+      local diagnostic_items = {}
+      if result then
+        diagnostic_items = result.items
+      end
+      vim.lsp.diagnostic.on_publish_diagnostics(
+        nil,
+        vim.tbl_extend("keep", params, { diagnostics = diagnostic_items }),
+        { client_id = client.id }
+      )
+    end)
+  end
+
+  diagnostic_handler() -- to request diagnostics on buffer when first attaching
+
+  vim.api.nvim_buf_attach(buffer, false, {
+    on_lines = function()
+      if _timers[buffer] then
+        vim.fn.timer_stop(_timers[buffer])
+      end
+      _timers[buffer] = vim.fn.timer_start(200, diagnostic_handler)
+    end,
+    on_detach = function()
+      if _timers[buffer] then
+        vim.fn.timer_stop(_timers[buffer])
+      end
+    end,
+  })
+end
+
+require("lspconfig").ruby_ls.setup({
+  on_attach = function(client, buffer)
+    setup_diagnostics(client, buffer)
+  end,
+})
 
 lspconfig['sorbet'].setup {
   capabilities = capabilities,
@@ -583,6 +608,10 @@ else
     vim.g.copilot_node_command = "/usr/local/bin/node"
   end
 end
+
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+vim.g.copilot_tab_fallback = ""
 
 -- -------------------------------------
 -- Dash
