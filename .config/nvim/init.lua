@@ -265,7 +265,7 @@ local kind_icons = {
   Value = "",
   Enum = "",
   Keyword = "󰌆",
-  Snippet = "",
+  Snippet = "",
   Color = "",
   File = "",
   Reference = "",
@@ -322,7 +322,17 @@ cmp.setup({
     { name = "path" },
   }),
   formatting = {
-    format = lspkind.cmp_format({with_text = true, maxwidth = 50, ellipsis_char = "..."})
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+      vim_item.menu = ({
+        luasnip = "[Snippet]",
+        buffer = "[Buffer]",
+        path = "[Path]",
+      })[entry.source.name]
+      return vim_item
+    end,
+ 
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
