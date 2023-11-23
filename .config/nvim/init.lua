@@ -60,7 +60,7 @@ vim.g.markdown_fenced_languages = {'swift', 'python', 'ruby', 'javascript', 'typ
 -- Key mappings
 -- -------------------------------------
 
-function map(mode, shortcut, command, options)
+local function map(mode, shortcut, command, options)
   local opts = { noremap = true }
   if options then
     opts = vim.tbl_extend('force', opts, options)
@@ -68,15 +68,15 @@ function map(mode, shortcut, command, options)
   vim.keymap.set(mode, shortcut, command, opts)
 end
 
-function imap(shortcut, command, options)
+local function imap(shortcut, command, options)
   map('i', shortcut, command, options)
 end
 
-function nmap(shortcut, command, options)
+local function nmap(shortcut, command, options)
   map('n', shortcut, command, options)
 end
 
-function vmap(shortcut, command, options)
+local function vmap(shortcut, command, options)
   map('v', shortcut, command, options)
 end
 
@@ -126,28 +126,28 @@ local rubyGroup = vim.api.nvim_create_augroup("Ruby", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "ruby",
   group = rubyGroup,
-  callback = function(opts)
+  callback = function(_)
     nmap("<leader>b", "Obinding.pry<esc>==")
   end
 })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "ruby",
   group = rubyGroup,
-  callback = function(opts)
+  callback = function(_)
     nmap("<leader>B", "Obyebug<esc>==")
   end
 })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "ruby",
   group = rubyGroup,
-  callback = function(opts)
+  callback = function(_)
     nmap("<leader>d", "Odebugger<esc>==")
   end
 })
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "ruby",
   group = rubyGroup,
-  callback = function(opts)
+  callback = function(_)
     nmap("<leader>F", "ggO# frozen_string_literal: true<cr><esc>0D")
   end
 })
@@ -172,10 +172,8 @@ Plug 'dense-analysis/ale'
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
 Plug 'preservim/nerdtree'
-Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'rust-lang/rust.vim'
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -204,6 +202,13 @@ Plug('saadparwaiz1/cmp_luasnip')
 Plug('rafamadriz/friendly-snippets')
 Plug('onsails/lspkind.nvim')
 
+-- lsp
+Plug('neovim/nvim-lspconfig')
+Plug('hrsh7th/cmp-nvim-lsp')
+Plug('williamboman/mason-lspconfig.nvim')
+Plug('WhoIsSethDaniel/mason-tool-installer.nvim')
+Plug('williamboman/mason.nvim')
+
 if vim.fn.has("macunix") then
   Plug 'rizzatti/dash.vim'
 end
@@ -224,7 +229,6 @@ end
 -- -------------------------------------
 vim.g.ale_fixers = {
       ruby = {'rubocop'},
-      rust = {'rustfmt'},
 }
 
 vim.g.ale_fix_on_save = 1
@@ -238,7 +242,6 @@ vim.g.ale_set_quickfix = 0
 -- nvim-cmp
 -- -------------------------------------
 local cmp = require('cmp')
-local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 
 require("luasnip.loaders.from_vscode").load()
@@ -302,7 +305,7 @@ cmp.setup({
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expandable() then
-        lausnip.expand()
+        luasnip.expand()
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       elseif check_backspace() then
@@ -316,7 +319,7 @@ cmp.setup({
     }),
   }),
   sources = cmp.config.sources({
-    -- { name = "nvim_lsp" },
+    { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
@@ -332,18 +335,57 @@ cmp.setup({
       })[entry.source.name]
       return vim_item
     end,
- 
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
   },
   window = {
+    completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered()
   },
   experimental = {
     native_menu = false,
     ghost_text = true,
+  },
+})
+
+-- -------------------------------------
+--  Mason
+-- -------------------------------------
+
+local mason = require('mason')
+local mason_lspconfig = require('mason-lspconfig')
+local mason_tool_installer = require('mason-tool-installer')
+
+mason.setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
+    },
+  },
+})
+
+mason_lspconfig.setup({
+  -- list of servers for mason to install
+  ensure_installed = {
+    "tsserver",
+    "html",
+    "cssls",
+    "lua_ls",
+    "graphql",
+  },
+  -- auto-install configured servers (with lspconfig)
+  automatic_installation = true, -- not the same as ensure_installed
+})
+
+mason_tool_installer.setup({
+  ensure_installed = {
+    "prettier", -- prettier formatter
+    "stylua", -- lua formatter
+    "eslint_d", -- js linter
   },
 })
 
@@ -363,57 +405,155 @@ keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  opts.buffer = bufnr
+
+  -- set keybinds
+  opts.desc = "Show LSP references"
+  keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+
+  opts.desc = "Go to declaration"
+  keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+
+  opts.desc = "Show LSP definitions"
+  keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+
+  opts.desc = "Show LSP implementations"
+  keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+
+  opts.desc = "Show LSP type definitions"
+  keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+
+  opts.desc = "See available code actions"
+  keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+
+  opts.desc = "Smart rename"
+  keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+
+  opts.desc = "Show buffer diagnostics"
+  keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+
+  opts.desc = "Show line diagnostics"
+  keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
+
+  opts.desc = "Go to previous diagnostic"
+  keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+
+  opts.desc = "Go to next diagnostic"
+  keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+
+  opts.desc = "Show documentation for what is under cursor"
+  keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+
+  opts.desc = "Restart LSP"
+  keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 end
+
+local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
+local config = {
+  virtual_text = true,
+  signs = {
+    active = signs,
+  },
+  update_in_insert = true,
+  underline = true,
+  severity_sort = true,
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  },
+}
+
+  vim.diagnostic.config(config)
+
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = "rounded",
+  })
+
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = "rounded",
+  })
 
 local lsp_flags = {
   debounce_text_changes = 150,
 }
 
 local lspconfig = require("lspconfig")
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-lspconfig['rust_analyzer'].setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    -- Server-specific settings...
-    settings = {
-      ["rust-analyzer"] = {}
-    }
-}
+local capabilities = cmp_nvim_lsp.default_capabilities()
+
+lspconfig["cssls"].setup({
+  capabilities = capabilities,
+  flags = lsp_flags,
+  on_attach = on_attach,
+})
+
+lspconfig["graphql"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+})
+
+lspconfig["html"].setup({
+  capabilities = capabilities,
+  flags = lsp_flags,
+  on_attach = on_attach,
+})
+
 lspconfig.solargraph.setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    -- Server-specific settings...
-    settings = {
-      ["solargraph"] = {}
-    }
+  capabilities = capabilities,
+  on_attach = on_attach,
+  flags = lsp_flags,
+  -- Server-specific settings...
+  settings = {
+    ["solargraph"] = {}
+  }
 }
 
 lspconfig['sorbet'].setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
+  capabilities = capabilities,
+  on_attach = on_attach,
+  flags = lsp_flags,
 }
+
+lspconfig['tsserver'].setup({
+  capabilities = capabilities,
+  flags = lsp_flags,
+  on_attach = on_attach,
+})
+
+lspconfig["lua_ls"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      -- make the language server recognize "vim" global
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        -- make language server aware of runtime files
+        library = {
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.stdpath("config") .. "/lua"] = true,
+        },
+      },
+    },
+  },
+})
 
 local _border = "rounded"
 
@@ -457,19 +597,10 @@ end
 vim.o.termguicolors = true
 require('monokai').setup {}
 
-vim.api.nvim_set_hl(0, 'CocFloating', { guibg = Grey })
-
 -- -------------------------------------
 -- NERDTree
 -- -------------------------------------
 nmap('<leader>T', ':NERDTreeFocus<CR>', { silent = true, noremap = true})
-
--- -------------------------------------
--- rust.vim
--- -------------------------------------
-vim.g.rustfmt_autosave = 1
-vim.g.rustfmt_emit_files = 1
-vim.g.rustfmt_fail_silently = 0
 
 -- -------------------------------------
 -- telescope
