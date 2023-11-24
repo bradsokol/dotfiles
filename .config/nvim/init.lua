@@ -191,6 +191,7 @@ Plug 'tpope/vim-rhubarb'
 Plug('Shopify/vim-sorbet', { branch = 'master' })
 Plug 'tpope/vim-surround'
 Plug 'vim-test/vim-test'
+Plug 'stevearc/dressing.nvim'
 
 -- nvim-tree
 Plug('nvim-tree/nvim-tree.lua')
