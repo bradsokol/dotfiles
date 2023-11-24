@@ -120,8 +120,8 @@ nmap("<leader>-", ":wincmd _<CR>:wincmd |<CR>")
 nmap("<leader>=", ":wincmd =<CR>")
 
 -- Quickfix navigation
-nmap("[a", ":cprev<CR>")
-nmap("]a", ":cnext<CR>")
+nmap("[q", ":cprev<CR>")
+nmap("]q", ":cnext<CR>")
 
 -- Ruby bindings
 
@@ -671,8 +671,15 @@ require('monokai').setup {}
 -- -------------------------------------
 -- telescope
 -- -------------------------------------
+-- Old mappings
 nmap('<C-a>', '<cmd>Telescope live_grep<cr>')
 nmap('<C-p>', '<cmd>Telescope git_files<cr>')
+
+nmap('<leader>ff', '<cmd>Telescope git_files<cr>')
+nmap('<leader>fF', '<cmd>Telescope find_files<cr>')
+nmap('<leader>fg', '<cmd>Telescope live_grep<cr>')
+nmap('<leader>fb', '<cmd>Telescope buffers<cr>')
+nmap('<leader>fh', '<cmd>Telescope help_tags<cr>')
 
 -- -------------------------------------
 -- vim-airline/vim-airline-themes
