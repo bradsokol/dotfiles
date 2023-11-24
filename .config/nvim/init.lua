@@ -171,7 +171,6 @@ vim.call('plug#begin', plugin_dir)
 
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
-Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-lua/plenary.nvim'
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 Plug 'vim-airline/vim-airline'
