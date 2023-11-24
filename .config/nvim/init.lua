@@ -171,7 +171,6 @@ vim.call('plug#begin', plugin_dir)
 
 Plug 'github/copilot.vim'
 Plug 'tanvirtin/monokai.nvim'
-Plug 'preservim/nerdtree'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-lua/plenary.nvim'
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
@@ -192,6 +191,10 @@ Plug 'tpope/vim-rhubarb'
 Plug('Shopify/vim-sorbet', { branch = 'master' })
 Plug 'tpope/vim-surround'
 Plug 'vim-test/vim-test'
+
+-- nvim-tree
+Plug('nvim-tree/nvim-tree.lua')
+Plug('nvim-tree/nvim-web-devicons')
 
 -- nvim-cmp
 Plug('hrsh7th/nvim-cmp')
@@ -223,6 +226,46 @@ end
 -- =====================================
 --  Plugin configuration
 -- =====================================
+
+-- -------------------------------------
+-- nvim-tree
+-- -------------------------------------
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+ nmap('<leader>T', ':NvimTreeToggle<CR>', { silent = true, noremap = true})
+
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
+local function on_attach(bufnr)
+  local api = require "nvim-tree.api"
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- custom mappings
+  vim.keymap.set('n', '?',     api.tree.toggle_help,                  opts('Help'))
+end
+
+require("nvim-tree").setup({
+  on_attach = on_attach,
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
 
 -- -------------------------------------
 -- nvim-cmp
@@ -390,9 +433,7 @@ keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
+on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -625,11 +666,6 @@ end
 -- -------------------------------------
 vim.o.termguicolors = true
 require('monokai').setup {}
-
--- -------------------------------------
--- NERDTree
--- -------------------------------------
-nmap('<leader>T', ':NERDTreeFocus<CR>', { silent = true, noremap = true})
 
 -- -------------------------------------
 -- telescope
