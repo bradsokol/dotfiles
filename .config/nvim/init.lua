@@ -687,6 +687,11 @@ vim.g.airline_powerline_fonts = 1
 vim.g.airline_theme = 'minimalist'
 
 -- -------------------------------------
+-- vim-fugitive
+-- -------------------------------------
+nmap('<leader>bl', ':Git blame<CR>', { silent = true, noremap = true })
+
+-- -------------------------------------
 -- vim-json
 -- -------------------------------------
 vim.g.vim_json_syntax_conceal = 0
