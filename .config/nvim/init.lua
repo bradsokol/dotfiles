@@ -186,7 +186,6 @@ Plug 'jparise/vim-graphql'
 Plug 'elzr/vim-json'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-rhubarb'
 Plug('Shopify/vim-sorbet', { branch = 'master' })
 Plug 'tpope/vim-surround'
 Plug 'vim-test/vim-test'
