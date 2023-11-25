@@ -54,9 +54,11 @@ Plug('hrsh7th/cmp-nvim-lsp')
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('WhoIsSethDaniel/mason-tool-installer.nvim')
 Plug('williamboman/mason.nvim')
+Plug("folke/lsp-trouble.nvim")
 
 if vim.fn.has("macunix") then
   Plug 'rizzatti/dash.vim'
+  Plug 'wojciech-kulik/xcodebuild.nvim'
 end
 
 vim.call('plug#end')
@@ -362,6 +364,7 @@ local lsp_flags = {
 }
 
 local lspconfig = require("lspconfig")
+local util = require("lspconfig.util")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -437,6 +440,23 @@ lspconfig['sorbet'].setup {
   on_attach = on_attach,
   flags = lsp_flags,
 }
+
+if vim.fn.has("macunix") then
+  lspconfig["sourcekit"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = lsp_flags,
+    cmd = {
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+    },
+    root_dir = function(filename, _)
+      return util.root_pattern("buildServer.json")(filename) or
+        util.root_pattern("*.xcodeproj", "*.xcworkspace")(filename) or
+        util.find_git_ancestor(filename) or
+        util.root_pattern("Package.swift")(filename)
+    end,
+  })
+end
 
 lspconfig['tsserver'].setup({
   capabilities = capabilities,
@@ -554,3 +574,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.api.nvim_create_autocmd("TermOpen", {
   command = "startinsert"
 })
+
+require("trouble").setup({})
+require("xcodebuild").setup({})
