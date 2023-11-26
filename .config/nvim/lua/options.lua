@@ -26,6 +26,7 @@ opt.number = true
 opt.relativenumber = true
 opt.showcmd = true
 opt.showmode = true
+opt.termguicolors = true
 
 -- Search
 
