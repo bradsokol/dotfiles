@@ -107,15 +107,7 @@ if [ ! -d ~/.oh-my-zsh ]; then
   fi
 fi
 
-# vim-plug for Neovim
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-nvim +PlugInstall +qall | tee /tmp/plug_install.txt
-
 if [ $SPIN ]; then
-  # sudo update-alternatives --remove vi /usr/bin/nvim
-  # sudo update-alternatives --remove vim /usr/bin/nvim
-
   mkdir -p $HOME/.local/bin
 
   # Telescope in nvim expects fdfind to be called fd
