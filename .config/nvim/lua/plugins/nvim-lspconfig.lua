@@ -4,6 +4,7 @@ return {
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
     'folke/lsp-trouble.nvim',
+    'nvim-telescope/telescope.nvim',
   },
   config = function()
     local opts = { noremap=true, silent=true }
