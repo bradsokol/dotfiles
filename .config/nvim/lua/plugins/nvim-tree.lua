@@ -6,9 +6,6 @@ return {
     { '<leader>T', ':NvimTreeFindFileToggle<cr>', desc = 'Toggle file explorer' },
   },
   config = function()
-    vim.g.loaded_netrw = 1
-    vim.g.loaded_netrwPlugin = 1
-
     vim.cmd([[ highlight NvimTreeFolderArrowClosed guifg=#3FC5FF ]])
     vim.cmd([[ highlight NvimTreeFolderArrowOpen guifg=#3FC5FF ]])
 

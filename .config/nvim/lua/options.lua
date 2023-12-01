@@ -1,6 +1,12 @@
 local opt = vim.opt
 local g = vim.g
 
+-- Disable netrw in favour of nvim-tree. Must be done here since nvim-tree is
+-- lazy-loaded.
+
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
+
 -- Whitespace handling
 
 opt.autoindent = true
