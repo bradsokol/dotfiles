@@ -1,12 +1,16 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  enabled = false,
+  -- enabled = false,
   event = { 'BufRead', 'BufNewFile' },
   build = ':TSUpdate',
   config = function()
     local treesitter = require('nvim-treesitter.configs')
 
     treesitter.setup({
+      hidesig = {
+        enable = true,
+        opacity = 0.40,
+      },
       highlight = {
         enable = true,
       },

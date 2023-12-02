@@ -1,0 +1,3 @@
+return {
+  { "omnisyle/nvim-hidesig" },
+}
