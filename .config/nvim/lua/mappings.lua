@@ -70,7 +70,7 @@ api.nvim_create_autocmd("FileType", {
   pattern = "ruby",
   group = rubyGroup,
   callback = function(_)
-    nmap("<leader>d", "Odebugger<esc>==")
+    nmap("<leader>dd", "Odebugger<esc>==")
   end
 })
 api.nvim_create_autocmd("FileType", {
