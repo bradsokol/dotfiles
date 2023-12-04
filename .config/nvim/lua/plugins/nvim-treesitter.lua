@@ -9,14 +9,14 @@ return {
     treesitter.setup({
       hidesig = {
         enable = true,
-        opacity = 0.40,
+        opacity = 0.50,
       },
-      highlight = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      },
+      -- highlight = {
+      --   enable = true,
+      -- },
+      -- indent = {
+      --   enable = true,
+      -- },
       ensure_installed = {
         'json',
         'javascript',
