@@ -1,3 +1,5 @@
+.config/irb/irb_history
+
 .vim/autoload/
 .vim/plugins/
 .vim/spell/
