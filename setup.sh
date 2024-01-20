@@ -107,6 +107,8 @@ if [ ! -d ~/.oh-my-zsh ]; then
   fi
 fi
 
+git clone https://github.com/tmux-plugins/tpm ~/.local/share/tmux/plugins/tpm
+
 if [ $SPIN ]; then
   mkdir -p $HOME/.local/bin
 
