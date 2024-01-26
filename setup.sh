@@ -138,6 +138,9 @@ if [ $SPIN ]; then
 
   sudo timedatectl set-timezone Canada/Eastern
 
+  # Install Neovim plugins
+  timeout 2m nvim --headless "+Lazy! sync" +qa || true
+
   # Disable fixed directory for new shells
   sed --in-place --regexp-extended '/^([^#].*)?cd.*Shopify\"$/  s/^/#/' ~/.zlogin
 
