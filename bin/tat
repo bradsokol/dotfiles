@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Attach or create tmux session named the same as current directory.
 
@@ -14,11 +14,23 @@ session_exists() {
   tmux list-sessions | sed -E 's/:.*$//' | grep -q "^$session_name$"
 }
 
-if in_spin; then
-  session_name=$(cat ~/spin.code-workspace | jq '.folders[].path' | tr -d '"' | xargs basename -a | sort -r | fzf)
-  session_options="-c $HOME/src/github.com/Shopify/$session_name"
+if [ $# -eq 0 ]; then
+  if in_spin; then
+    session_name=$(cat ~/spin.code-workspace | jq '.folders[].path' | tr -d '"' | xargs basename -a | sort -r | fzf)
+    session_options="-c $HOME/src/github.com/Shopify/$session_name"
+  else
+    if [ -n "$NIX_PATH" ]; then
+      # Work laptop
+      dev_root=/Users/bradsokol/dev
+      session_name=$(ls -d /Users/bradsokol/dev/*/ | xargs basename -a | sort -r | fzf)
+      session_options="-c $dev_root/$session_name"
+    else
+      session_name="$(basename "$PWD" | tr . -)"
+    fi
+  fi
 else
-  session_name="$(basename "$PWD" | tr . -)"
+  session_name=$(basename "$1")
+  session_options="-c $(realpath "$1")"
 fi
 
 if in_tmux; then
