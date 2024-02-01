@@ -140,6 +140,9 @@ if [ $SPIN ]; then
 
   # Install Neovim plugins
   timeout 2m nvim --headless "+Lazy! sync" +qa || true
+  
+  # Install tmux plugins
+  ~/.local/share/tmux/plugins/tpm/bin/install_plugins
 
   # Disable fixed directory for new shells
   sed --in-place --regexp-extended '/^([^#].*)?cd.*Shopify\"$/  s/^/#/' ~/.zlogin
