@@ -46,7 +46,7 @@
 [log]
   date = iso
 [merge]
-  conflictstyle = diff3
+  conflictStyle = zdiff3
 	tool = Kaleidoscope
 [mergetool]
 	prompt = false
