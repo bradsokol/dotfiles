@@ -13,54 +13,56 @@
 	stat = status
 	st = status
   touch = add --intent-to-add
-
 [color]
 	ui = true
-[user]
-  name = Brad Sokol
-  useConfigOnly = true
-	email = brad.sokol@shopify.com
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = nvim
 	pager = delta
-[interactive]
-  diffFilter = delta --color-only
-[push]
-	default = upstream
-[difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-[mergetool "Kaleidoscope"]
-	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustexitcode = true
-[rerere]
-	enabled = true
 [delta]
   navigate = true
-[merge]
-  conflictstyle = diff3
-	tool = Kaleidoscope
-[difftool]
-	prompt = false
-[mergetool]
-	prompt = false
 [diff]
   colorMoved = default
 	tool = Kaleidoscope
+[difftool]
+	prompt = false
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [fetch]
 	prune = true
-[pull]
-	ff = only
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[init]
-	defaultBranch = main
 [include]
 	path = /Users/bradsokol/.config/dev/gitconfig
   path = /Users/Brad/.gitconfig-local
   path = /Users/bradsokol/.gitconfig-local
+[init]
+	defaultBranch = main
+[interactive]
+  diffFilter = delta --color-only
+[log]
+  date = iso
+[merge]
+  conflictstyle = diff3
+	tool = Kaleidoscope
+[mergetool]
+	prompt = false
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustexitcode = true
+[pull]
+	ff = only
+	rebase = true
+[push]
+	default = upstream
 [rebase]
 	updateRefs = true
+[rerere]
+	enabled = true
+[user]
+  name = Brad Sokol
+  useConfigOnly = true
+	email = bsokol@gmail.com
