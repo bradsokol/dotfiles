@@ -8,6 +8,7 @@ return {
     keys = {
       { '<leader>bl', ':Git blame<CR>', desc = 'Git blame' },
     },
+    lazy = false,
   },
   {'tpope/vim-rails'},
   {'tpope/vim-repeat'},
