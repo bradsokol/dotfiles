@@ -176,12 +176,14 @@ return {
       on_attach = function(client, buffer)
         setup_diagnostics(client, buffer)
       end,
+      root_dir = require("lspconfig.util").find_git_ancestor
     })
 
     lspconfig['sorbet'].setup {
       capabilities = capabilities,
       on_attach = on_attach,
       flags = lsp_flags,
+      root_dir = require("lspconfig.util").root_pattern("sorbet/config"),
     }
 
     if vim.fn.has("macunix") then
