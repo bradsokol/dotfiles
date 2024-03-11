@@ -9,7 +9,6 @@
   lb = "!f() { git log $(git merge-base --fork-point origin/master @)..@ --pretty=oneline; }; f "
   ri = rebase --interactive
   rim ="!git rebase --interactive $(git forked-master)"
-  shopify = "config user.email 'brad.sokol@shopify.com'"
 	stat = status
 	st = status
   touch = add --intent-to-add
@@ -36,9 +35,7 @@
 	process = git-lfs filter-process
 	required = true
 [include]
-	path = /Users/bradsokol/.config/dev/gitconfig
   path = /Users/Brad/.gitconfig-local
-  path = /Users/bradsokol/.gitconfig-local
 [init]
 	defaultBranch = main
 [interactive]

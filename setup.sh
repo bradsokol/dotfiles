@@ -43,16 +43,10 @@ link_config_file() {
 [[ "$(uname -s)" == "Darwin" ]] && mac_os=true || mac_os=false
 
 set +u
-if [ $SPIN ]; then
-  # Container in the Spin environment
-  link_source="/home/spin/dotfiles"
-else
-  link_source="$(pwd)"
-fi
+link_source="$(pwd)"
 set -u
 
 
-# Install packages on macOS using Brew. Spin installs packages listed in packages.yml
 if $mac_os; then
   declare -a packages=(
     "bat"
@@ -108,52 +102,3 @@ if [ ! -d ~/.oh-my-zsh ]; then
 fi
 
 git clone https://github.com/tmux-plugins/tpm ~/.local/share/tmux/plugins/tpm
-
-if [ $SPIN ]; then
-  mkdir -p $HOME/.local/bin
-
-  # Telescope in nvim expects fdfind to be called fd
-  if [ ! -f "$HOME/.local/bin/fd" ]; then
-    ln -s $(which fdfind) $HOME/.local/bin/fd
-  fi
-
-  # Treesitter is not available in our version of Ubuntu so install a pre-built binary
-  curl -fLo /tmp/tree-sitter.gz https://github.com/tree-sitter/tree-sitter/releases/download/v0.20.6/tree-sitter-linux-x64.gz
-  gunzip /tmp/tree-sitter.gz
-  mv -f /tmp/tree-sitter $HOME/.local/bin
-  chmod u+x $HOME/.local/bin/tree-sitter
-
-  git config --global user.signingkey 6E5D58F506FA8AD8FC8B0733215448069FE030BB
-
-  for dir in ~/src/github.com/Shopify/*/ ; do
-    if [ ! -d "$dir/.git" ]; then
-      continue
-    fi
-
-    cd $dir
-    git shopify
-    git status
-    cd - >/dev/null
-  done
-
-  sudo timedatectl set-timezone Canada/Eastern
-
-  # Install Neovim plugins
-  timeout 2m nvim --headless "+Lazy! sync" +qa || true
-  
-  # Install tmux plugins
-  ~/.local/share/tmux/plugins/tpm/bin/install_plugins
-
-  # Disable fixed directory for new shells
-  sed --in-place --regexp-extended '/^([^#].*)?cd.*Shopify\"$/  s/^/#/' ~/.zlogin
-
-  curl -fLo /tmp/git-delta.deb https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb
-  set +e
-  sudo dpkg -i /tmp/git-delta.deb
-  if [ $? -ne 0 ]; then
-    echo "Failed to install git-delta"
-  else
-    rm /tmp/git-delta.deb
-  fi
-  set -e
-fi

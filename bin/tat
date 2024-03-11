@@ -2,10 +2,6 @@
 #
 # Attach or create tmux session named the same as current directory.
 
-in_spin() {
-  [ -n "$SPIN" ]
-}
-
 in_tmux() {
   [ -n "$TMUX" ]
 }
@@ -15,21 +11,11 @@ session_exists() {
 }
 
 if [ $# -eq 0 ]; then
-  if in_spin; then
-    session_name=$(cat ~/spin.code-workspace | jq '.folders[].path' | tr -d '"' | xargs basename -a | sort -r | fzf)
-    session_options="-c $HOME/src/github.com/Shopify/$session_name"
-  else
-    if [ -n "$NIX_PATH" ]; then
-      # Work laptop
-      dev_root=/Users/bradsokol/dev
-      session_name=$(ls -d /Users/bradsokol/dev/*/ | xargs basename -a | sort -r | fzf)
-      session_options="-c $dev_root/$session_name"
-    else
-      session_name="$(basename "$PWD" | tr . -)"
-    fi
-  fi
+  session_name=$(ls -d /Users/brad/src/*/ | xargs basename -a | sort -r | fzf)
+  session_options="-c $(realpath "/Users/brad/src/$session_name")"
+  
 else
-  session_name=$(basename "$1")
+  session_name=$(basename "$(realpath "$1")")
   session_options="-c $(realpath "$1")"
 fi
 

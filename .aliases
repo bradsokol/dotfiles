@@ -31,10 +31,6 @@ alias tree='LS_COLORS=$LS_COLORS tree'
 alias vi=nvim
 alias vim=nvim
 
-if [ "$SPIN" ]; then
-  alias cart='iso cartridge'
-fi
-
 if [ -f /usr/bin/xdg-open ]; then
     alias open='xdg-open'
 fi
