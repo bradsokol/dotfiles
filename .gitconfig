@@ -1,7 +1,6 @@
 [alias]
 	br = branch
   bradsokol = "config user.email 'bsokol@gmail.com'"
-	com = commit
 	ci = commit
 	co = checkout
   forked-master = merge-base --fork-point origin/master @
@@ -19,6 +18,7 @@
 	editor = nvim
 	pager = delta
 [delta]
+  features = mantis-shrimp
   navigate = true
 [diff]
   colorMoved = default
@@ -35,7 +35,8 @@
 	process = git-lfs filter-process
 	required = true
 [include]
-  path = /Users/Brad/.gitconfig-local
+  path = /Users/brad/.gitconfig-local
+  path = /Users/brad/.config/delta/delta-themes.gitconfig
 [init]
 	defaultBranch = main
 [interactive]
