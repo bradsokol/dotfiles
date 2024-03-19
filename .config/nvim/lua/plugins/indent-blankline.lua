@@ -1,5 +1,11 @@
 return {
   "lukas-reineke/indent-blankline.nvim",
   main = "ibl",
-  opts = {}
+  opts = {
+    indent = {
+      highlight = "NonText",
+      char = "│",
+      priority = 1024
+    },
+  },
 }
