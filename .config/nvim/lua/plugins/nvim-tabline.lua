@@ -1,5 +1,6 @@
 return {
   'seblj/nvim-tabline',
+  enabled = true,
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
     require('tabline').setup({
