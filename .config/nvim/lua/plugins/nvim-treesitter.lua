@@ -28,7 +28,11 @@ return {
         'graphql',
         'ruby',
         'swift',
+        'lua',
+        'rust',
+        'toml',
       },
+      auto_install = true,
       incremental_selection = {
         enable = true,
         keymaps = {
