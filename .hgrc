@@ -1,10 +1,6 @@
 [ui]
-username = Brad Sokol <brad.sokol@shopify.com>
+username = Brad Sokol <bsokol@gmail.com>
 editor = vim
-
-[auth]
-points.prefix = https://hg.points.com
-points.username = bsokol
 
 [hooks]
 changegroup=hg diff --stat -r $HG_NODE -r tip
