@@ -180,6 +180,7 @@ return {
         -- ts_ls = {},
         --
 
+        basedpyright = {},
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -194,6 +195,7 @@ return {
             },
           },
         },
+        rust_analyzer = {},
       }
 
       -- Ensure the servers and tools above are installed
