@@ -84,4 +84,6 @@ opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- Preview substitutions live, as you type!
 opt.inccommand = 'split'
 
+vim.g.python3_host_prog = '/Users/brad/.virtualenvs/neovim/bin/python3'
+
 -- vim: ts=2 sts=2 sw=2 et
