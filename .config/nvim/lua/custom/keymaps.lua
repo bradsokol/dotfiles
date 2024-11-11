@@ -27,3 +27,25 @@ vim.keymap.set('n', '<leader>=', ':wincmd =<CR>', { desc = 'Unzoom pane' })
 -- Quickfix navigation
 vim.keymap.set('n', '[q', ':cprev<CR>', { desc = 'Previous quickfix entry' })
 vim.keymap.set('n', ']q', ':cnext<CR>', { desc = 'Next quickfix entry' })
+
+-- LSP actions
+vim.keymap.set({ 'n', 'x' }, '<leader>la', function()
+  vim.lsp.buf.code_action()
+end, { desc = 'LSP code action' })
+vim.keymap.set('n', '<leader>lA', function()
+  vim.lsp.buf.code_action { context = { only = { 'source' }, diagnostics = {} } }
+end, { desc = 'LSP source action' })
+
+vim.keymap.set('n', '<leader>ll', function()
+  vim.lsp.codelens.refresh()
+end, { desc = 'LSP CodeLens refresh' })
+vim.keymap.set('n', '<leader>lL', function()
+  vim.lsp.codelens.run()
+end, { desc = 'LSP CodeLens run' })
+
+vim.keymap.set('n', 'gd', function()
+  vim.lsp.buf.definition()
+end, { desc = 'Show the definition of current symbol' })
+vim.keymap.set('n', 'gD', function()
+  vim.lsp.buf.declaration()
+end, { desc = 'Declaration of current symbol' })

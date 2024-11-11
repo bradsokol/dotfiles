@@ -94,9 +94,16 @@ return {
       vim.keymap.set('n', '<leader>fn', function()
         builtin.find_files { prompt_title = 'Config files', cwd = vim.fn.stdpath 'config', follow = true }
       end, { desc = 'Find Neovim config files' })
+
+      vim.keymap.set('n', '<Leader>lD', function()
+        require('telescope.builtin').diagnostics()
+      end, { desc = 'Search diagnostics' })
       vim.keymap.set('n', '<leader>ls', function()
         require('telescope').extensions.aerial.aerial()
       end, { desc = 'Search symbols' })
+      vim.keymap.set('n', '<leader>lS', function()
+        require('aerial').toggle()
+      end, { desc = 'Symbols outline' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
