@@ -1,5 +1,6 @@
-vim.keymap.set('n', '<Leader>s', ':split term://zsh<cr>', { desc = 'Horizontal terminal split' })
-vim.keymap.set('n', '<Leader>S', ':vsplit term://zsh<cr>', { noremap = false, silent = true, desc = 'Vertical terminal split' })
+vim.keymap.set('n', '<leader>tf', '<cmd>ToggleTerm direction=float<cr>', { desc = 'Floating terminal' })
+vim.keymap.set('n', '<leader>th', '<cmd>ToggleTerm direction=horizontal size=10<cr>', { desc = 'Horizontal terminal split' })
+vim.keymap.set('n', '<leader>tv', '<cmd>ToggleTerm direction=vertical size=80<cr>', { desc = 'Vertical terminal split' })
 
 vim.keymap.set('n', '<Leader><space>', ':nohlsearch<cr>', { desc = 'Unhighlight search results' })
 vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Next search result to middle' })
