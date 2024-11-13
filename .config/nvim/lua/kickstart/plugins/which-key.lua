@@ -66,6 +66,9 @@ return {
         { '<leader>t', group = 'Terminal' },
         { '<leader>w', group = 'Workspace' },
       },
+      win = {
+        border = 'rounded',
+      },
     },
   },
 }

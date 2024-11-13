@@ -204,7 +204,11 @@ return {
       --    :Mason
       --
       --  You can press `g?` for help in this menu.
-      require('mason').setup()
+      require('mason').setup {
+        ui = {
+          border = 'rounded',
+        },
+      }
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
@@ -230,6 +234,21 @@ return {
           end,
         },
       }
+
+      vim.diagnostic.config {
+        float = {
+          focusable = false,
+          style = 'minimal',
+          border = 'rounded',
+        },
+      }
+      require('lspconfig.ui.windows').default_options.border = 'rounded'
+      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = 'rounded',
+      })
+      vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+        border = 'rounded',
+      })
     end,
   },
 }
