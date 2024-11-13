@@ -65,7 +65,6 @@ return {
         { '<leader>r', group = 'Rename' },
         { '<leader>t', group = 'Terminal' },
         { '<leader>w', group = 'Workspace' },
-        { '<leader>h', group = 'Git Hunk', mode = { 'n', 'v' } },
       },
     },
   },
