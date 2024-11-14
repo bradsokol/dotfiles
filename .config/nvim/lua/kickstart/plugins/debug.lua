@@ -29,20 +29,40 @@ return {
     local dapui = require 'dapui'
     return {
       -- Basic debugging keymaps, feel free to change to your liking!
-      { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
       { '<F1>', dap.step_into, desc = 'Debug: Step Into' },
       { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
       { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
-      { '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+      { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
+      { '<F6>', dap.pause, desc = 'Debug: Pause' },
+      { '<F7>', dapui.toggle, desc = 'Debug: See last session result.' },
+      { '<F9>', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+      { '<F17>', dap.terminal, desc = 'Debug: Terminate' },
       {
-        '<leader>B',
+        '<F21>', -- Shift-F9
         function()
           dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
         end,
         desc = 'Debug: Set Breakpoint',
       },
-      -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-      { '<F7>', dapui.toggle, desc = 'Debug: See last session result.' },
+      { '<leader>db', dap.toggle_breakpoint, desc = 'Toggle Breakpoint (F9)' },
+      { '<leader>dB', dap.clear_breakpoints, desc = 'Clear Breakpoints' },
+      { '<leader>dc', dap.continue, desc = 'Continue (F5)' },
+      {
+        '<leader>dC',
+        function()
+          dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+        end,
+        desc = 'Set Conditional Breakpoint (Shift-F9)',
+      },
+      { '<leader>dh', require('dap.ui.widgets').hover, desc = 'Debugger Hover' },
+      { '<leader>di', dap.step_into, desc = 'Step Into (F1)' },
+      { '<leader>do', dap.step_over, desc = 'Step Over (F2)' },
+      { '<leader>dO', dap.step_out, desc = 'Step Out (F3)' },
+      { '<leader>dp', dap.pause, desc = 'Pause (F6)' },
+      { '<leader>dq', dap.close, desc = 'Close Session' },
+      { '<leader>dQ', dap.terminate, desc = 'Terminate Session' },
+      { '<leader>ds', dap.run_to_cursor, desc = 'Run to Cursor' },
+      { '<leader>du', dapui.toggle, desc = 'Toggle Debugger UI' },
       unpack(keys),
     }
   end,
@@ -81,8 +101,8 @@ return {
     vim.api.nvim_set_hl(namespace, 'DapLogPoint', { fg = '#eaeaeb', bg = '#ffffff' })
     vim.api.nvim_set_hl(namespace, 'DapStopped', { fg = '#eaeaeb', bg = '#ffffff' })
 
-    vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-    vim.fn.sign_define('DapBreakpointCondition', { text = 'ﳁ', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+    vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
     vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
     vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'DapLogPoint', linehl = 'DapLogPoint', numhl = 'DapLogPoint' })
     vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })

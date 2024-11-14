@@ -58,7 +58,7 @@ return {
       -- Document existing key chains
       spec = {
         { '<leader>c', group = 'Code', mode = { 'n', 'x' } },
-        { '<leader>d', group = 'Document' },
+        { '<leader>d', group = 'Debugger' },
         { '<leader>f', group = 'Find' },
         { '<leader>G', group = 'Git' },
         { '<leader>l', group = 'Language Tools' },
