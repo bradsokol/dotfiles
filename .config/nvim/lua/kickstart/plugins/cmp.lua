@@ -34,10 +34,18 @@ return {
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'onsails/lspkind.nvim',
+      {
+        'zbirenbaum/copilot-cmp',
+        config = function()
+          require('copilot_cmp').setup()
+        end,
+      },
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
+      local lspkind = require 'lspkind'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
 
@@ -106,6 +114,7 @@ return {
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
+          { name = 'copilot', group_index = 2 },
           {
             name = 'lazydev',
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
@@ -114,6 +123,21 @@ return {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+        },
+
+        formatting = {
+          expandable_indicator = true,
+          fields = { 'kind', 'abbr', 'menu' },
+          format = lspkind.cmp_format {
+            mode = 'symbol',
+            maxwidth = {
+              abbr = 50,
+              menu = 50,
+            },
+            ellipsis_char = '...',
+            show_labelDetails = true,
+            symbol_map = { Copilot = '' },
+          },
         },
       }
     end,
