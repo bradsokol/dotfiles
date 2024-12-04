@@ -5,6 +5,7 @@ return {
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
+      endwise = { enable = true },
       ensure_installed = {
         'bash',
         'c',
