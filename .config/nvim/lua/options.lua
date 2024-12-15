@@ -87,6 +87,7 @@ opt.inccommand = 'split'
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.python3_host_prog = '/Users/brad/.virtualenvs/neovim/bin/python3'
+vim.g.ruby_host_prog = '/Users/brad/.rubies/ruby-3.3.6/bin/ruby'
 
 vim.g.border_enabled = true
 

@@ -72,3 +72,12 @@ vim.api.nvim_create_autocmd({ 'CursorHold' }, {
     }
   end,
 })
+
+local rubyGroup = vim.api.nvim_create_augroup('Ruby', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'ruby',
+  group = rubyGroup,
+  callback = function(_)
+    vim.keymap.set('n', '<leader>b', 'Obinding.break<esc>==', { desc = 'Call debugger break' })
+  end,
+})

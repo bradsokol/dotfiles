@@ -17,6 +17,7 @@ return {
         'markdown_inline',
         'python',
         'query',
+        'ruby',
         'swift',
         'vim',
         'vimdoc',

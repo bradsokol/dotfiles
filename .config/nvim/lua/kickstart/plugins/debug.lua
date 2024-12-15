@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'mfussenegger/nvim-dap-python',
+    'suketa/nvim-dap-ruby',
   },
   keys = function(_, keys)
     local dap = require 'dap'
@@ -85,6 +86,7 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         'debugpy',
       },
+      require('dap-ruby').setup {},
     }
 
     -- Dap UI setup

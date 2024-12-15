@@ -195,6 +195,12 @@ return {
             },
           },
         },
+        ruby_lsp = {
+          cmd = { 'bundle', 'exec', 'ruby-lsp' },
+          filetypes = { 'ruby' },
+          root_dir = require('lspconfig.util').root_pattern('.git', 'Gemfile', '.'),
+          settings = {},
+        },
         rust_analyzer = {},
       }
 
@@ -230,6 +236,11 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+
+            if server_name == 'sorbet' then
+              server.root_dir = require('lspconfig.util').root_pattern 'sorbet/config'
+            end
+
             require('lspconfig')[server_name].setup(server)
           end,
         },
