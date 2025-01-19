@@ -11,7 +11,11 @@ fi
 
 export ZSH=$HOME/.oh-my-zsh
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+fpath=(
+  /usr/local/share/zsh-completions
+  /opt/homebrew/share/zsh/site-functions
+  $fpath
+)
 
 export EDITOR=nvim
 export PATH=~/.local/bin:~/bin:$PATH
@@ -87,3 +91,25 @@ pman()
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+eval "$(fzf --zsh)"
+
+show_file_or_dir_preview="if [ -d {} ]; then tree -d {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+# export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'tree -d {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+  esac
+}
