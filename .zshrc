@@ -11,7 +11,11 @@ fi
 
 export ZSH=$HOME/.oh-my-zsh
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+fpath=(
+  /usr/local/share/zsh-completions
+  /opt/homebrew/share/zsh/site-functions
+  $fpath
+)
 
 export EDITOR=nvim
 export PATH=~/.local/bin:~/bin:$PATH
