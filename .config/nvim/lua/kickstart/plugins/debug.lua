@@ -11,6 +11,7 @@ return {
   'mfussenegger/nvim-dap',
   -- NOTE: And you can specify dependencies as well
   dependencies = {
+    'theHamsta/nvim-dap-virtual-text',
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
 
@@ -87,6 +88,10 @@ return {
         'debugpy',
       },
       require('dap-ruby').setup {},
+    }
+
+    require('nvim-dap-virtual-text').setup {
+      virt_text_pos = 'eol',
     }
 
     -- Dap UI setup
