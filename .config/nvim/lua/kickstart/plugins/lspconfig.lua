@@ -247,6 +247,10 @@ return {
         },
       }
 
+      require('lspconfig')['sourcekit'].setup {
+        capabilities = capabilities,
+      }
+
       vim.diagnostic.config {
         float = {
           focusable = false,
