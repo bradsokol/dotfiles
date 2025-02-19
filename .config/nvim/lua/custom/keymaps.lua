@@ -18,8 +18,8 @@ vim.keymap.set('', '<Leader>0', ':tablast<cr>', { desc = 'Go to last tab' })
 vim.api.nvim_create_autocmd('TabLeave', {
   command = 'let g:lasttab = tabpagenr()',
 })
-vim.keymap.set('n', '<c-l>', ':exe "tabn ".g:lasttab<CR>', { noremap = true, silent = true, desc = 'Go to last active tab' })
-vim.keymap.set('v', '<c-l>', ':exe "tabn ".g:lasttab<CR>', { noremap = true, silent = true, desc = 'Go to last active tab' })
+vim.keymap.set('n', '<c-t>', ':exe "tabn ".g:lasttab<CR>', { noremap = true, silent = true, desc = 'Go to last active tab' })
+vim.keymap.set('v', '<c-t>', ':exe "tabn ".g:lasttab<CR>', { noremap = true, silent = true, desc = 'Go to last active tab' })
 
 -- Zoom a Vim pane, <C-w>= to re-balance
 vim.keymap.set('n', '<leader>-', ':wincmd _<CR>:wincmd |<CR>', { desc = 'Zoom pane' })
