@@ -12,7 +12,6 @@ return {
       },
     },
   },
-  { 'Bilal2453/luvit-meta', lazy = true },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -196,7 +195,7 @@ return {
           },
         },
         ruby_lsp = {
-          cmd = { 'bundle', 'exec', 'ruby-lsp' },
+          cmd = { 'ruby-lsp' },
           filetypes = { 'ruby' },
           root_dir = require('lspconfig.util').root_pattern('.git', 'Gemfile', '.'),
           settings = {},
@@ -256,7 +255,9 @@ return {
           focusable = false,
           style = 'minimal',
           border = 'rounded',
+          source = 'if_many',
         },
+        underline = { severity = vim.diagnostic.severity.ERROR },
       }
       require('lspconfig.ui.windows').default_options.border = 'rounded'
       vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
