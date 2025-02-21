@@ -18,6 +18,7 @@ return {
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
+      preset = 'modern',
       icons = {
         -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
@@ -64,7 +65,9 @@ return {
         { '<leader>l', group = 'Language Tools' },
         { '<leader>r', group = 'Rename' },
         { '<leader>t', group = 'Terminal' },
+        { '<leader>T', group = 'Tests' },
         { '<leader>w', group = 'Workspace' },
+        { '<leader>x', group = 'Trouble Lists' },
       },
       win = {
         border = 'rounded',
