@@ -24,6 +24,7 @@ return {
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
+      -- Hide Ruby Sorbet signatures
       hidesig = {
         enable = true,
         opacity = 0.50,
