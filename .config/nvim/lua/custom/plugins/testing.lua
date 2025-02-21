@@ -6,9 +6,7 @@ return {
     'nvim-lua/plenary.nvim',
     'antoinemadec/FixCursorHold.nvim',
     'nvim-treesitter/nvim-treesitter',
-  },
-  opt = {
-    adapters = { ['neotest-python'] = {} },
+    'zidhuss/neotest-minitest',
   },
   keys = {
     { '<leader>Ta', "<cmd>lua require('neotest').run.attach()<cr>", desc = 'Attach to the nearest test' },
@@ -36,6 +34,7 @@ return {
         ['neotest-python'] = {
           runner = 'pytest',
         },
+        require 'neotest-minitest',
       },
       log_level = 'debug',
     }
