@@ -12,11 +12,6 @@ require('ibl').setup {
   scope = { highlight = scope },
   indent = { highlight = indent },
 }
-require('lualine').setup {
-  options = {
-    theme = 'solarized_dark',
-  },
-}
 
 local signs = { Error = '󰅚 ', Warn = '󰀪 ', Hint = '󰌶 ', Info = ' ' }
 for type, icon in pairs(signs) do
