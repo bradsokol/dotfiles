@@ -59,7 +59,6 @@ sources=(
   /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ~/.cargo/env
   ~/.aliases
-  ~/.zshrc_local
 )
 for s in $sources; do
   if [ -f $s ]; then
@@ -114,3 +113,5 @@ _fzf_comprun() {
     *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
   esac
 }
+
+source ~/.zshrc_local
