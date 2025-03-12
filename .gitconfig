@@ -11,6 +11,8 @@
 	stat = status
 	st = status
   touch = add --intent-to-add
+[branch]
+	sort = -committerdate
 [color]
 	ui = true
 [core]
@@ -21,14 +23,16 @@
   features = mantis-shrimp
   navigate = true
 [diff]
-  colorMoved = default
-	tool = Kaleidoscope
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
 [difftool]
 	prompt = false
-[difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [fetch]
 	prune = true
+	pruneTags = true
+	all = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -48,18 +52,19 @@
 	tool = Kaleidoscope
 [mergetool]
 	prompt = false
-[mergetool "Kaleidoscope"]
-	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustexitcode = true
 [pull]
 	ff = only
 	rebase = true
 [push]
-	default = upstream
+	default = simple
+	autoSetupRemove = true
+	followTags = true
 [rebase]
 	updateRefs = true
 [rerere]
 	enabled = true
+[tag]
+	sort = version:refname
 [user]
   name = Brad Sokol
   useConfigOnly = true
