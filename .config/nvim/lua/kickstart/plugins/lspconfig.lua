@@ -251,12 +251,13 @@ return {
       }
 
       vim.diagnostic.config {
-        float = {
-          focusable = false,
-          style = 'minimal',
-          border = 'rounded',
-          source = 'if_many',
-        },
+        virtual_lines = true,
+        -- float = {
+        --   focusable = false,
+        --   style = 'minimal',
+        --   border = 'rounded',
+        --   source = 'if_many',
+        -- },
         underline = { severity = vim.diagnostic.severity.ERROR },
       }
       require('lspconfig.ui.windows').default_options.border = 'rounded'
