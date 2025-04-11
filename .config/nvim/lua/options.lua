@@ -91,4 +91,7 @@ vim.g.ruby_host_prog = '/Users/brad/.rubies/ruby-3.3.6/bin/ruby'
 
 vim.g.border_enabled = true
 
+vim.o.winborder = 'rounded'
+vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=#ffffff]]
+
 -- vim: ts=2 sts=2 sw=2 et

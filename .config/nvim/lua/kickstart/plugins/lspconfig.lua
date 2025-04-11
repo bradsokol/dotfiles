@@ -252,21 +252,9 @@ return {
 
       vim.diagnostic.config {
         virtual_lines = true,
-        -- float = {
-        --   focusable = false,
-        --   style = 'minimal',
-        --   border = 'rounded',
-        --   source = 'if_many',
-        -- },
         underline = { severity = vim.diagnostic.severity.ERROR },
       }
       require('lspconfig.ui.windows').default_options.border = 'rounded'
-      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = 'rounded',
-      })
-      vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-        border = 'rounded',
-      })
     end,
   },
 }
