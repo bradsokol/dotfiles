@@ -50,6 +50,10 @@ return {
           lint.try_lint()
         end,
       })
+
+      vim.keymap.set('n', '<leader>ll', function()
+        require('lint').try_lint()
+      end, { desc = 'Lint current buffer' })
     end,
   },
 }

@@ -47,6 +47,7 @@ return {
         lua = { 'stylua' },
         python = { 'isort', 'black' },
         ruby = { 'rubocop' },
+        swift = { 'swiftformat' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --

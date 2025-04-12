@@ -67,7 +67,8 @@ return {
         { '<leader>T', group = 'Terminal' },
         { '<leader>t', group = 'Tests' },
         { '<leader>w', group = 'Workspace' },
-        { '<leader>x', group = 'Trouble Lists' },
+        { '<leader>x', group = 'Xcode Projects' },
+        { '<leader>X', group = 'Trouble Lists' },
       },
       win = {
         border = 'rounded',

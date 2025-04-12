@@ -37,10 +37,10 @@ vim.keymap.set('n', '<leader>lA', function()
   vim.lsp.buf.code_action { context = { only = { 'source' }, diagnostics = {} } }
 end, { desc = 'LSP source action' })
 
-vim.keymap.set('n', '<leader>ll', function()
+vim.keymap.set('n', '<leader>lc', function()
   vim.lsp.codelens.refresh()
 end, { desc = 'LSP CodeLens refresh' })
-vim.keymap.set('n', '<leader>lL', function()
+vim.keymap.set('n', '<leader>lC', function()
   vim.lsp.codelens.run()
 end, { desc = 'LSP CodeLens run' })
 
