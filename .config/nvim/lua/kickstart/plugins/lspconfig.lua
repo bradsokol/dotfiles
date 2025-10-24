@@ -122,7 +122,7 @@ return {
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
-          -- WARN: This is not Goto Definition, this is Goto Declaration.
+          -- This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
@@ -173,6 +173,10 @@ return {
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -259,14 +263,15 @@ return {
               server.root_dir = require('lspconfig.util').root_pattern 'sorbet/config'
             end
 
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.config(server_name).setup(server)
           end,
         },
       }
 
-      require('lspconfig')['sourcekit'].setup {
+      vim.lsp.enable 'sourcekit'
+      vim.lsp.config('sourcekit', {
         capabilities = capabilities,
-      }
+      })
 
       vim.diagnostic.config {
         virtual_lines = true,
