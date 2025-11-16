@@ -11,7 +11,7 @@ session_exists() {
 }
 
 if [ $# -eq 0 ]; then
-  session_name=$(ls -d /Users/brad/src/*/ | xargs basename -a | sort -r | fzf)
+  session_name=$(ls -d /Users/brad/src/*/ | xargs basename -a | sort -r | fzf --ignore-case)
   session_options="-c $(realpath "/Users/brad/src/$session_name")"
   
 else
