@@ -1,0 +1,46 @@
+-- Interact with tests within Neovim
+-- https://github.com/nvim-neotest/neotest
+return {
+  'nvim-neotest/neotest',
+  dependencies = {
+    'nvim-neotest/nvim-nio',
+    'nvim-lua/plenary.nvim',
+    'antoinemadec/FixCursorHold.nvim',
+    'nvim-treesitter/nvim-treesitter',
+
+    -- Test runners
+    'zidhuss/neotest-minitest',
+    'nvim-neotest/neotest-python',
+  },
+  keys = {
+    { '<leader>ta', "<cmd>lua require('neotest').run.attach()<cr>", desc = 'Attach to the nearest test' },
+    { '<leader>tl', "<cmd>lua require('neotest').run.run_last()<cr>", desc = 'Run [L]ast test' },
+    { '<leader>to', "<cmd>lua require('neotest').output_panel.toggle()<cr>", desc = 'Toggle Test Output Panel' },
+    { '<leader>tp', "<cmd>lua require('neotest').run.stop()<cr>", desc = 'Stop the nearest test' },
+    { '<leader>ts', "<cmd>lua require('neotest').summary.toggle()<cr>", desc = 'Toggle Test Summary' },
+    { '<leader>tt', "<cmd>lua require('neotest').run.run()<cr>", desc = 'Run the nearest test' },
+    {
+      '<leader>tT',
+      "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>",
+      desc = 'Run test the current file',
+    },
+    {
+      '<leader>td',
+      function()
+        require('neotest').run.run { suite = false, strategy = 'dap' }
+      end,
+      desc = 'Debug nearest test',
+    },
+  },
+  config = function()
+    require('neotest').setup {
+      adapters = {
+        ['neotest-python'] = {
+          runner = 'pytest',
+        },
+        require 'neotest-minitest',
+      },
+      log_level = 'debug',
+    }
+  end,
+}
