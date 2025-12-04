@@ -76,7 +76,8 @@ return {
       ensure_installed = {
         'debugpy',
       },
-      require('dap-ruby').setup {},
+      require('dap-python').setup './.venv/bin/python',
+      require('dap-ruby').setup(),
     }
 
     require('nvim-dap-virtual-text').setup {
