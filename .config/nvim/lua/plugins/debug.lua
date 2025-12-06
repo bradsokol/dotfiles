@@ -20,6 +20,7 @@ return {
     -- Add your own debuggers here
     'mfussenegger/nvim-dap-python',
     'suketa/nvim-dap-ruby',
+    'wojciech-kulik/xcodebuild.nvim',
   },
   keys = function(_, keys)
     local dap = require 'dap'
@@ -78,6 +79,7 @@ return {
       },
       require('dap-python').setup './.venv/bin/python',
       require('dap-ruby').setup(),
+      require('xcodebuild.integrations.dap').setup(),
     }
 
     require('nvim-dap-virtual-text').setup {
