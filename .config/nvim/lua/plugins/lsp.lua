@@ -187,6 +187,12 @@ return {
       vim.lsp.enable 'sourcekit'
       vim.lsp.config('sourcekit', {
         capabilities = capabilities,
+        root_dir = function(_, callback)
+          callback(
+            require('lspconfig.util').root_pattern 'Package.swift'(vim.fn.getcwd())
+              or vim.fs.dirname(vim.fs.find('.git', { path = vim.fn.getcwd(), upward = true })[1])
+          )
+        end,
       })
 
       vim.diagnostic.config {

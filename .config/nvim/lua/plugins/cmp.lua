@@ -1,5 +1,5 @@
- -- Autocompletion
- -- https://github.com/hrsh7th/nvim-cmp/
+-- Autocompletion
+-- https://github.com/hrsh7th/nvim-cmp/
 return {
   {
     'hrsh7th/nvim-cmp',
@@ -33,6 +33,10 @@ return {
       -- Integrate Neovim's LSP with nvim-cmp
       -- https://github.com/hrsh7th/cmp-nvim-lsp/
       'hrsh7th/cmp-nvim-lsp',
+
+      -- Add current buffer to nvim-cmp
+      -- https://github.com/hrsh7th/cmp-buffer
+      'hrsh7th/cmp-buffer',
 
       -- Add file system paths to nvim-cmp
       -- https://github.com/hrsh7th/cmp-path
