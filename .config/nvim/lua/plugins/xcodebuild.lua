@@ -39,7 +39,7 @@ return {
     vim.keymap.set('n', '<leader>ap', '<cmd>XcodebuildPreviewGenerateAndShow<cr>', { desc = 'Generate Preview' })
     vim.keymap.set('n', '<leader>a<cr>', '<cmd>XcodebuildPreviewToggle<cr>', { desc = 'Toggle Preview' })
 
-    vim.keymap.set('n', '<leader>ad', '<cmd>XcodebuildSelectDevice<cr>', { desc = 'Select Device' })
+    vim.keymap.set('n', '<leader>aD', '<cmd>XcodebuildSelectDevice<cr>', { desc = 'Select Device' })
     vim.keymap.set('n', '<leader>aq', '<cmd>Telescope quickfix<cr>', { desc = 'Show QuickFix List' })
 
     vim.keymap.set('n', '<leader>ax', '<cmd>XcodebuildQuickfixLine<cr>', { desc = 'Quickfix Line' })

@@ -104,5 +104,16 @@ return {
     vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapStopped', linehl = 'DapStopped', numhl = 'DapStopped' })
 
     require('dap-python').setup()
+
+    local xcodebuild_dap = require 'xcodebuild.integrations.dap'
+    xcodebuild_dap.setup()
+
+    vim.keymap.set('n', '<leader>add', xcodebuild_dap.build_and_debug, { desc = 'Build & Debug' })
+    vim.keymap.set('n', '<leader>adr', xcodebuild_dap.debug_without_build, { desc = 'Debug Without Building' })
+    vim.keymap.set('n', '<leader>adt', xcodebuild_dap.debug_tests, { desc = 'Debug Tests' })
+    vim.keymap.set('n', '<leader>adT', xcodebuild_dap.debug_class_tests, { desc = 'Debug Class Tests' })
+    vim.keymap.set('n', '<leader>ab', xcodebuild_dap.toggle_breakpoint, { desc = 'Toggle Breakpoint' })
+    vim.keymap.set('n', '<leader>aB', xcodebuild_dap.toggle_message_breakpoint, { desc = 'Toggle Message Breakpoint' })
+    vim.keymap.set('n', '<leader>adx', xcodebuild_dap.terminate_session, { desc = 'Terminate Debugger' })
   end,
 }

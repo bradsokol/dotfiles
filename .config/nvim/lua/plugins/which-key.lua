@@ -42,6 +42,7 @@ return {
       sort = { 'alphanum' },
       spec = {
         { '<leader>a', group = 'Apple development' },
+        { '<leader>ad', group = 'Apple debugging' },
         { '<leader>c', group = 'Code', mode = { 'n', 'x' } },
         { '<leader>d', group = 'Debugger' },
         { '<leader>f', group = 'Find' },
