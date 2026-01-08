@@ -44,6 +44,7 @@ return {
         { '<leader>a', group = 'Apple development' },
         { '<leader>ad', group = 'Apple debugging' },
         { '<leader>c', group = 'Code', mode = { 'n', 'x' } },
+        { '<leader>C', group = 'CodeCompanion', mode = { 'n' } },
         { '<leader>d', group = 'Debugger' },
         { '<leader>f', group = 'Find' },
         { '<leader>G', group = 'Git' },
@@ -53,7 +54,6 @@ return {
         { '<leader>T', group = 'Terminal' },
         { '<leader>t', group = 'Tests' },
         { '<leader>w', group = 'Workspace' },
-        { '<leader>x', group = 'Xcode Projects' },
         { '<leader>X', group = 'Trouble Lists' },
       },
       win = {
