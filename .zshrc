@@ -116,3 +116,4 @@ _fzf_comprun() {
 
 source ~/.zshrc_local
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.secrets
