@@ -18,6 +18,9 @@ return {
   },
   config = function()
     require('xcodebuild').setup {
+      code_coverage = {
+        enabled = false,
+      },
       logs = { -- build & test logs
         auto_open_on_success_tests = false, -- open logs when tests succeeded
         auto_open_on_failed_tests = false, -- open logs when tests failed
