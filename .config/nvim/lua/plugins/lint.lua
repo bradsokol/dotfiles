@@ -12,7 +12,9 @@ return {
       lint.linters_by_ft = lint.linters_by_ft or {}
       -- lint.linters_by_ft['markdown'] = { 'markdownlint' }
       lint.linters_by_ft['python'] = { 'pylint' }
-      lint.linters_by_ft['ruby'] = { 'rubocop' }
+      if os.execute 'command -v rubocop' == 0 then
+        lint.linters_by_ft['ruby'] = { 'rubocop' }
+      end
       lint.linters_by_ft['swift'] = { 'swiftlint' }
       --
       -- However, note that this will enable a set of default linters,
