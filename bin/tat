@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+
+# Manage creation of tmux sessions
 #
-# Attach or create tmux session named the same as current directory.
+# - tat - Create a new session named and rooted in a directory under ~/src
+# - tat directory_name - Create a new session named and rooted in the specified directory
 
 in_tmux() {
   [ -n "$TMUX" ]
@@ -13,7 +16,6 @@ session_exists() {
 if [ $# -eq 0 ]; then
   session_name=$(ls -d /Users/brad/src/*/ | xargs basename -a | sort -r | fzf --ignore-case)
   session_options="-c $(realpath "/Users/brad/src/$session_name")"
-  
 else
   session_name=$(basename "$(realpath "$1")")
   session_options="-c $(realpath "$1")"
