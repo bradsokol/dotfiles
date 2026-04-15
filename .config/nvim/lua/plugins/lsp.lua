@@ -148,23 +148,35 @@ return {
         rust_analyzer = {},
       }
 
-      -- Ensure the servers and tools above are installed
       require('mason').setup {
         ui = {
           border = 'rounded',
         },
       }
 
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'black',
-        'clangd',
-        'isort',
-        'prettier',
-        'pylint',
-        'stylua', -- Used to format Lua code
-      })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      -- Ensure the servers and tools above are installed
+      local ensure = { 'lua_ls' }
+
+      if vim.fn.executable 'black' == 1 then
+        table.insert(ensure, 'black')
+      end
+      if vim.fn.executable 'gcc' == 1 or vim.fn.executable 'clang' == 1 then
+        table.insert(ensure, 'clangd')
+      end
+      if vim.fn.executable 'isort' == 1 then
+        table.insert(ensure, 'isort')
+      end
+      if vim.fn.executable 'prettier' == 1 then
+        table.insert(ensure, 'prettier')
+      end
+      if vim.fn.executable 'pylint' == 1 then
+        table.insert(ensure, 'pylint')
+      end
+      if vim.fn.executable 'stylua' == 1 then
+        table.insert(ensure, 'stylua')
+      end
+
+      require('mason-tool-installer').setup { ensure_installed = ensure }
 
       require('mason-lspconfig').setup {
         handlers = {
