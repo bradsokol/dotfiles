@@ -11,55 +11,53 @@ fi
 
 export ZSH=$HOME/.oh-my-zsh
 
-fpath=(
-  /usr/local/share/zsh-completions
-  /opt/homebrew/share/zsh/site-functions
-  $fpath
-)
+if $mac_os; then
+  fpath=(
+    /opt/homebrew/share/zsh/site-functions
+    $fpath
+  )
+else
+  fpath=(
+    $HOME/.local/share/zsh-completions
+    $fpath
+  )
+fi
+autoload -U compinit && compinit
 
 export EDITOR=nvim
 export PATH=~/.local/bin:~/bin:$PATH
 
 LS_COLORS="di=1;34;40:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 
-ZSH_THEME="bullet-train"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-BULLETTRAIN_PROMPT_ORDER=(
-  time
-  status
-  dir
+plugins=(
+  colored-man-pages
   git
+  man
 )
-BULLETTRAIN_CONTEXT_BG=green
-BULLETTRAIN_CONTEXT_FG=black
-BULLETTRAIN_RUBY_BG=magenta
-BULLETTRAIN_RUBY_FG=white
-BULLETTRAIN_VIRTUALENV_BG=green
-BULLETTRAIN_VIRTUALENV_FG=black
-BULLETTRAIN_STATUS_EXIT_SHOW=true
-
-plugins=(colored-man-pages git man)
-if $mac_os; then
-  plugins+=(macos)
-fi
 
 source $ZSH/oh-my-zsh.sh
 
 sources=(
   /usr/local/share/chruby/chruby.sh
   /usr/local/opt/chruby/share/chruby/chruby.sh
-  /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-  /opt/homebrew/opt/chruby/share/chruby/auto.sh
-  /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ~/.cargo/env
   ~/.aliases
 )
+if $mac_os; then
+  sources+=(
+    /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+    /opt/homebrew/opt/chruby/share/chruby/auto.sh
+    /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh  # Must be last
+  )
+else
+  sources+=(
+    $HOME/.local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh  # Must be last
+  )
+fi
 for s in $sources; do
   if [ -f $s ]; then
     source $s
@@ -87,8 +85,6 @@ pman()
 
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 
-[ -f $HOME/.zshrc_local ] && source $HOME/.zshrc_local
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -114,6 +110,15 @@ _fzf_comprun() {
   esac
 }
 
-source ~/.zshrc_local
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.secrets
+[ -f $HOME/.zshrc_local ] && source $HOME/.zshrc_local
+if $mac_os; then
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+[ -f $HOME/.secrets ] && source $HOME/.secrets
+
+# Must be last
+if $mac_os; then
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+  source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
