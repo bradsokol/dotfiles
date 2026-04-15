@@ -14,6 +14,7 @@ export ZSH=$HOME/.oh-my-zsh
 if $mac_os; then
   fpath=(
     /opt/homebrew/share/zsh/site-functions
+    /opt/homebrew/share/zsh/zsh-completions
     $fpath
   )
 else
