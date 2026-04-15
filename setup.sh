@@ -59,15 +59,32 @@ if $mac_os; then
     "swiftlint"
     "the_silver_searcher"
     "tree"
-    "vim"
+    "nvim"
     "wget"
+    "zsh-autosuggestions"
     "zsh-completions"
+    "zsh-syntax-highlighting"
+    "tmux"
+    "git-delta"
   )
-
-  for package in "${packages[@]}"; do
-    install_package "$package"
-  done
+else
+  declare -a packages=(
+    "bat"
+    "curl"
+    "fzf"
+    "glow"
+    "ripgrep"
+    "silversearcher-ag"
+    "tree"
+    "wget"
+    "tmux"
+    "git-delta"
+  )
 fi
+
+for package in "${packages[@]}"; do
+  install_package "$package"
+done
 
 for filename in .*; do
   link_file "$filename"
@@ -88,17 +105,22 @@ if [ ! -d ~/.oh-my-zsh ]; then
   mv -f "$HOME/.zshrc" "$HOME/.zshrc-ohmyzsh"
   mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
 
-  mkdir -p "$HOME/.oh-my-zsh/custom/themes"
-  curl https://raw.githubusercontent.com/caiogondim/bullet-train-oh-my-zsh-theme/master/bullet-train.zsh-theme > \
-    "$HOME/.oh-my-zsh/custom/themes/bullet-train.zsh-theme"
-
-  if $mac_os; then
-    brew install zsh-autosuggestions
-  else
-    mkdir -p "$HOME/.oh-my-zsh/custom/plugins"
-    git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+  if [ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k/ ]; then
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
   fi
 fi
 
-git clone https://github.com/tmux-plugins/tpm ~/.local/share/tmux/plugins/tpm
+if ! $mac_os; then
+  mkdir -p "$HOME/.local/share"
+  if [ ! -d $HOME/.local/share/zsh-autosuggestions ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.local/share/zsh-autosuggestions"
+  fi
+  if [ ! -d $HOME/.local/share/zsh-completions ]; then
+    git clone https://github.com/zsh-users/zsh-completions.git "$HOME/.local/share/zsh-completions"
+  fi
+  if [ ! -d $HOME/.local/share/zsh-syntax-highlighting ]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.local/share/zsh-syntax-highlighting"
+  fi
+fi
+
+[ -d ~/.local/share/tmux/plugins/tpm ] || git clone https://github.com/tmux-plugins/tpm ~/.local/share/tmux/plugins/tpm
