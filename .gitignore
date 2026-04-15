@@ -5,3 +5,5 @@
 .vim/spell/
 
 .bash_local
+
+dotfiles-backup/
