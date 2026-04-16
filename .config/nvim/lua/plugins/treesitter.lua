@@ -1,5 +1,26 @@
 -- Integration with Treesitter parser
 -- https://github.com/nvim-treesitter/nvim-treesitter
+
+local ensure = {
+  'bash',
+  'c',
+  'diff',
+  'html',
+  'lua',
+  'luadoc',
+  'markdown',
+  'markdown_inline',
+  'python',
+  'query',
+  'ruby',
+  'vim',
+  'vimdoc',
+}
+
+if vim.fn.executable 'swift' == 1 then
+  table.insert(ensure, 'swift')
+end
+
 return {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -7,22 +28,7 @@ return {
     main = 'nvim-treesitter.configs',
     opts = {
       endwise = { enable = true },
-      ensure_installed = {
-        'bash',
-        'c',
-        'diff',
-        'html',
-        'lua',
-        'luadoc',
-        'markdown',
-        'markdown_inline',
-        'python',
-        'query',
-        'ruby',
-        'swift',
-        'vim',
-        'vimdoc',
-      },
+      ensure_installed = ensure,
       auto_install = true,
       -- Hide Ruby Sorbet signatures
       hidesig = {
