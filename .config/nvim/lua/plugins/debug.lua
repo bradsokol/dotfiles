@@ -1,27 +1,35 @@
 -- Debug Adapter Protocol client for Neovim
 -- https://github.com/mfussenegger/nvim-dap
+local dependencies = {
+  -- Virtual text support
+  -- https://github.com/theHamsta/nvim-dap-virtual-text
+  'theHamsta/nvim-dap-virtual-text',
+  -- UI for DAP in Neovim
+  -- https://github.com/rcarriga/nvim-dap-ui
+  'rcarriga/nvim-dap-ui',
+
+  -- https://github.com/nvim-neotest/nvim-nio
+  'nvim-neotest/nvim-nio',
+  -- https://github.com/mason-org/mason.nvim
+  'williamboman/mason.nvim',
+  -- https://github.com/jay-babu/mason-nvim-dap.nvim
+  'jay-babu/mason-nvim-dap.nvim',
+}
+
+-- Add your own debuggers here
+if vim.fn.executable 'python' then
+  table.insert(dependencies, 'mfussenegger/nvim-dap-python')
+end
+if vim.fn.executable 'ruby' then
+  table.insert(dependencies, 'suketa/nvim-dap-ruby')
+end
+if vim.fn.executable 'xcodebuild' then
+  table.insert(dependencies, 'wojciech-kulik/xcodebuild.nvim')
+end
+
 return {
   'mfussenegger/nvim-dap',
-  dependencies = {
-    -- Virtual text support
-    -- https://github.com/theHamsta/nvim-dap-virtual-text
-    'theHamsta/nvim-dap-virtual-text',
-    -- UI for DAP in Neovim
-    -- https://github.com/rcarriga/nvim-dap-ui
-    'rcarriga/nvim-dap-ui',
-
-    -- https://github.com/nvim-neotest/nvim-nio
-    'nvim-neotest/nvim-nio',
-    -- https://github.com/mason-org/mason.nvim
-    'williamboman/mason.nvim',
-    -- https://github.com/jay-babu/mason-nvim-dap.nvim
-    'jay-babu/mason-nvim-dap.nvim',
-
-    -- Add your own debuggers here
-    'mfussenegger/nvim-dap-python',
-    'suketa/nvim-dap-ruby',
-    'wojciech-kulik/xcodebuild.nvim',
-  },
+  dependencies = dependencies,
   keys = function(_, keys)
     local dap = require 'dap'
     local dapui = require 'dapui'
