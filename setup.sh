@@ -73,6 +73,7 @@ else
   declare -a packages=(
     "bat"
     "curl"
+    "fd-find"
     "fzf"
     "git-delta"
     "glow"
