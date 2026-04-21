@@ -1,7 +1,6 @@
 -- Build, debug and test projects using Apple's tool chains
 -- https://github.com/wojciech-kulik/xcodebuild.nvim
-if require('jit').os == 'osx' then
-  print 'macOS'
+if require('jit').os == 'OSX' then
   return {
     'wojciech-kulik/xcodebuild.nvim',
     dependencies = {
