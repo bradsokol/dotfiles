@@ -29,3 +29,9 @@ if in_tmux; then
 else
   tmux new-session -As "$session_name" $session_options
 fi
+
+if ! in_tmux; then
+  while session=$(tmux list-sessions -F "#S" | fzf --ignore-case); do
+    tmux attach -t "$session"
+  done
+fi
