@@ -3,6 +3,8 @@
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+require('vim._core.ui2').enable()
+
 local opt = vim.opt
 
 -- Whitespace handling
@@ -33,6 +35,7 @@ opt.showcmd = true
 opt.showmode = false
 opt.signcolumn = 'yes'
 opt.termguicolors = true
+opt.winborder = 'rounded'
 
 -- Search
 
