@@ -1,12 +1,21 @@
 -- Monokai Pro colour scheme
 -- https://github.com/loctvl842/monokai-pro.nvim
+-- return {
+--   "loctvl842/monokai-pro.nvim",
+--   config = function()
+--     require("monokai-pro").setup({
+--       devicons = true,
+--       filter = "machine",
+--     })
+--     vim.cmd([[MonokaiPro machine]])
+--   end,
+-- }
 return {
-  "loctvl842/monokai-pro.nvim",
+  'loctvl842/monokai-pro.nvim',
+  lazy = false,
+  priority = 1000,
   config = function()
-    require("monokai-pro").setup({
-      devicons = true,
-      filter = "machine",
-    })
-    vim.cmd([[MonokaiPro machine]])
+    require('monokai-pro').setup()
+    vim.cmd.colorscheme 'monokai-pro'
   end,
 }
