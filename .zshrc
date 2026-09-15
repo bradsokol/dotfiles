@@ -36,6 +36,8 @@ plugins=(
   colored-man-pages
   git
   man
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -50,13 +52,6 @@ if $mac_os; then
   sources+=(
     /opt/homebrew/opt/chruby/share/chruby/chruby.sh
     /opt/homebrew/opt/chruby/share/chruby/auto.sh
-    /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh  # Must be last
-  )
-else
-  sources+=(
-    $HOME/.local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh  # Must be last
   )
 fi
 for s in $sources; do
@@ -112,14 +107,4 @@ _fzf_comprun() {
 }
 
 [ -f $HOME/.zshrc_local ] && source $HOME/.zshrc_local
-if $mac_os; then
-  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
 [ -f $HOME/.secrets ] && source $HOME/.secrets
-
-# Must be last
-if $mac_os; then
-  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-else
-  source $HOME/.local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
