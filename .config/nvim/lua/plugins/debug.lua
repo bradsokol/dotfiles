@@ -75,7 +75,9 @@ return {
     local dap = require 'dap'
     local dapui = require 'dapui'
 
-    require('mason-nvim-dap').setup {
+    local xcodebuild_installed, xcodebuild_dap = pcall(require, 'xcodebuild.integrations.dap')
+
+    local dap_setup = {
       automatic_installation = true,
 
       -- You can provide additional configuration to the handlers,
@@ -87,8 +89,15 @@ return {
       },
       require('dap-python').setup './.venv/bin/python',
       require('dap-ruby').setup(),
-      require('xcodebuild.integrations.dap').setup(),
     }
+
+    if xcodebuild_installed then
+      table.insert(dap_setup, function()
+        xcodebuild_dap.setup()
+      end)
+    end
+
+    require('mason-nvim-dap').setup(dap_setup)
 
     require('nvim-dap-virtual-text').setup {
       virt_text_pos = 'eol',
@@ -113,15 +122,16 @@ return {
 
     require('dap-python').setup()
 
-    local xcodebuild_dap = require 'xcodebuild.integrations.dap'
-    xcodebuild_dap.setup()
+    if xcodebuild_installed then
+      xcodebuild_dap.setup()
 
-    vim.keymap.set('n', '<leader>add', xcodebuild_dap.build_and_debug, { desc = 'Build & Debug' })
-    vim.keymap.set('n', '<leader>adr', xcodebuild_dap.debug_without_build, { desc = 'Debug Without Building' })
-    vim.keymap.set('n', '<leader>adt', xcodebuild_dap.debug_tests, { desc = 'Debug Tests' })
-    vim.keymap.set('n', '<leader>adT', xcodebuild_dap.debug_class_tests, { desc = 'Debug Class Tests' })
-    vim.keymap.set('n', '<leader>ab', xcodebuild_dap.toggle_breakpoint, { desc = 'Toggle Breakpoint' })
-    vim.keymap.set('n', '<leader>aB', xcodebuild_dap.toggle_message_breakpoint, { desc = 'Toggle Message Breakpoint' })
-    vim.keymap.set('n', '<leader>adx', xcodebuild_dap.terminate_session, { desc = 'Terminate Debugger' })
+      vim.keymap.set('n', '<leader>add', xcodebuild_dap.build_and_debug, { desc = 'Build & Debug' })
+      vim.keymap.set('n', '<leader>adr', xcodebuild_dap.debug_without_build, { desc = 'Debug Without Building' })
+      vim.keymap.set('n', '<leader>adt', xcodebuild_dap.debug_tests, { desc = 'Debug Tests' })
+      vim.keymap.set('n', '<leader>adT', xcodebuild_dap.debug_class_tests, { desc = 'Debug Class Tests' })
+      vim.keymap.set('n', '<leader>ab', xcodebuild_dap.toggle_breakpoint, { desc = 'Toggle Breakpoint' })
+      vim.keymap.set('n', '<leader>aB', xcodebuild_dap.toggle_message_breakpoint, { desc = 'Toggle Message Breakpoint' })
+      vim.keymap.set('n', '<leader>adx', xcodebuild_dap.terminate_session, { desc = 'Terminate Debugger' })
+    end
   end,
 }
